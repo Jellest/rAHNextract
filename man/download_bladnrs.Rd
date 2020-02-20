@@ -18,7 +18,7 @@ all bladnrs geometry
 Download blad numbers.
 }
 \details{
-Download bladnrs
+Dowload bladnrs
 }
 \author{
 Jelle Stuurman

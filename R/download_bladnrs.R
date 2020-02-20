@@ -1,4 +1,4 @@
-#'Download bladnrs
+#'Dowload bladnrs
 #'
 #'@title Download bladnrs
 #'@description Download blad numbers.
@@ -12,7 +12,7 @@ download_bladnrs <- function(wd, AHN = "AHN3"){
   bladIndex_gpkgpath <- paste(wd , sep="/")
   bladIndex_gpkg <- paste(bladIndex_gpkgpath, "/", AHN, "_bladIndex", ".gpkg", sep="")
   print(bladIndex_gpkg)
-  #if(!file.exists(bladIndex_gpkg)){
+  if(!file.exists(bladIndex_gpkg)){
     print("Download AHN wfs blad Index")
     ahn_WFS_baseUrl <- paste0(ngr, "/", tolower(AHN), "/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=", tolower(AHN), ":", tolower(AHN), "_bladindex")
     print(ahn_WFS_baseUrl)
@@ -22,7 +22,7 @@ download_bladnrs <- function(wd, AHN = "AHN3"){
     ahn_bi <- sf::st_read(ahn_wfs)
     #gdalUtils::ogr2ogr(src_datasource_name = ahn_bi , dst_datasource_name = bladIndex_gpkg, layer = paste0(tolower(AHN),":", tolower(AHN), "_bladindex"), overwrite = TRUE)
     sf::st_write(ahn_bi, bladIndex_gpkg)
-  #}
+  }
   #load intersected blad indexes
   # bladIndex.shp <- rgdal::readOGR(dsn = wd, layer = paste0(AHN, "_bladIndex"), stringsAsFactors=FALSE)
   # bladIndex.shp <- sp::spTransform(bladIndex.shp, epsg_rd)
