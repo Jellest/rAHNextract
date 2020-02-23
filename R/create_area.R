@@ -48,7 +48,7 @@ create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE
       my_bbox <- data.frame("xmin" = bbox[1], "ymin" = bbox[2], "xmax" = bbox[3], "ymax" = bbox[4])
     }
     if(sheets == FALSE){
-      my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
+      my_bbox <- data.frame("xmin" = floor(bbox[1]), "ymin" = floor(bbox[2]), "xmax" = ceiling(bbox[3]), "ymax" = ceiling(bbox[4]))
     }
     my_area.sf <- create_bbox_polygon(my_bbox)
   } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE){
@@ -66,6 +66,5 @@ create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE
       my_area.sf <- create_bbox_polygon(my_bbox)
     }
   }
-  print("BBOX: ", my_bbox)
   return(list("area" = my_area.sf, "bbox" = my_bbox))
 }
