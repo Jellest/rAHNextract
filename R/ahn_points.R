@@ -6,9 +6,6 @@
 #'@param X X coordidnate in RD New or WGS84 (LON)
 #'@param Y Y coordidnate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
-#'@param radius Optional. Set radius in meters of area around a point to create a buffer area.
-#'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
-#'@param geom Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
@@ -32,7 +29,7 @@ ahn_points <- function(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", re
 
   my_point <- generate_ahn_point(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = resolution)
   my_url <- create_wcs_url(bbox = my_point$bbox, type = "point", AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate)
-  my_raster <- download_wcs_raster(my_url, name_trim)
+  my_raster <- download_wcs_raster(wcsUrl = my_url, name = name_trim)
 
   my_elevation <- intersect_raster(my_raster$raster, my_point$point)
 
@@ -40,7 +37,7 @@ ahn_points <- function(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", re
     file.remove(my_raster$file)
   }
   my_elevation <- format(round(my_elevation, decimals), nsmall = decimals)
-  print(paste("Hoogte of", name , ":", my_elevation, "m.", sep=" "))
+  print(paste("Elevation of", name , ":", my_elevation, "m.", sep=" "))
   my_elevation <- as.numeric(my_elevation)
   return (my_elevation)
 }

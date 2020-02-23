@@ -1,6 +1,6 @@
 #'Get AHN of a certain area
 #'
-#'@title AHn area
+#'@title AHN area
 #'@description Get AHN of a certain area
 #'@param name Optional. Give a name of the specified area.
 #'@param X X coordidnate in RD New or WGS84 (LON)
@@ -36,7 +36,7 @@ ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3
   if(sheets == FALSE){
     #retrieve data through WCS (fast)
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    ahn_data <- download_wcs_raster(wcs_url, name = name_trim)
+    ahn_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim)
     ahn_data <- ahn_data$ras
   } else {
     #download AHN sheets and get data (slow)
