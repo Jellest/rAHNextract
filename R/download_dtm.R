@@ -7,12 +7,13 @@
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
-#'@param badnrs Required. Blad numbers.
+#'@param bladnrs Required. Blad numbers.
 #'@param area Required area to be downloaded
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
 #'@param redownload Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
+#'@source <https://www.pdok.nl/datasets>
 #'download_dtm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
 #'@return .tif of DTM AHN area
 
@@ -24,7 +25,9 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
 
   ahn_dtm_directory <- paste(wd, "dtm", sep="/")
 
-  dir.create(paste(wd, "dtm", sep="/"), showWarnings = FALSE)
+  if(!dir.exists(ahn_dtm_directory)){
+    dir.create(paste(wd, "dtm", sep="/"), showWarnings = FALSE)
+  }
   print(ahn_dtm_directory)
 
   print(paste("Amount of sheets found:", length(bladnrs), sep=" "))
@@ -102,15 +105,15 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     if(!file.exists(ahn_dtm_file_path)){
       print("Downloading DTM sheets...")
       print(ahn_dtm_downloadLink)
-      download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
-      unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
+      utils::download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
+      utils::unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
       #file.remove(ahn_dtmZip_file_path)
     } else {
       if(redownload == TRUE){
         print("Redownloading DTM sheets...")
         file.remove(paste0(ahn_dtm_directory, "/", sheetFileNameTif))
-        download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
-        unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
+        utils::download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
+        utils::unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
         file.remove(ahn_dtmZip_file_path)
       } else {
         message(paste("Corresponding dtm sheet", bladnrs[[t]], "already exists and will be used.", sep=" "))
@@ -119,9 +122,8 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
 
     print(ahn_dtm_file_path)
     ahn_dtm_file_paths <- cbind(ahn_dtm_file_paths, ahn_dtm_file_path)
-    ahn_sheet_dtm <-stack(ahn_dtm_file_path)
+    ahn_sheet_dtm <- raster::stack(ahn_dtm_file_path)
     raster::crs(ahn_sheet_dtm) <- epsg_rd
-    raster::proj4string(ahn_sheet_dtm) <- epsg_rd
     print("Cropping dtm sheet to (part of) the area.")
     ahn_dtm_crop <- raster::crop(ahn_sheet_dtm, area)
     indiv_dtm_rasters[[t]] <- ahn_dtm_crop
@@ -144,7 +146,6 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     print(ahn_dtm_raster_filename)
     ahn_dtm_raster <- do.call(merge, indiv_dtm_rasters, envir = )
     raster::crs(ahn_dtm_raster) <- epsg_rd
-    raster::proj4string(ahn_dtm_raster) <- epsg_rd
     raster::writeRaster(ahn_dtm_raster, filename = ahn_dtm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DTM raster saved on disk at: ", ahn_dtm_raster_filename))
     file.remove(paste(name, "_", AHN , "_dtm_ahn.tif", sep=""))
@@ -152,7 +153,6 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   } else if(length(bladnrs) == 1){
     ahn_dtm_raster <- indiv_dtm_rasters[[1]]
     raster::crs(ahn_dtm_raster) <- epsg_rd
-    proj4string(ahn_dtm_raster)<- epsg_rd
     raster::writeRaster(ahn_dtm_raster, ahn_dtm_raster_filename, overwrite = TRUE)
     raster::print(paste0(AHN, " cropped DTM raster and saved on disk at: ", ahn_dtm_raster_filename))
     message("Download of dtm rasters complete.")

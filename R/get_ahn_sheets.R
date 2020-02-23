@@ -6,7 +6,6 @@
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
-#'@param badnrs Required. Blad numbers.
 #'@param area Required area to be downloaded
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
@@ -18,13 +17,13 @@
 get_ahn_sheets <- function(name, area, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, redownload = FALSE, delete.sheets = TRUE){
   ###BladIndex method ###
   #get AHN bladIndex
-  dataDirectory <- paste("data")
+  outputDirectory <- paste("output")
 
-  if (!dir.exists(dataDirectory)){
-    dir.create(dataDirectory)
+  if (!dir.exists(outputDirectory)){
+    dir.create(outputDirectory)
   }
 
-  directory <- paste("data", AHN, sep="/")
+  directory <- paste(outputDirectory, AHN, sep="/")
   if (!dir.exists(directory)){
     dir.create(directory)
   }
@@ -40,7 +39,7 @@ get_ahn_sheets <- function(name, area, AHN = "AHN3", resolution = 0.5, dem = "ds
     bladIndex.sf <- ahn3_bladIndex
   }
 
-  area <- st_transform(area, st_crs(bladIndex.sf))
+  area <- sf::st_transform(area, sf::st_crs(bladIndex.sf))
 
   sf::st_agr(bladIndex.sf) <- "constant"
   sf::st_agr(area) <- "constant"
@@ -48,7 +47,7 @@ get_ahn_sheets <- function(name, area, AHN = "AHN3", resolution = 0.5, dem = "ds
   # print(summary(area))
   # print("summary bladindex")
   # print(summary(bladIndex.sf))
-  bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, st_buffer(area, 0))
+  bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(area, 0))
   #print(summary(bladnrsIntersect.sf))
   #View(bladnrsIntersect.sf)
   #st_write(bladnrsIntersect.sf, "intersect.gpkg")

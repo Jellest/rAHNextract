@@ -7,12 +7,13 @@
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
-#'@param badnrs Required. Blad numbers.
+#'@param bladnrs Required. Blad numbers.
 #'@param area Required area to be downloaded
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
 #'@param redownload Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
+#'@source <https://www.pdok.nl/datasets>
 #'download_dsm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
 #'@return .tif of DSM AHN area
 
@@ -24,7 +25,9 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
 
   ahn_dsm_directory <- paste(wd, "dsm", sep="/")
 
-  dir.create(paste(wd, "dsm", sep="/"), showWarnings = FALSE)
+  if(!dir.exists(ahn_dsm_directory)){
+    dir.create(paste(wd, "dsm", sep="/"), showWarnings = FALSE)
+  }
   print(ahn_dsm_directory)
 
   print(paste("Amount of sheets found:", length(bladnrs), sep=" "))
@@ -64,15 +67,15 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     #check if sheet exists
     if(!file.exists(ahn_dsm_file_path)){
       print("Downloading DSM sheets...")
-      download.file(ahn_dsm_downloadLink, destfile = ahn_dsmZip_file_path, mode="wb")
-      unzip(ahn_dsmZip_file_path, overwrite = TRUE, exdir = ahn_dsm_directory)
+      utils::download.file(ahn_dsm_downloadLink, destfile = ahn_dsmZip_file_path, mode="wb")
+      utils::unzip(ahn_dsmZip_file_path, overwrite = TRUE, exdir = ahn_dsm_directory)
       file.remove(ahn_dsmZip_file_path)
     } else {
       if(redownload == TRUE){
         print("Redownloading DSM sheets...")
         file.remove(paste0(ahn_dsm_directory, "/", sheetFileNameTif))
-        download.file(ahn_dsm_downloadLink, destfile = ahn_dsmZip_file_path, mode = "wb")
-        unzip(ahn_dsmZip_file_path, overwrite = TRUE, exdir = ahn_dsm_directory)
+        utils::download.file(ahn_dsm_downloadLink, destfile = ahn_dsmZip_file_path, mode = "wb")
+        utils::unzip(ahn_dsmZip_file_path, overwrite = TRUE, exdir = ahn_dsm_directory)
         file.remove(ahn_dsmZip_file_path)
       } else {
         message(paste("Corresponding DSM sheet", bladnrs[[r]], "already exists and will be used.", sep=" "))
@@ -80,9 +83,8 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     }
     print(ahn_dsm_file_path)
     ahn_dsm_file_paths <- cbind(ahn_dsm_file_paths, ahn_dsm_file_path)
-    ahn_sheet_dsm <-stack(ahn_dsm_file_path)
+    ahn_sheet_dsm <- raster::stack(ahn_dsm_file_path)
     raster::crs(ahn_sheet_dsm) <- epsg_rd
-    raster::proj4string(ahn_sheet_dsm)<- epsg_rd
     print("Cropping dsm sheet to (part of) the area.")
     ahn_dsm_crop <- raster::crop(ahn_sheet_dsm, area)
     indiv_dsm_rasters[[r]] <- ahn_dsm_crop
@@ -100,7 +102,6 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     print(ahn_dsm_raster_filename)
     ahn_dsm_raster <- do.call(merge, indiv_dsm_rasters)
     raster::crs(ahn_dsm_raster) <- epsg_rd
-    raster::proj4string(ahn_dsm_raster) <- epsg_rd
     #ahn_dsm_raster <- projectRaster(ahn_dsm_raster, ahn_dsm_raster_filename, crs = epsg_rd, overwrite = TRUE)
     raster::writeRaster(ahn_dsm_raster, filename = ahn_dsm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DSM raster saved on disk at: ",ahn_dsm_raster_filename))
@@ -109,7 +110,6 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   } else if(length(bladnrs) == 1){
     ahn_dsm_raster <- indiv_dsm_rasters[[1]]
     raster::crs(ahn_dsm_raster) <- epsg_rd
-    raster::proj4string(ahn_dsm_raster) <- epsg_rd
     #ahn_dsm_raster <- projectRaster(ahn_dsm_raster, ahn_dsm_raster_filename, crs = epsg_rd, overwrite = TRUE)
     raster::writeRaster(ahn_dsm_raster, ahn_dsm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DSM raster and saved on disk at: ",ahn_dsm_raster_filename))
