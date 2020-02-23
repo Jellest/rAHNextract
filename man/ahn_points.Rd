@@ -37,12 +37,6 @@ ahn_points(
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
 \item{interpolate}{Default TRUE. Ony applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
-
-\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area.}
-
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
-
-\item{geom}{Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.}
 }
 \value{
 elevation in meters.

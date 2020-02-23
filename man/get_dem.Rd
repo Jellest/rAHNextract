@@ -16,7 +16,7 @@ get_dem(AHN, dem, resolution, interpolate = TRUE)
 \item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 }
 \value{
-
+DEM type string
 }
 \description{
 Download DSM

@@ -1,2 +1,8 @@
 ^rAHNextract\.Rproj$
 ^\.Rproj\.user$
+
+^data-raw$
+^scratch$
+^output$
+ahn_hoogtes.R
+^LICENSE\.md$

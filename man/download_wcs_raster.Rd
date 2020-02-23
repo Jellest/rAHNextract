@@ -3,13 +3,17 @@
 \name{download_wcs_raster}
 \alias{download_wcs_raster}
 \title{Download WCS raster}
-\usage{
+\source{
+\url{https://www.pdok.nl/datasets}
 download_wcs_raster(name = "elevation", wcsUrl)
+}
+\usage{
+download_wcs_raster(wcsUrl, name = "elevation")
 }
 \arguments{
 \item{wcsUrl}{Required. WCS URL}
 
-\item{name.}{Required. Name}
+\item{name}{Required. Name}
 }
 \value{
 .tif float32 file of BBOX area.
@@ -22,5 +26,4 @@ Download WCS raster
 }
 \author{
 Jelle Stuurman
-download_wcs_raster(name = "elevation", wcsUrl)
 }

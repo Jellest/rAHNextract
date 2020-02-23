@@ -2,7 +2,7 @@
 % Please edit documentation in R/ahn_area.R
 \name{ahn_area}
 \alias{ahn_area}
-\title{AHn area}
+\title{AHN area}
 \usage{
 ahn_area(
   name,

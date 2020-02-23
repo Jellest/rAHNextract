@@ -31,8 +31,6 @@ get_ahn_sheets(
 \item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 
 \item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
-
-\item{badnrs}{Required. Blad numbers.}
 }
 \value{
 .tif AHN kaartblad cropped to area

@@ -3,6 +3,10 @@
 \name{download_dsm}
 \alias{download_dsm}
 \title{Download DSM}
+\source{
+\url{https://www.pdok.nl/datasets}
+download_dsm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
+}
 \usage{
 download_dsm(
   name,
@@ -28,6 +32,8 @@ download_dsm(
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
+\item{bladnrs}{Required. Blad numbers.}
+
 \item{area}{Required area to be downloaded}
 
 \item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
@@ -35,8 +41,6 @@ download_dsm(
 \item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
 
 \item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
-
-\item{badnrs}{Required. Blad numbers.}
 }
 \value{
 .tif of DSM AHN area
@@ -49,5 +53,4 @@ Download DSM
 }
 \author{
 Jelle Stuurman
-download_dsm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
 }

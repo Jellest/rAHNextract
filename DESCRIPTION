@@ -1,21 +1,25 @@
+Type: Package
 Package: rAHNextract
-Title: Extract elevation points or elevations in the Netherlands from the AHN
-Version: 0.9
-Authors@R: 
-    person(given = "Jelle",
-           family = "Stuurman",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Extract elevation points or elevations in the Netherlands from the AHN.
-License: GPU3
+Title: Extract elevation points or areas in the Netherlands from the AHN
+Version: 0.8
+Date: 23-02-2020
+Author: Jelle Stuurman
+Maintainer: Jelle Stuurman <j@j.com>
+Description: Extract elevation points or areas in the Netherlands from the AHN.
+URL: https://github.com/Jellest/rAHNextract 
+BugReports: https://github.com/Jellest/rAHNextract/issues
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 Imports:
     sf,
-    raster
+    raster,
+    utils
 Suggests: 
     knitr,
     rmarkdown
+Depends:
+    R (>= 2.10)
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
