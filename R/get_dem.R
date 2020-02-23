@@ -8,7 +8,7 @@
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@author Jelle Stuurman
 #'get_dem(AHN, dem, resolution, interpolate = TRUE)
-#'@return
+#'@return DEM type string
 get_dem <- function(AHN, dem, resolution, interpolate = TRUE){
   if(AHN == "AHN1"){
     if(tolower(dem) == "dsm"){
