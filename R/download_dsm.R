@@ -23,11 +23,19 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   #download dsm AHN of corresponding resolultion
   indiv_dsm_rasters <- list()
 
-  ahn_dsm_directory <- paste(wd, "dsm", sep="/")
-
-  if(!dir.exists(ahn_dsm_directory)){
-    dir.create(paste(wd, "dsm", sep="/"), showWarnings = FALSE)
+  print(wd)
+  #ahn directory
+  ahn_directory <- paste(wd, AHN, sep="/")
+  if(!dir.exists(ahn_directory)){
+    dir.create(paste(wd, AHN, sep="/"), showWarnings = FALSE)
   }
+
+  #dsm directory
+  ahn_dsm_directory <- paste(ahn_directory, "dsm", sep="/")
+  if(!dir.exists(ahn_dsm_directory)){
+    dir.create(paste(ahn_directory, "dsm", sep="/"), showWarnings = FALSE)
+  }
+
   print(ahn_dsm_directory)
 
   print(paste("Amount of sheets found:", length(bladnrs), sep=" "))

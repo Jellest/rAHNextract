@@ -24,12 +24,12 @@ get_ahn_sheets <- function(name, area, type, AHN = "AHN3", resolution = 0.5, dem
     dir.create(outputDirectory)
   }
 
-  directory <- paste(outputDirectory, AHN, sep="/")
-  if (!dir.exists(directory)){
-    dir.create(directory)
+
+  name_directory <- paste(outputDirectory, name, sep="/")
+  if (!dir.exists(name_directory)){
+    dir.create(name_directory)
   }
 
-  dir.create(paste(directory, name, sep="/"), showWarnings = FALSE)
 
   #bladIndex.sf <- download_bladnrs(wd = directory, AHN = AHN)
   if(tolower(AHN) == "ahn1"){
@@ -48,12 +48,11 @@ get_ahn_sheets <- function(name, area, type, AHN = "AHN3", resolution = 0.5, dem
 
   bladnrs <- bladnrsIntersect.sf$bladnr
 
-  working_directory <- paste(directory, name, sep="/")
   if(type == "raster"){
     if(tolower(dem) == "dtm"){
-      elevations.tif <- download_dtm(name = name, wd = working_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+      elevations.tif <- download_dtm(name = name_directory, wd = working_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
     } else if(tolower(dem) == "dsm"){
-      elevations.tif <- download_dsm(name = name, wd = working_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+      elevations.tif <- download_dsm(name = name, wd = name_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
     } else {
       stop("No correct dem argument is provided. Please use 'DTM' or 'DSM'.")
     }

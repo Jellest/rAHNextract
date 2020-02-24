@@ -23,10 +23,16 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   #download dtm AHN of corresponding resolution
   indiv_dtm_rasters <- list()
 
-  ahn_dtm_directory <- paste(wd, "dtm", sep="/")
+  #ahn directory
+  ahn_directory <- paste(wd, AHN, sep="/")
+  if(!dir.exists(ahn_directory)){
+    dir.create(paste(wd, AHN, sep="/"), showWarnings = FALSE)
+  }
 
+  #dtm directory
+  ahn_dtm_directory <- paste(ahn_directory, "dtm", sep="/")
   if(!dir.exists(ahn_dtm_directory)){
-    dir.create(paste(wd, "dtm", sep="/"), showWarnings = FALSE)
+    dir.create(paste(ahn_directory, "dtm", sep="/"), showWarnings = FALSE)
   }
   print(ahn_dtm_directory)
 
