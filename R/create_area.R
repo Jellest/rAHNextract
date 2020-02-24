@@ -14,7 +14,6 @@
 #'@return "area": geometry of area, "bbox": BBOX coordinates.
 
 create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE){
-  my_bbox <-NULL
   if(missing(bbox) == TRUE && missing(geom) == TRUE){
     #create circle through buffer around a point
     if(missing(X) == TRUE || missing(Y) == TRUE){
@@ -26,11 +25,9 @@ create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE
     my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)
     my_area.sf <- sf::st_buffer(my_point, dist=radius)
     sf::st_crs(my_area.sf, epsg_rd)
-    if(sheets == FALSE){
-      my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
-      my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
-      my_area.sf <- create_bbox_polygon(my_bbox)
-    }
+    my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
+    my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
+    my_bbox_area.sf <- create_bbox_polygon(my_bbox)
   } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(geom) == TRUE){
     #create bbox
     if(length(bbox) != 4){
@@ -47,10 +44,8 @@ create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE
     } else {
       my_bbox <- data.frame("xmin" = bbox[1], "ymin" = bbox[2], "xmax" = bbox[3], "ymax" = bbox[4])
     }
-    if(sheets == FALSE){
-      my_bbox <- data.frame("xmin" = floor(bbox[1]), "ymin" = floor(bbox[2]), "xmax" = ceiling(bbox[3]), "ymax" = ceiling(bbox[4]))
-    }
-    my_area.sf <- create_bbox_polygon(my_bbox)
+    my_bbox_area.sf <- create_bbox_polygon(my_bbox)
+    my_area.sf <- my_bbox_area.sf
   } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE){
     #load shape
     if(LONLAT == TRUE){
@@ -60,11 +55,9 @@ create_area <- function(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE
       my_area.sf <- geom
       #my_area.sf <- st_make_valid(my_area.sf)
     }
-    if(sheets == FALSE){
-      my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
-      my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
-      my_area.sf <- create_bbox_polygon(my_bbox)
-    }
+    my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
+    my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
+    my_bbox_area.sf <- create_bbox_polygon(my_bbox)
   }
-  return(list("area" = my_area.sf, "bbox" = my_bbox))
+  return(list("area" = my_area.sf, "bbox_area" = my_bbox_area.sf, "bbox" = my_bbox))
 }

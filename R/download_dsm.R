@@ -93,25 +93,25 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   ahn_dsm_raster_filename <- paste(ahn_dsm_directory, "/", name, "_", AHN , "_", ahn_dsm_letter, "_", my_resolution$res_name, "_dsm", '.tif', sep="")
   if(file.exists(ahn_dsm_raster_filename)){
     warning(paste("Cropped DSM raster for", name, "already exists and was overwritten." ,sep =" "))
-    file.remove(ahn_dsm_raster_filename)
+    #file.remove(ahn_dsm_raster_filename)
   }
   indiv_dsm_rasters$filename <- paste(name, "_", AHN ,"_dsm_ahn", '.tif', sep="")
   if(length(bladnrs) > 1){
     indiv_dsm_rasters$overwrite <- TRUE
     print("Merging all dsm rasters...")
-    print(ahn_dsm_raster_filename)
-    ahn_dsm_raster <- do.call(merge, indiv_dsm_rasters)
+    ahn_dsm_raster <- do.call(raster::merge, indiv_dsm_rasters)
     raster::crs(ahn_dsm_raster) <- epsg_rd
-    #ahn_dsm_raster <- projectRaster(ahn_dsm_raster, ahn_dsm_raster_filename, crs = epsg_rd, overwrite = TRUE)
-    raster::writeRaster(ahn_dsm_raster, filename = ahn_dsm_raster_filename, overwrite = TRUE)
+    ahn_dsm_mask <- raster::mask(ahn_dsm_raster, area)
+    raster::writeRaster(ahn_dsm_mask, filename = ahn_dsm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DSM raster saved on disk at: ",ahn_dsm_raster_filename))
     file.remove(paste(name, "_", AHN , "_dsm_ahn.tif", sep=""))
+    print(paste0(AHN, " cropped DSM raster and saved on disk at: ", ahn_dsm_raster_filename))
     print("Download and merge of dsm rasters complete.")
   } else if(length(bladnrs) == 1){
     ahn_dsm_raster <- indiv_dsm_rasters[[1]]
     raster::crs(ahn_dsm_raster) <- epsg_rd
-    #ahn_dsm_raster <- projectRaster(ahn_dsm_raster, ahn_dsm_raster_filename, crs = epsg_rd, overwrite = TRUE)
-    raster::writeRaster(ahn_dsm_raster, ahn_dsm_raster_filename, overwrite = TRUE)
+    ahn_dsm_mask <- raster::mask(ahn_dsm_raster, area)
+    raster::writeRaster(ahn_dsm_mask, ahn_dsm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DSM raster and saved on disk at: ",ahn_dsm_raster_filename))
     print("Download of dsm rasters complete.")
   }
@@ -121,5 +121,5 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       file.remove(ahn_dsm_file_paths[fr])
     }
   }
-  return(ahn_dsm_raster)
+  return(ahn_dsm_mask)
 }

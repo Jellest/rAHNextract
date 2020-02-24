@@ -104,10 +104,10 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     #check if sheet exists
     if(!file.exists(ahn_dtm_file_path)){
       print("Downloading DTM sheets...")
-      print(ahn_dtm_downloadLink)
+      #print(ahn_dtm_downloadLink)
       utils::download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
       utils::unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
-      #file.remove(ahn_dtmZip_file_path)
+      file.remove(ahn_dtmZip_file_path)
     } else {
       if(redownload == TRUE){
         print("Redownloading DTM sheets...")
@@ -137,25 +137,28 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   ahn_dtm_raster_filename <- paste(ahn_dtm_directory, "/", name, "_", AHN , "_", ahn_dtm_letter, "_", my_resolution$res_name, "_dtm", '.tif', sep="")
   if(file.exists(ahn_dtm_raster_filename)){
     warning(paste("Cropped DTM raster for", name, "already exists and was overwritten." ,sep =" "))
-    file.remove(ahn_dtm_raster_filename)
+    #file.remove(ahn_dtm_raster_filename)
   }
   indiv_dtm_rasters$filename <- paste(name, "_", AHN , "_dtm_ahn", '.tif', sep="")
   if(length(bladnrs) > 1){
     indiv_dtm_rasters$overwrite <- TRUE
     print("Merging all dtm rasters...")
     print(ahn_dtm_raster_filename)
-    ahn_dtm_raster <- do.call(merge, indiv_dtm_rasters, envir = )
+    ahn_dtm_raster <- do.call(raster::merge, indiv_dtm_rasters)
     raster::crs(ahn_dtm_raster) <- epsg_rd
-    raster::writeRaster(ahn_dtm_raster, filename = ahn_dtm_raster_filename, overwrite = TRUE)
+    ahn_dtm_mask <- raster::mask(ahn_dtm_raster, area)
+    raster::writeRaster(ahn_dtm_mask, filename = ahn_dtm_raster_filename, overwrite = TRUE)
     print(paste0(AHN, " cropped DTM raster saved on disk at: ", ahn_dtm_raster_filename))
     file.remove(paste(name, "_", AHN , "_dtm_ahn.tif", sep=""))
-    message("Download and merge of dtm rasters complete.")
+    print(paste0(AHN, " cropped DTM raster and saved on disk at: ", ahn_dtm_raster_filename))
+    print("Download and merge of dtm rasters complete.")
   } else if(length(bladnrs) == 1){
     ahn_dtm_raster <- indiv_dtm_rasters[[1]]
     raster::crs(ahn_dtm_raster) <- epsg_rd
-    raster::writeRaster(ahn_dtm_raster, ahn_dtm_raster_filename, overwrite = TRUE)
-    raster::print(paste0(AHN, " cropped DTM raster and saved on disk at: ", ahn_dtm_raster_filename))
-    message("Download of dtm rasters complete.")
+    ahn_dtm_mask <- raster::mask(ahn_dtm_raster, area)
+    raster::writeRaster(ahn_dtm_mask, ahn_dtm_raster_filename, overwrite = TRUE)
+    print(paste0(AHN, " cropped DTM raster and saved on disk at: ", ahn_dtm_raster_filename))
+    print("Download of dtm rasters complete.")
   }
 
   if(delete.sheets == TRUE){
@@ -163,5 +166,5 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       file.remove(ahn_dtm_file_paths[ft])
     }
   }
-  return(ahn_dtm_raster)
+  return(ahn_dtm_mask)
 }

@@ -9,6 +9,7 @@
 #'@param radius Optional. Set radius in meters of area around a point to create a buffer area.
 #'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
 #'@param geom Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.
+#'@param type Select ; 'raster' or 'pc'
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
@@ -22,7 +23,7 @@
 #'@return .tif file of AHN area
 #'@export
 
-ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
+ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, type, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
@@ -33,14 +34,15 @@ ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3
   }
 
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, geom = geom, LONLAT = LONLAT, sheets = sheets)
-  if(sheets == FALSE){
+  if(sheets == TRUE || type == "pc" ){
+    #download AHN sheets and get data (slow)
+    ahn_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = type, AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+  } else {
     #retrieve data through WCS (fast)
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    ahn_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim)
-    ahn_data <- ahn_data$ras
-  } else {
-    #download AHN sheets and get data (slow)
-    ahn_data <- get_ahn_sheets(name = name_trim, area = ahn_area$area, AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim)
+    raster_mask <- raster::mask(x = raster_data$raster, mask = ahn_area$area, filename = raster_data$file, overwrite = TRUE)
+    ahn_data <- raster_mask
   }
 
   return (ahn_data)
