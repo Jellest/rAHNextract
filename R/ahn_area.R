@@ -23,7 +23,7 @@
 #'@return .tif file of AHN area
 #'@export
 
-ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, type = "", AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
+ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, type, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
@@ -34,7 +34,7 @@ ahn_area <- function(name, X, Y, radius, bbox, geom, LONLAT = FALSE, type = "", 
   }
 
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, geom = geom, LONLAT = LONLAT, sheets = sheets)
-  if(sheets == TRUE){
+  if(sheets == TRUE || type == "pc"){
     #download AHN sheets and get data (slow)
     ahn_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = type, AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
   } else {
