@@ -12,6 +12,7 @@ ahn_area(
   bbox,
   geom,
   LONLAT = FALSE,
+  type,
   AHN = "AHN3",
   dem = "dsm",
   resolution,
@@ -36,6 +37,8 @@ ahn_area(
 \item{geom}{Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
+
+\item{type}{Select ; 'raster' or 'pc'}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
