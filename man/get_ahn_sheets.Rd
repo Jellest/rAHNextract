@@ -7,6 +7,7 @@
 get_ahn_sheets(
   name,
   area,
+  type,
   AHN = "AHN3",
   resolution = 0.5,
   dem = "dsm",
@@ -19,6 +20,8 @@ get_ahn_sheets(
 \item{name}{Optional. Give a name of the specified area.}
 
 \item{area}{Required area to be downloaded}
+
+\item{type}{'raster' or 'pc'.}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
