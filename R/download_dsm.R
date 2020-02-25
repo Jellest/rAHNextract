@@ -20,7 +20,6 @@
 download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE){
   ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
   my_resolution<- get_resolution(AHN = AHN, resolution)
-  #download dsm AHN of corresponding resolultion
   indiv_dsm_rasters <- list()
 
   print(wd)

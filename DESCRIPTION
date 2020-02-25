@@ -14,9 +14,9 @@ LazyData: true
 RoxygenNote: 7.0.2
 Imports:
     sf,
-    raster,
-    utils
-Suggests: 
+    raster
+Suggests:
+    sp,
     knitr,
     rmarkdown
 Depends:
