@@ -4,7 +4,7 @@
 \alias{create_area}
 \title{Create area}
 \usage{
-create_area(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE)
+create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 }
 \arguments{
 \item{X}{X coordidnate in RD New or WGS84 (LON)}
@@ -15,14 +15,14 @@ create_area(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE)
 
 \item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
 
-\item{geom}{Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.}
+\item{polygon}{Optional. Use polygonetric object as your area. .shp, .gpkg. Output will be BBox of this object.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 
-\item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
+\item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float)}
 }
 \value{
-"area": geometry of area, "bbox": BBOX coordinates.
+"area": polygonetry of area, "bbox": BBOX coordinates.
 }
 \description{
 Create area through buffer, BBOX or custom area
@@ -32,5 +32,5 @@ Get Create area
 }
 \author{
 Jelle Stuurman
-create_area(X, Y, radius, bbox, geom, LONLAT = FALSE, sheets = FALSE)
+create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 }

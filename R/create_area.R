@@ -8,7 +8,7 @@
 #'@param radius Optional. Set radius in meters of area around a point to create a buffer area.
 #'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
 #'@param polygon Optional. Use polygonetric object as your area. .shp, .gpkg. Output will be BBox of this object.
-#'@param sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float
+#'@param sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float)
 #'@author Jelle Stuurman
 #'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 #'@return "area": polygonetry of area, "bbox": BBOX coordinates.

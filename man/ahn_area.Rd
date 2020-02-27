@@ -5,18 +5,19 @@
 \title{AHN area}
 \usage{
 ahn_area(
-  name,
   X,
   Y,
   radius,
   bbox,
-  geom,
+  polygon,
+  name,
   LONLAT = FALSE,
-  type,
+  type = "raster",
   AHN = "AHN3",
   dem = "dsm",
   resolution,
   interpolate = TRUE,
+  filtered = FALSE,
   decimals = 2,
   sheets = FALSE,
   delete.sheets = FALSE,
@@ -24,37 +25,39 @@ ahn_area(
 )
 }
 \arguments{
-\item{name}{Optional. Give a name of the specified area.}
+\item{Y}{Optional. Y Coordidnate in RD New or WGS84 (LAT)}
 
-\item{X}{X coordidnate in RD New or WGS84 (LON)}
+\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
 
-\item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
+\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)}
 
-\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area.}
+\item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon.}
 
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
+\item{name}{Optional. Give a name of the specified area. Name will used in the output folders and files.}
 
-\item{geom}{Optional. Use geometric object as your area. .shp, .gpkg. Output will be BBox of this object.}
+\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format.}
 
-\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
-
-\item{type}{Select ; 'raster' or 'pc'}
+\item{type}{Default 'raster'. Select 'raster' to get raster data or 'pc' for point clouds data.}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters fpor AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
-\item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+
+\item{filtered}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.}
 
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
 \item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
 
-\item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
+\item{delete.sheets}{Default TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
 
-\item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+
+\item{XOptional.}{X Coordidnate in RD New or WGS84 (LON)}
 }
 \value{
 .tif file of AHN area
@@ -67,5 +70,5 @@ Get AHN of a certain area
 }
 \author{
 Jelle Stuurman
-ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
+ahn_area(name, X, Y, radius, bbox, polygon, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 }

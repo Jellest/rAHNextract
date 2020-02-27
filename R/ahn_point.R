@@ -2,9 +2,9 @@
 #'
 #'@title Get AHN elvation of a certain point location
 #'@description Get elevation of specific point location.
-#'@param name Optional. Give a name of the specified area.
-#'@param X X coordidnate in RD New or WGS84 (LON)
+#'#'@param X X coordidnate in RD New or WGS84 (LON)
 #'@param Y Y coordidnate in RD New or WGS84 (LAT)
+#'@param name Optional. Give a name of the specified area.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
@@ -13,11 +13,11 @@
 #'@param interpolate Default TRUE. Ony applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param delete.ahn Deault TRUE. Set to FALSE if you want to keep the downloaded AHN area of the point (9 pixels).
 #'@author Jelle Stuurman
-#'ahn_points(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, delete.ahn = TRUE, decimals = 2, interpolate = TRUE)
+#'ahn_point(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, delete.ahn = TRUE, decimals = 2, interpolate = TRUE)
 #'@return elevation in meters.
 #'@export
 
-ahn_points <- function(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, delete.ahn = TRUE, decimals = 2, interpolate = TRUE){
+ahn_point <- function(X, Y, name, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, delete.ahn = TRUE, decimals = 2, interpolate = TRUE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
