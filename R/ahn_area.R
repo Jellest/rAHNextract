@@ -2,15 +2,15 @@
 #'
 #'@title AHN area
 #'@description Get AHN of a certain area
-#'@param XOptional. X Coordidnate in RD New or WGS84 (LON)
+#'@param X Optional. X Coordidnate in RD New or WGS84 (LON)
 #'@param Y Optional. Y Coordidnate in RD New or WGS84 (LAT)
-#'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format.
+#'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
 #'@param radius Optional. Set radius in meters of area around a point to create a buffer area (circle).
 #'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)
-#'@param polygon Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon.
-#'@param name Optional. Give a name of the specified area. Name will used in the output folders and files.
-#'@param type Default 'raster'. Select 'raster' to get raster data or 'pc' for point clouds data.
-#'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
+#'@param polygon Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon
+#'@param name Optional. Give a name of the specified area. Name will used in the output folders and files
+#'@param type Default 'raster'. Select 'raster' to get raster data
+#'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters fpor AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.

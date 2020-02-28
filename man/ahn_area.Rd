@@ -25,21 +25,23 @@ ahn_area(
 )
 }
 \arguments{
+\item{X}{Optional. X Coordidnate in RD New or WGS84 (LON)}
+
 \item{Y}{Optional. Y Coordidnate in RD New or WGS84 (LAT)}
 
 \item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
 
 \item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)}
 
-\item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon.}
+\item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
 
-\item{name}{Optional. Give a name of the specified area. Name will used in the output folders and files.}
+\item{name}{Optional. Give a name of the specified area. Name will used in the output folders and files}
 
-\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format.}
+\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
 
-\item{type}{Default 'raster'. Select 'raster' to get raster data or 'pc' for point clouds data.}
+\item{type}{Default 'raster'. Select 'raster' to get raster data}
 
-\item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
+\item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
@@ -56,8 +58,6 @@ ahn_area(
 \item{delete.sheets}{Default TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
 
 \item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
-
-\item{XOptional.}{X Coordidnate in RD New or WGS84 (LON)}
 }
 \value{
 .tif file of AHN area

@@ -4,6 +4,8 @@
 #'@description Download WCS raster
 #'@param name Required. Name
 #'@param wcsUrl Required. WCS URL
+#'@param AHN Default 'AHN3'. 'AHN3' 'AHN2' or 'AHN1'
+#'@param dem Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'download_wcs_raster(name = "elevation", wcsUrl)

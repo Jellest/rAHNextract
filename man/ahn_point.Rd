@@ -18,6 +18,8 @@ ahn_point(
 )
 }
 \arguments{
+\item{X}{X coordidnate in RD New or WGS84 (LON)}
+
 \item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
 
 \item{name}{Optional. Give a name of the specified area.}
@@ -41,7 +43,6 @@ elevation in meters.
 }
 \description{
 Get elevation of specific point location.
-#'@param X X coordidnate in RD New or WGS84 (LON)
 }
 \details{
 Get AHN elvation of a certain point location

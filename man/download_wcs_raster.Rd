@@ -14,6 +14,10 @@ download_wcs_raster(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm")
 \item{wcsUrl}{Required. WCS URL}
 
 \item{name}{Required. Name}
+
+\item{AHN}{Default 'AHN3'. 'AHN3' 'AHN2' or 'AHN1'}
+
+\item{dem}{Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'}
 }
 \value{
 .tif float32 file of BBOX area.

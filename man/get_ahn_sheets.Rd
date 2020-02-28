@@ -32,6 +32,8 @@ get_ahn_sheets(
 
 \item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
+\item{filtered}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.}
+
 \item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 
 \item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}

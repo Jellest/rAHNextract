@@ -7,3 +7,4 @@
 ahn_hoogtes.R
 ^LICENSE\.md$
 rAHNextract_test.qgz
+^tests$

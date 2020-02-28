@@ -9,6 +9,7 @@
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@param area Required area to be downloaded
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
+#'@param filtered Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.
 #'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
 #'@param redownload Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman

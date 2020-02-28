@@ -2,7 +2,7 @@
 #'
 #'@title Get AHN elvation of a certain point location
 #'@description Get elevation of specific point location.
-#'#'@param X X coordidnate in RD New or WGS84 (LON)
+#'@param X X coordidnate in RD New or WGS84 (LON)
 #'@param Y Y coordidnate in RD New or WGS84 (LAT)
 #'@param name Optional. Give a name of the specified area.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
