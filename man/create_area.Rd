@@ -22,7 +22,7 @@ create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 \item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float)}
 }
 \value{
-"area": polygonetry of area, "bbox": BBOX coordinates.
+"area": polygon of area, "bbox": BBOX coordinates.
 }
 \description{
 Create area through buffer, BBOX or custom area
