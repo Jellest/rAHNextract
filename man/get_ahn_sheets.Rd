@@ -7,11 +7,12 @@
 get_ahn_sheets(
   name,
   area,
-  type,
+  type = "",
   AHN = "AHN3",
   resolution = 0.5,
   dem = "dsm",
   interpolate = TRUE,
+  filtered = FALSE,
   redownload = FALSE,
   delete.sheets = TRUE
 )
