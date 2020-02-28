@@ -13,6 +13,7 @@
 #'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 #'@return "area": polygon of area, "bbox": BBOX coordinates.
 
+
 create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE){
   if(missing(bbox) == TRUE && missing(polygon) == TRUE){
     #create circle through buffer around a point
