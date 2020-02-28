@@ -41,7 +41,7 @@ ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "
   } else {
     #retrieve data through WCS (fast)
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim)
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem))
     raster_mask <- raster::mask(x = raster_data$raster, mask = ahn_area$area, filename = raster_data$file, overwrite = TRUE)
     ahn_data <- raster_mask
   }

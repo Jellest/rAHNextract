@@ -11,7 +11,8 @@
 #'@param sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float)
 #'@author Jelle Stuurman
 #'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
-#'@return "area": polygonetry of area, "bbox": BBOX coordinates.
+#'@return "area": polygon of area, "bbox": BBOX coordinates.
+
 
 create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE){
   if(missing(bbox) == TRUE && missing(polygon) == TRUE){

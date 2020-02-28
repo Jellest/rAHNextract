@@ -49,15 +49,15 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
   bladnrs <- bladnrsIntersect.sf$bladnr
 
   if(type == "pc"){
-    #elevations.tif <- download_point_cloud(name = name, wd = name_directory, AHN = AHN, bladnrs = bladnrs, area = shape_area, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
+    data <- download_point_cloud(name = name, wd = name_directory, AHN = AHN, bladnrs = bladnrs, area = shape_area, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
   } else {
     if(tolower(dem) == "dtm"){
-      elevations.tif <- download_dtm(name = name, wd = name_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+      data <- download_dtm(name = name, wd = name_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
     } else if(tolower(dem) == "dsm"){
-      elevations.tif <- download_dsm(name = name, wd = name_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
+      data <- download_dsm(name = name, wd = name_directory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
     } else {
       stop("No correct dem argument is provided. Please use 'DTM' or 'DSM'.")
     }
   }
-  return (elevations.tif)
+  return (data)
 }

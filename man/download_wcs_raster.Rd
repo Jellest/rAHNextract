@@ -8,7 +8,7 @@
 download_wcs_raster(name = "elevation", wcsUrl)
 }
 \usage{
-download_wcs_raster(wcsUrl, name = "elevation")
+download_wcs_raster(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm")
 }
 \arguments{
 \item{wcsUrl}{Required. WCS URL}
