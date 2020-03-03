@@ -21,7 +21,7 @@ create_wcs_url <- function(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "ds
   my_resolution <- get_resolution(AHN= AHN, resolution = resolution)
 
   #get dem type
-  #dem <- get_dem(AHN = AHN, resolution = my_resolution$res, dem = dem)
+  dem <- get_dem(AHN = AHN, resolution = my_resolution$res, dem = dem, interpolate = interpolate)
 
   #get BBOX extent of buffer area
   my_bbox <- paste(bbox$xmin, bbox$ymin, bbox$xmax, bbox$ymax, sep=",")

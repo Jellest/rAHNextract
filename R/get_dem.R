@@ -12,35 +12,35 @@
 get_dem <- function(AHN, dem, resolution, interpolate = TRUE){
   if(AHN == "AHN1"){
     if(tolower(dem) == "dsm"){
-      warning(paste("There is no dsm available for this dataset. Dtm (maaiveld)", resolution, "m was used.", sep = " "))
+      warning(paste("There is no DSM available for this dataset. DTM (maaiveld)", resolution, "m was used.", sep = " "))
     }
-    info <- paste(AHN, resolution, "m resolution dtm (maaiveld) selected.", sep = " ")
+    info <- paste(AHN, resolution, "m resolution DTM (maaiveld) selected.", sep = " ")
     dem <- ""
   } else if(AHN == "AHN2"){
     if(resolution == 5){
       dem <- ""
-      info <- "AHN2 5 m resolution dtm (maaiveld) selected."
+      info <- "AHN2 5 m resolution DTM (maaiveld) selected."
     } else if(resolution == 0.5){
       if(tolower(dem) == "dtm"){
         if(interpolate == TRUE){
           dem <- "int"
-          info <- "AHN2 0.5 m resolution dtm (maaiveld) interpolated (opgevuld) selected."
+          info <- "AHN2 0.5 m resolution DTM (maaiveld) interpolated (opgevuld) selected."
         } else if(interpolate == FALSE){
           dem <- "non"
-          info <- "AHN2 0.5 m resolution dtm (maaiveld) (niet opgevuld) selected."
+          info <- "AHN2 0.5 m resolution DTM (maaiveld) niet opgevuld selected."
         } else {
           stop("No correct interpolated parameter is provided. Please set it to 'TRUE' or 'FALSE'.")
         }
       } else if (tolower(dem) == "dsm"){
         dem <- "ruw"
-        info <- "AHN2 0.5 m resolution dsm (ruw) selected."
+        info <- "AHN2 0.5 m resolution DSM (ruw) selected."
       } else {
         stop("No correct dem is provided. Please select 'dtm' or 'dsm'.")
       }
     }
   } else if(AHN == "AHN3"){
     if(tolower(dem) != "dtm" && tolower(dem) != "dsm"){
-      stop("Provided wrong dem, Please select 'dsm' or 'dtm'.")
+      stop("Provided wrong DEM, Please select 'dsm' or 'dtm'.")
     } else {
       dem <- tolower(dem)
       if(dem == "dtm"){

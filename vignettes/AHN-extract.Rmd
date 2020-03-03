@@ -16,4 +16,16 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(rAHNextract)
+#AHn area
+a_circle <- ahn_area(name = "circle_test", X = 154000, Y = 463000, radius = 50, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dtm", resolution = 0.5, decimals = 2, sheets = FALSE, redownload = FALSE, delete.sheets = FALSE)
+a_circle_sheet_dtm <- ahn_area(name = "circle_test", X = 154000, Y = 463000, radius = 50, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dtm", resolution = 0.5, decimals = 2, sheets = TRUE, redownload = FALSE, delete.sheets = FALSE)
+a_circle_sheet_dsm <- ahn_area(name = "circle_test", X = 154000, Y = 463000, radius = 50, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution = 0.5, decimals = 2, sheets = TRUE, redownload = FALSE, delete.sheets = FALSE)
+
+a_bbox <- ahn_area(name = "bbox_test", bbox = c(155500, 463000, 155600, 463500), LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution = 0.5, decimals = 2, sheets = FALSE, redownload = FALSE, delete.sheets = FALSE)
+a_bbox_sheet <- ahn_area(name = "circle_test", X = 154000, Y = 463000, radius = 50, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution = 0.5, decimals = 2, sheets = TRUE, redownload = FALSE, delete.sheets = FALSE)
+
+my_shape <- sf::st_read("scratch/testdata/test.shp")
+a_shape <- ahn_area(name = "shape_test", polygon = my_shape, LONLAT = FALSE, type = "raster", AHN = "AHN2", dem = "dsm", resolution = 0.5, decimals = 2, sheets = FALSE, redownload = FALSE, delete.sheets = FALSE)
+a_shape_sheet <- ahn_area(name = "shape_test", polygon = my_shape, LONLAT = FALSE, type = "raster", AHN = "AHN2", dem = "dsm", resolution = 0.5, decimals = 2, sheets = TRUE, redownload = FALSE, delete.sheets = FALSE)
+
 ```
