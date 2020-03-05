@@ -25,8 +25,6 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
     dir.create(outputDirectory)
   }
 
-
-
   #bladIndex.sf <- download_bladnrs(wd = directory, AHN = AHN)
   if(tolower(AHN) == "ahn1"){
     bladIndex.sf <- ahn1_bladIndex

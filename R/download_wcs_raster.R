@@ -21,20 +21,20 @@ download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = 
                 dir.create(name_directory, showWarnings = FALSE)
         }
 
+#
+#         #ahn directory
+#         ahn_directory <- paste(name_directory, AHN, sep="/")
+#         if(!dir.exists(ahn_directory)){
+#                 dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
+#         }
+#
+#         #working directory
+#         working_directory <- paste(ahn_directory, dem, sep="/")
+#         if(!dir.exists(working_directory)){
+#                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
+#         }
 
-        #ahn directory
-        ahn_directory <- paste(name_directory, AHN, sep="/")
-        if(!dir.exists(ahn_directory)){
-                dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
-        }
-
-        #working directory
-        working_directory <- paste(ahn_directory, dem, sep="/")
-        if(!dir.exists(working_directory)){
-                dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
-        }
-
-        image_name <- paste0(working_directory, "/", name, ".tif")
+        image_name <- paste0(name_directory, "/", name, "_", AHN, "_", dem, ".tif")
 
         utils::download.file(wcsUrl, image_name, mode="wb")
         print("Download raster image succeeded.");
