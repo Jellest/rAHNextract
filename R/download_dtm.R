@@ -22,16 +22,28 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   my_resolution<- get_resolution(AHN = AHN, resolution)
   indiv_dtm_rasters <- list()
 
+  #name directory
+  name_directory <- paste(wd, name, sep="/")
+  if (!dir.exists(name_directory)){
+    dir.create(name_directory)
+  }
+
+  #sheets directory
+  sheets_directory <- paste(wd, "sheets", sep="/")
+  if(!dir.exists(sheets_directory)){
+    dir.create(sheets_directory, showWarnings = FALSE)
+  }
+
   #ahn directory
-  ahn_directory <- paste(wd, AHN, sep="/")
+  ahn_directory <- paste(sheets_directory, AHN, sep="/")
   if(!dir.exists(ahn_directory)){
-    dir.create(paste(wd, AHN, sep="/"), showWarnings = FALSE)
+    dir.create(ahn_directory, showWarnings = FALSE)
   }
 
   #dtm directory
   ahn_dtm_directory <- paste(ahn_directory, "dtm", sep="/")
   if(!dir.exists(ahn_dtm_directory)){
-    dir.create(paste(ahn_directory, "dtm", sep="/"), showWarnings = FALSE)
+    dir.create(ahn_dtm_directory, showWarnings = FALSE)
   }
   print(ahn_dtm_directory)
 
@@ -139,7 +151,7 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     }
   }
 
-  ahn_dtm_raster_filename <- paste(ahn_dtm_directory, "/", name, "_", AHN , "_", ahn_dtm_letter, "_", my_resolution$res_name, "_dtm", '.tif', sep="")
+  ahn_dtm_raster_filename <- paste(name_directory, "/", name, "_", AHN , "_", ahn_dtm_letter, "_", my_resolution$res_name, "_DTM", '.tif', sep="")
   if(file.exists(ahn_dtm_raster_filename)){
     warning(paste("Cropped DTM raster for", name, "already exists and was overwritten." ,sep =" "))
     #file.remove(ahn_dtm_raster_filename)

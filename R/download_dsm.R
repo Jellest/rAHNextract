@@ -22,17 +22,28 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
   my_resolution<- get_resolution(AHN = AHN, resolution)
   indiv_dsm_rasters <- list()
 
-  print(wd)
+  #name directory
+  name_directory <- paste(wd, name, sep="/")
+  if (!dir.exists(name_directory)){
+    dir.create(name_directory)
+  }
+
+  #sheets directory
+  sheets_directory <- paste(wd, "sheets", sep="/")
+  if(!dir.exists(sheets_directory)){
+    dir.create(sheets_directory, showWarnings = FALSE)
+  }
+
   #ahn directory
-  ahn_directory <- paste(wd, AHN, sep="/")
+  ahn_directory <- paste(sheets_directory, AHN, sep="/")
   if(!dir.exists(ahn_directory)){
-    dir.create(paste(wd, AHN, sep="/"), showWarnings = FALSE)
+    dir.create(ahn_directory, showWarnings = FALSE)
   }
 
   #dsm directory
   ahn_dsm_directory <- paste(ahn_directory, "dsm", sep="/")
   if(!dir.exists(ahn_dsm_directory)){
-    dir.create(paste(ahn_directory, "dsm", sep="/"), showWarnings = FALSE)
+    dir.create(ahn_dsm_directory, showWarnings = FALSE)
   }
 
   print(ahn_dsm_directory)
@@ -97,7 +108,7 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     indiv_dsm_rasters[[r]] <- ahn_dsm_crop
   }
 
-  ahn_dsm_raster_filename <- paste(ahn_dsm_directory, "/", name, "_", AHN , "_", ahn_dsm_letter, "_", my_resolution$res_name, "_dsm", '.tif', sep="")
+  ahn_dsm_raster_filename <- paste(name_directory, "/", name, "_", AHN , "_", ahn_dsm_letter, "_", my_resolution$res_name, "_DSM", '.tif', sep="")
   if(file.exists(ahn_dsm_raster_filename)){
     warning(paste("Cropped DSM raster for", name, "already exists and was overwritten." ,sep =" "))
     #file.remove(ahn_dsm_raster_filename)
