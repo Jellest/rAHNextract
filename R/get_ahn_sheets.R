@@ -18,9 +18,8 @@
 
 get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, filtered = FALSE, redownload = FALSE, delete.sheets = TRUE){
   ###BladIndex method ###
-  #get AHN bladIndex
-  outputDirectory <- paste("output")
 
+  outputDirectory <- paste("output")
   if (!dir.exists(outputDirectory)){
     dir.create(outputDirectory)
   }
@@ -38,13 +37,24 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
 
   sf::st_agr(bladIndex.sf) <- "constant"
   sf::st_agr(shape_area) <- "constant"
-  bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(shape_area, 0))
-
-  bladnrs <- bladnrsIntersect.sf$bladnr
 
   if(type == "pc"){
-    #data <- download_point_cloud(name = name, wd = name_directory, AHN = AHN, bladnrs = bladnrs, area = shape_area, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
+    bladnrsIntersect.sf <- sf::st_crop(bladIndex.sf, sf::st_buffer(shape_area, 0))
+    bladnrs <- bladnrsIntersect.sf$bladnr
+    bboxes <- c()
+    for(f in 1:length(bladnrs)){
+      bladnr <- bladnrsIntersect.sf$bladnr == bladnrs[f]
+      singlebladNr.sf <- bladnrsIntersect.sf[bladnr,]
+      sf::st_agr(singlebladNr.sf) <- "constant"
+      singlebladNr.sf <- sf::st_crop(singlebladNr.sf, sf::st_buffer(shape_area, 0))
+      my_bbox <- sf::st_bbox(singlebladNr.sf)
+      bboxes <- cbind(bboxes, my_bbox)
+    }
+    data <- download_pointCloud(name = name, wd = outputDirectory, AHN = AHN, bladnrs = bladnrs, area = shape_area, bboxes = bboxes, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
   } else {
+    bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(shape_area, 0))
+    bladnrs <- bladnrsIntersect.sf$bladnr
+    bboxes <- c()
     if(tolower(dem) == "dtm"){
       data <- download_dtm(name = name, wd = outputDirectory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, delete.sheets = delete.sheets, redownload = redownload)
     } else if(tolower(dem) == "dsm"){
