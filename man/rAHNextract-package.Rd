@@ -6,7 +6,7 @@
 \alias{rAHNextract-package}
 \title{rAHNextract: Extract elevation points or areas in the Netherlands from the AHN}
 \description{
-Extract elevation points or areas in the Netherlands from the AHN.
+Extract elevation points or areas in the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Raster or point clouds extraction is possible of a custom area for the AHN1, AHN2 or AHN3.
 }
 \seealso{
 Useful links:
