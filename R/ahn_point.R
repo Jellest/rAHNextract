@@ -29,7 +29,7 @@ ahn_point <- function(X, Y, name, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", res
 
   my_point <- generate_ahn_point(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = resolution)
   my_url <- create_wcs_url(bbox = my_point$bbox, type = "point", AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate)
-  my_raster <- download_wcs_raster(wcsUrl = my_url, name = name_trim, AHN = AHN, dem = tolower(dem))
+  my_raster <- download_wcs_raster(wcsUrl = my_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = resolution, interpolate = interpolate)
 
   my_elevation <- intersect_raster(my_raster$raster, my_point$point)
 

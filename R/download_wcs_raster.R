@@ -6,12 +6,14 @@
 #'@param wcsUrl Required. WCS URL
 #'@param AHN Default 'AHN3'. 'AHN3' 'AHN2' or 'AHN1'
 #'@param dem Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'
+#'@param resolution Defailt 0.5
+#'@param interpolate Only applicable for AHN2.
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'download_wcs_raster(name = "elevation", wcsUrl)
 #'@return .tif float32 file of BBOX area.
 #'
-download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm"){
+download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm", resolution, interpolate){
         if(!dir.exists("output")){
                 dir.create(paste("output"), showWarnings = FALSE)
         }
@@ -33,8 +35,14 @@ download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = 
 #         if(!dir.exists(working_directory)){
 #                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
 #         }
+        my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
+        ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate)
 
-        image_name <- paste0(name_directory, "/", name, "_", AHN, "_", dem, ".tif")
+        image_name <- paste0(name_directory, "/", name, "_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
+        if(file.exists(image_name)){
+                warning(paste("Cropped WCS raster for", name, "already exists and was overwritten." ,sep =" "))
+                file.remove(image_name)
+        }
 
         utils::download.file(wcsUrl, image_name, mode="wb")
         print("Download raster image succeeded.");

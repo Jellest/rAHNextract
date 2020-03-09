@@ -8,7 +8,14 @@
 download_wcs_raster(name = "elevation", wcsUrl)
 }
 \usage{
-download_wcs_raster(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm")
+download_wcs_raster(
+  wcsUrl,
+  name = "elevation",
+  AHN = "AHN3",
+  dem = "dsm",
+  resolution,
+  interpolate
+)
 }
 \arguments{
 \item{wcsUrl}{Required. WCS URL}
@@ -18,6 +25,10 @@ download_wcs_raster(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm")
 \item{AHN}{Default 'AHN3'. 'AHN3' 'AHN2' or 'AHN1'}
 
 \item{dem}{Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'}
+
+\item{resolution}{Defailt 0.5}
+
+\item{interpolate}{Only applicable for AHN2.}
 }
 \value{
 .tif float32 file of BBOX area.

@@ -69,18 +69,17 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       ahn_dsm_naming <- paste0("_dsm/", ahn_dsm_letter,"_")
       ahn_dsm_downloadLink <- paste(ahn_atomFeed_BaseUrl, my_resolution$res_name, ahn_dsm_naming,  toupper(bladnrs[[r]]), tifZip, sep="")
       sheetFileNameTif <- paste0(ahn_dsm_letter, "_", toupper(bladnrs[[r]]), ".tif")
-      ahn_dsm_file_path <- paste(ahn_dsm_directory, "/", sheetFileNameTif, sep="")
     } else if(tolower(AHN) == "ahn2"){
       tifZip = ".tif.zip"
       ahn_dsm_letter <- "r"
       ahn_dsm_naming <- paste0("_ruw/", ahn_dsm_letter)
       ahn_dsm_downloadLink <- paste(ahn_atomFeed_BaseUrl, my_resolution$res_name, ahn_dsm_naming,  tolower(bladnrs[[r]]), tifZip, sep="")
       sheetFileNameTif <- paste0(ahn_dsm_letter, tolower(bladnrs[[r]]), ".tif")
-      ahn_dsm_file_path <- paste(ahn_dsm_directory, "/", sheetFileNameTif,sep="")
     } else if(tolower(AHN) == "ahn1"){
       stop("No DSM dataset exists for the AHN1. Please select DTM or choose AHN2 or AHN3.")
     }
 
+    ahn_dsm_file_path <- paste(ahn_dsm_directory, "/", sheetFileNameTif,sep="")
     ahn_dsmZip_file_path <- paste(ahn_dsm_directory, "/", ahn_dsm_letter, bladnrs[[r]], ".ZIP", sep="")
     #check if sheet exists
     if(!file.exists(ahn_dsm_file_path)){
@@ -98,8 +97,8 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       } else {
         message(paste("Corresponding DSM sheet", bladnrs[[r]], "already exists and will be used.", sep=" "))
       }
-    }
-    print(ahn_dsm_file_path)
+    };
+    #print(ahn_dsm_file_path)
     ahn_dsm_file_paths <- cbind(ahn_dsm_file_paths, ahn_dsm_file_path)
     ahn_sheet_dsm <- raster::stack(ahn_dsm_file_path)
     raster::crs(ahn_sheet_dsm) <- epsg_rd
@@ -108,7 +107,8 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     indiv_dsm_rasters[[r]] <- ahn_dsm_crop
   }
 
-  ahn_dsm_raster_filename <- paste(name_directory, "/", name, "_", AHN , "_", ahn_dsm_letter, "_", my_resolution$res_name, "_DSM", '.tif', sep="")
+  ahn_dsm_raster_filename <- paste(name_directory, "/", name, "_", tolower(ahn_dsm_letter), AHN , "_", my_resolution$res_name, "_DSM", '.tif', sep="")
+  print(ahn_dsm_raster_filename)
   if(file.exists(ahn_dsm_raster_filename)){
     warning(paste("Cropped DSM raster for", name, "already exists and was overwritten." ,sep =" "))
     #file.remove(ahn_dsm_raster_filename)

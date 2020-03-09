@@ -37,11 +37,11 @@ ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, sheets = sheets)
   if(sheets == TRUE || type == "pc"){
     #download AHN sheets and get data (slow)
-    ahn_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = type, AHN = my_ahn, dem = dem, resolution = resolution, interpolate = interpolate, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
+    ahn_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = type, AHN = my_ahn, dem = dem, resolution = resolution, filtered = filtered, delete.sheets = delete.sheets, redownload = redownload)
   } else {
     #retrieve data through WCS (fast)
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem))
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = resolution, interpolate = interpolate)
     raster_mask <- raster::mask(x = raster_data$raster, mask = ahn_area$area, filename = raster_data$file, overwrite = TRUE)
     ahn_data <- raster_mask
   }

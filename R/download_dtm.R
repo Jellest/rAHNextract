@@ -71,7 +71,6 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       ahn_dtm_naming <- paste0("_dtm/", ahn_dtm_letter,"_")
       ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, my_resolution$res_name, ahn_dtm_naming,  toupper(bladnrs[[t]]), tifZip, sep="")
       sheetFileNameTif <- paste0(ahn_dtm_letter, "_", toupper(bladnrs[[t]]), ".tif")
-      ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
     } else if(tolower(AHN) == "ahn2"){
       tifZip = ".tif.zip"
       if(my_resolution$res == 0.5){
@@ -87,10 +86,9 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       } else if (my_resolution$res == 5){
         ahn_dtm_letter <- ""
         ahn_dtm_naming <- paste0("/", "ahn2_5_")
-        sheetFileNameTif <- paste0("ahn2_5_", tolower(bladnrs[[t]]), ".tif")
+        sheetFileNameTif <- paste0("ahn2_5_", ahn_dtm_letter, tolower(bladnrs[[t]]), ".tif")
       }
       ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, my_resolution$res_name, ahn_dtm_naming,  tolower(bladnrs[[t]]), tifZip, sep="")
-      ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
     } else if(tolower(AHN) == "ahn1" ){
       tifZip = ".tif.zip"
       if(my_resolution$res == 5){
@@ -99,24 +97,21 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
         ahn_dtm_naming <- paste0("5m/",  ahn_dtm_letter)
         sheetFileNameTif <- paste0(ahn_dtm_letter, tolower(bladnrs[[t]]), ".tif")
         ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming,  tolower(bladnrs[[t]]), tifZip, sep="")
-        ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
       } else if(my_resolution$res == 25){
         #http://geodata.nationaalgeoregister.nl/ahn1/extract/ahn1_25m/ahn1_25.tif.zip
         ahn_dtm_letter <- ""
         ahn_dtm_naming <- paste0("25m/",  ahn_dtm_letter)
         sheetFileNameTif <- paste0("ahn_25", ".tif")
         ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming, "ahn1_25", tifZip, sep="")
-        ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
       } else if(my_resolution$res == 100){
         #http://geodata.nationaalgeoregister.nl/ahn1/extract/ahn1_100m/ahn1_100.tif.zip
         ahn_dtm_letter <- ""
         ahn_dtm_naming <- paste0("100m/",  ahn_dtm_letter)
         sheetFileNameTif <- paste0("ahn_100", ".tif")
         ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming, "ahn1_100", tifZip, sep="")
-        ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
       }
     }
-
+    ahn_dtm_file_path <- paste(ahn_dtm_directory, "/", sheetFileNameTif, sep="")
     ahn_dtmZip_file_path <- paste(ahn_dtm_directory, "/", ahn_dtm_letter, bladnrs[[t]], ".zip", sep="")
     #check if sheet exists
     if(!file.exists(ahn_dtm_file_path)){
@@ -124,6 +119,9 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
       #print(ahn_dtm_downloadLink)
       utils::download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
       utils::unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
+      if(tolower(AHN) == "ahn1"){
+        file.rename(paste0(toupper(bladnrs[[t]]), ".tif"), ahn_dtm_file_path)
+      }
       file.remove(ahn_dtmZip_file_path)
     } else {
       if(redownload == TRUE){
@@ -131,13 +129,15 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
         file.remove(paste0(ahn_dtm_directory, "/", sheetFileNameTif))
         utils::download.file(ahn_dtm_downloadLink, destfile = ahn_dtmZip_file_path, mode = "wb")
         utils::unzip(ahn_dtmZip_file_path, overwrite = TRUE, exdir = ahn_dtm_directory)
+        if(tolower(AHN) == "ahn1"){
+          file.rename(paste0(toupper(bladnrs[[t]]), ".tif"), ahn_dtm_file_path)
+        }
         file.remove(ahn_dtmZip_file_path)
       } else {
         message(paste("Corresponding dtm sheet", bladnrs[[t]], "already exists and will be used.", sep=" "))
       }
     }
-
-    print(ahn_dtm_file_path)
+    #print(ahn_dtm_file_path)
     ahn_dtm_file_paths <- cbind(ahn_dtm_file_paths, ahn_dtm_file_path)
     ahn_sheet_dtm <- raster::stack(ahn_dtm_file_path)
     raster::crs(ahn_sheet_dtm) <- epsg_rd
@@ -151,7 +151,8 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     }
   }
 
-  ahn_dtm_raster_filename <- paste(name_directory, "/", name, "_", AHN , "_", ahn_dtm_letter, "_", my_resolution$res_name, "_DTM", '.tif', sep="")
+  ahn_dtm_raster_filename <- paste(name_directory, "/", name, "_", tolower(ahn_dtm_letter), AHN , "_", my_resolution$res_name, "_DTM", '.tif', sep="")
+  print(ahn_dtm_raster_filename)
   if(file.exists(ahn_dtm_raster_filename)){
     warning(paste("Cropped DTM raster for", name, "already exists and was overwritten." ,sep =" "))
     #file.remove(ahn_dtm_raster_filename)
