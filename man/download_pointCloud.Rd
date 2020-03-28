@@ -5,7 +5,7 @@
 \title{Download point cloud}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_poinCloud(name, wd, AHN = "AHN3", bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
+download_poinCloud(name, wd, AHN = "AHN3", bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_pointCloud(
@@ -16,7 +16,7 @@ download_pointCloud(
   area,
   bboxes,
   filtered = TRUE,
-  delete.sheets = TRUE,
+  keep.sheets = TRUE,
   redownload = FALSE
 )
 }
@@ -35,7 +35,7 @@ download_pointCloud(
 
 \item{filtered}{Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the filtered point clouds or not.}
 
-\item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
+\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
 \item{redownload}{Deafult FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }

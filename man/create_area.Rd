@@ -4,7 +4,7 @@
 \alias{create_area}
 \title{Create area}
 \usage{
-create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
+create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE)
 }
 \arguments{
 \item{X}{X coordidnate in RD New or WGS84 (LON)}
@@ -18,8 +18,6 @@ create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 \item{polygon}{Optional. Use polygonetric object as your area. .shp, .gpkg. Output will be BBox of this object.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
-
-\item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float)}
 }
 \value{
 "area": polygon of area, "bbox": BBOX coordinates.

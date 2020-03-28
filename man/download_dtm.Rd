@@ -5,7 +5,7 @@
 \title{Download DTM}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_dtm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
+download_dtm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_dtm(
@@ -17,7 +17,7 @@ download_dtm(
   bladnrs,
   area,
   interpolate = TRUE,
-  delete.sheets = TRUE,
+  keep.sheets = TRUE,
   redownload = FALSE
 )
 }
@@ -38,7 +38,7 @@ download_dtm(
 
 \item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
+\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
 \item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }

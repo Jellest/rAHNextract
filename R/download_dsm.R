@@ -10,14 +10,14 @@
 #'@param bladnrs Required. Blad numbers.
 #'@param area Required area to be downloaded
 #'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
-#'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
+#'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
 #'@param redownload Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
-#'download_dsm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
+#'download_dsm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 #'@return .tif of DSM AHN area
 
-download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE){
+download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE){
   ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
   my_resolution<- get_resolution(AHN = AHN, resolution)
   indiv_dsm_rasters <- list()
@@ -134,7 +134,7 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, 
     print("Download of dsm rasters complete.")
   }
 
-  if(delete.sheets == TRUE){
+  if(keep.sheets == FALSE){
     for(fr in 1:length(ahn_dsm_file_paths)){
       file.remove(ahn_dsm_file_paths[fr])
     }

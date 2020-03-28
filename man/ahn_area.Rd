@@ -19,9 +19,9 @@ ahn_area(
   interpolate = TRUE,
   filtered = FALSE,
   decimals = 2,
-  keep.ahn = FALSE,
-  sheets = FALSE,
-  delete.sheets = FALSE,
+  keep.ahn = TRUE,
+  method.sheets = FALSE,
+  keep.sheets = TRUE,
   redownload = FALSE
 )
 }
@@ -56,9 +56,9 @@ ahn_area(
 
 \item{keep.ahn}{Deault TRUE. Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).}
 
-\item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
+\item{method.sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
 
-\item{delete.sheets}{Default TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
+\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
 \item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }
@@ -73,5 +73,5 @@ Get AHN of a certain area
 }
 \author{
 Jelle Stuurman
-ahn_area(name, X, Y, radius, bbox, polygon, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
+ahn_area(name, X, Y, radius, bbox, polygon, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, keep.sheets = TRUE, redownload = FALSE)
 }

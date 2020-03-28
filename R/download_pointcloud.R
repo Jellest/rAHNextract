@@ -9,14 +9,14 @@
 #'@param area Required area to be downloaded
 #'@param bboxes Optional. individual bboxes of cropped sheets
 #'@param filtered Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the filtered point clouds or not.
-#'@param delete.sheets Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
+#'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
 #'@param redownload Deafult FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
-#'download_poinCloud(name, wd, AHN = "AHN3", bladnrs, area, interpolate = TRUE, delete.sheets = TRUE, redownload = FALSE)
+#'download_poinCloud(name, wd, AHN = "AHN3", bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 #'@return .tif of DSM AHN area
 
-download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, filtered = TRUE, delete.sheets = TRUE, redownload = FALSE){
+download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, filtered = TRUE, keep.sheets = TRUE, redownload = FALSE){
   indiv_pc_rasters <- list()
   ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
 
@@ -106,7 +106,7 @@ download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, f
     if(!file.exists(ahn_pc_file_path)){
       print("Downloading point cloud sheets...")
       print(ahn_pc_downloadLink)
-      utils::download.file(ahn_pc_downloadLink, destfile = ahn_pcZip_file_path, mode="wb", quiet = TRUE)
+      utils::download.file(ahn_pc_downloadLink, destfile = ahn_pcZip_file_path, mode="wb")
       if(tolower(AHN) == "ahn2" || tolower(AHN) == "ahn1"){
         utils::unzip(ahn_pcZip_file_path, overwrite = TRUE, exdir = ahn_pc_directory)
         if(tolower(AHN) == "ahn1"){
@@ -140,7 +140,7 @@ download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, f
   #laz <- lidR::writeLAS(file = ahn_pc_file_path, file = laz)
   #unlink(paste0("output/", name, "temp_", ahn_pc_letter, AHN), recursive = TRUE)
 
-#   if(delete.sheets == TRUE){
+#   if(keep.sheets == FALSE){
 #     for(fr in 1:length(ahn_pc_file_paths)){
 #       file.remove(ahn_pc_file_paths[fr])
 #     }

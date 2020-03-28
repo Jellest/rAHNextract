@@ -14,7 +14,7 @@ get_ahn_sheets(
   interpolate = TRUE,
   filtered = FALSE,
   redownload = FALSE,
-  delete.sheets = TRUE
+  keep.sheets = TRUE
 )
 }
 \arguments{
@@ -36,7 +36,7 @@ get_ahn_sheets(
 
 \item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 
-\item{delete.sheets}{Deault TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).}
+\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 }
 \value{
 .tif AHN kaartblad cropped to area
@@ -49,5 +49,5 @@ Get cropped AHN sheets
 }
 \author{
 Jelle Stuurman
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, redownload = FALSE, delete.sheets = TRUE)
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 }

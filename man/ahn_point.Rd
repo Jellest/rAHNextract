@@ -12,7 +12,7 @@ ahn_point(
   AHN = "AHN3",
   dem = "dsm",
   resolution = 0.5,
-  keep.ahn = TRUE,
+  keep.ahn = FALSE,
   decimals = 2,
   interpolate = TRUE
 )
