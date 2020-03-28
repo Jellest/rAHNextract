@@ -25,7 +25,7 @@
 #'@return .tif file of AHN area
 #'@export
 
-ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, filtered = FALSE, decimals = 2, keep.ahn = FALSE, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
+ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, filtered = FALSE, decimals = 2, keep.ahn = TRUE, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)

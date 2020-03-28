@@ -17,7 +17,7 @@
 #'@return elevation in meters.
 #'@export
 
-ahn_point <- function(X, Y, name, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, keep.ahn = TRUE, decimals = 2, interpolate = TRUE){
+ahn_point <- function(X, Y, name, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, keep.ahn = FALSE, decimals = 2, interpolate = TRUE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
