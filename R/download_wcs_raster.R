@@ -8,43 +8,50 @@
 #'@param dem Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'
 #'@param resolution Defailt 0.5
 #'@param interpolate Only applicable for AHN2.
+#'@param keep.ahn Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'download_wcs_raster(name = "elevation", wcsUrl)
 #'@return .tif float32 file of BBOX area.
 #'
-download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm", resolution, interpolate){
-        if(!dir.exists("output")){
-                dir.create(paste("output"), showWarnings = FALSE)
-        }
-
-        name_directory <- paste0("output/", name)
-        if(!dir.exists(name_directory)){
-                dir.create(name_directory, showWarnings = FALSE)
-        }
-
-#
-#         #ahn directory
-#         ahn_directory <- paste(name_directory, AHN, sep="/")
-#         if(!dir.exists(ahn_directory)){
-#                 dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
-#         }
-#
-#         #working directory
-#         working_directory <- paste(ahn_directory, dem, sep="/")
-#         if(!dir.exists(working_directory)){
-#                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
-#         }
+download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "dsm", resolution, interpolate, keep.ahn){
         my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
         ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate)
 
-        image_name <- paste0(name_directory, "/", name, "_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
-        if(file.exists(image_name)){
-                warning(paste("Cropped WCS raster for", name, "already exists and was overwritten." ,sep =" "))
-                file.remove(image_name)
+        if(keep.ahn == FALSE){
+                #creat temp file
+                image_name <- paste0(name, "_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem))
+                image_name <- tempfile(pattern = image_name, tmpdir = tempdir(), fileext = ".tif")
+        } else {
+                if(!dir.exists("output")){
+                        dir.create(paste("output"), showWarnings = FALSE)
+                }
+
+                name_directory <- paste0("output/", name)
+                if(!dir.exists(name_directory)){
+                        dir.create(name_directory, showWarnings = FALSE)
+                }
+                image_name <- paste0(name_directory, "/", name, "_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
+                if(file.exists(image_name)){
+                        warning(paste("Cropped WCS raster for", name, "already exists and was overwritten." ,sep =" "))
+                        file.remove(image_name)
+                }
         }
 
-        utils::download.file(wcsUrl, image_name, mode="wb")
+        #
+        #         #ahn directory
+        #         ahn_directory <- paste(name_directory, AHN, sep="/")
+        #         if(!dir.exists(ahn_directory)){
+        #                 dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
+        #         }
+        #
+        #         #working directory
+        #         working_directory <- paste(ahn_directory, dem, sep="/")
+        #         if(!dir.exists(working_directory)){
+        #                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
+        #
+
+        utils::download.file(url = wcsUrl, destfile = image_name, mode = "wb")
         print("Download raster image succeeded.");
         my_raster <- raster::raster(image_name)
         raster::NAvalue(my_raster) <- -32768.0

@@ -14,7 +14,8 @@ download_wcs_raster(
   AHN = "AHN3",
   dem = "dsm",
   resolution,
-  interpolate
+  interpolate,
+  keep.ahn
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ download_wcs_raster(
 \item{resolution}{Defailt 0.5}
 
 \item{interpolate}{Only applicable for AHN2.}
+
+\item{keep.ahn}{Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).}
 }
 \value{
 .tif float32 file of BBOX area.

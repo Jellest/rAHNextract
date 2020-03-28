@@ -12,7 +12,7 @@ ahn_point(
   AHN = "AHN3",
   dem = "dsm",
   resolution = 0.5,
-  delete.ahn = TRUE,
+  keep.ahn = TRUE,
   decimals = 2,
   interpolate = TRUE
 )
@@ -32,7 +32,7 @@ ahn_point(
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
-\item{delete.ahn}{Deault TRUE. Set to FALSE if you want to keep the downloaded AHN area of the point (9 pixels).}
+\item{keep.ahn}{Deault FALSE. Set to TRUE if you want to keep the downloaded AHN area of the point (9 pixels).}
 
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
@@ -49,5 +49,5 @@ Get AHN elvation of a certain point location
 }
 \author{
 Jelle Stuurman
-ahn_point(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, delete.ahn = TRUE, decimals = 2, interpolate = TRUE)
+ahn_point(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, keep.ahn = TRUE, decimals = 2, interpolate = TRUE)
 }

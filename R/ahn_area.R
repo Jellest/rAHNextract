@@ -16,6 +16,7 @@
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param filtered Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.
 #'@param decimals Default 2. Decide number of decimal places of output elevations.
+#'@param keep.ahn Deault TRUE. Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).
 #'@param sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float
 #'@param delete.sheets Default TRUE. Only applicable if sheets is set to TRUE. Set to FALSE if you want to keep the downloaded sheets (kaartbladen).
 #'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
@@ -24,7 +25,7 @@
 #'@return .tif file of AHN area
 #'@export
 
-ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, filtered = FALSE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
+ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "raster", AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, filtered = FALSE, decimals = 2, keep.ahn = FALSE, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE){
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
@@ -41,10 +42,12 @@ ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, type = "
   } else {
     #retrieve data through WCS (fast)
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = resolution, interpolate = interpolate)
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = resolution, interpolate = interpolate, keep.ahn = keep.ahn)
     raster_mask <- raster::mask(x = raster_data$raster, mask = ahn_area$area, filename = raster_data$file, overwrite = TRUE)
     ahn_data <- raster_mask
+    if(keep.ahn == FALSE){
+      unlink(raster_data$file)
+    }
   }
-
   return (ahn_data)
 }

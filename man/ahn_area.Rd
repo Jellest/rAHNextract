@@ -19,6 +19,7 @@ ahn_area(
   interpolate = TRUE,
   filtered = FALSE,
   decimals = 2,
+  keep.ahn = FALSE,
   sheets = FALSE,
   delete.sheets = FALSE,
   redownload = FALSE
@@ -52,6 +53,8 @@ ahn_area(
 \item{filtered}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.}
 
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+
+\item{keep.ahn}{Deault TRUE. Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).}
 
 \item{sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
 
