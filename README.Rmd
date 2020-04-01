@@ -1,0 +1,98 @@
+ua---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rAHNextract
+
+<!-- badges: start -->
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
+
+Extract elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN) using R. Raster or point clouds extraction is possible of a custom area for the AHN1, AHN2 or AHN3 using the different PDOK. geo services.
+
+Works with all available resolutions. Works with Digital Terrain Model (DTM) and Digital Surface Model (DSM).
+
+Available raster points or datasets to download through this package:
+AHN1:
+AHN2: 0.5 m and 5 m resolutions; both DSM and DTM. 0.5 m DTM also makes distinction between interpolated raster dataset or not)
+AHN3: 0.5 m and 5 m; both DSM and DTM
+
+Available point cloud datasets:
+AHN1: uitgefilterd en gefilterd
+AHN2: uitgefilterd en gefilterd
+AHN3: 
+## Installation
+
+You can install the released version of rAHNextract from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+#>install.packages("rAHNextract")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Jellest/rAHNextract")
+```
+## Example
+
+
+```{r AHN point(s)}
+library(rAHNextract)
+#
+indiv_elevation <- ahn_point(name = "water side", X = , Y = , AHN = "AHN3", resolution = 0.5)
+
+#Use mapply to calculate AHN for more than 1 point.
+my_points <- read.table(file = "scratch/coordinaten_Zwaanshoek.csv", header = TRUE, sep=",")
+elevation_points <- mapply(ahn_point, name = my_points$ID, X = my_points$X, Y = my_points$Y, AHN =  "AHN3", resolution = 0.5)
+results_table <- data.frame(my_points, elevation_points)
+colnames(results_table) <- c("ID", "X", "Y", "elevation")
+
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{AHN raster areas}
+#WCS method
+##circle
+
+#BBOX
+
+
+
+#sheets method
+##custom shape
+
+
+#All geometry type can be applied for both the WCS and sheets method.
+```
+
+```{AHN point clouds}
+#WCS method
+
+#sheets method
+
+
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+
+You can also embed plots, for example:
+
+```{r pressure, echo = FALSE}
+
+```
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!

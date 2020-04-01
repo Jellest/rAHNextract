@@ -6,5 +6,9 @@ inst/doc
 data-raw/
 tests/
 scratch/
-output/
+AHN_sheets/
+AHN_output/
+Rcode
 rAHNextract_test.qgz
+my_output/
+Nederwaard1/

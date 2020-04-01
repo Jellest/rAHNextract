@@ -9,9 +9,9 @@ generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 \arguments{
 \item{name}{Optional. Give a name of the specified area.}
 
-\item{X}{X coordidnate in RD New or WGS84 (LON)}
+\item{X}{X coordinate in RD New or WGS84 (LON)}
 
-\item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
+\item{Y}{Y coordinate in RD New or WGS84 (LAT)}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 

@@ -12,10 +12,12 @@ download_wcs_raster(
   wcsUrl,
   name = "elevation",
   AHN = "AHN3",
-  dem = "dsm",
+  dem = "DSM",
   resolution,
+  radius,
   interpolate,
-  keep.ahn
+  destfile = "",
+  type = "area"
 )
 }
 \arguments{
@@ -25,13 +27,17 @@ download_wcs_raster(
 
 \item{AHN}{Default 'AHN3'. 'AHN3' 'AHN2' or 'AHN1'}
 
-\item{dem}{Defailt 'dsm'. Selct DEM: 'dsm' or "dtm'}
+\item{dem}{Default 'DSM'. Select DEM: 'DSM' or "DTM'}
 
-\item{resolution}{Defailt 0.5}
+\item{resolution}{Default 0.5}
+
+\item{radius}{Radius of circle or squared BBOX in meters.}
 
 \item{interpolate}{Only applicable for AHN2.}
 
-\item{keep.ahn}{Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).}
+\item{destfile}{destination file.}
+
+\item{type}{'area' or 'point'}
 }
 \value{
 .tif float32 file of BBOX area.

@@ -6,7 +6,7 @@
 #'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@author Jelle Stuurman
 #'get_resolution(AHN = "AHN3", resolution)
-#'@return "res": resolition in meters, "res_name:" name of resolution string.
+#'@return "res": resolution in meters, "res_name:" name of resolution string.
 #'
 get_resolution <- function(AHN = "AHN3", resolution){
   if(AHN == "AHN1"){

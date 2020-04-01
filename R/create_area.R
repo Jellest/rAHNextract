@@ -2,34 +2,43 @@
 #'
 #'@title Create area
 #'@description Create area through buffer, BBOX or custom area
-#'@param X X coordidnate in RD New or WGS84 (LON)
-#'@param Y Y coordidnate in RD New or WGS84 (LAT)
+#'@param X X coordinate in RD New or WGS84 (LON)
+#'@param Y Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
 #'@param radius Optional. Set radius in meters of area around a point to create a buffer area.
-#'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
-#'@param polygon Optional. Use polygonetric object as your area. .shp, .gpkg. Output will be BBox of this object.
+#'@param bbox Optional. Set to TRUE if you want to create a bbox with the radius as parameter. Or create own bbox of area with format: c(XMIN, YMIN, XMAX, YMAX)
+#'@param polygon Optional. Use polygon object as your area. Formats includes .shp, .gpkg. Output will be BBOX of this object.
 #'@author Jelle Stuurman
 #'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 #'@return "area": polygon of area, "bbox": BBOX coordinates.
 
 
 create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE){
-  if(missing(bbox) == TRUE && missing(polygon) == TRUE){
+  if((missing(bbox) == TRUE || bbox == TRUE) && missing(polygon) == TRUE){
     #create circle through buffer around a point
+    print("Creating circle from radius input.")
     if(missing(X) == TRUE || missing(Y) == TRUE){
       stop("X or Y input coordinates are missing.")
     }
     if(missing(radius)){
       stop("Radius input coordinate(s) is/are missing.")
     }
+
     my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)
     my_area.sf <- sf::st_buffer(my_point, dist=radius)
     sf::st_crs(my_area.sf, epsg_rd)
+
     my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
     my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
     my_bbox_area.sf <- create_bbox_polygon(my_bbox)
-  } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(polygon) == TRUE){
-    #create bbox
+    if(missing(bbox) == FALSE && bbox == TRUE){
+      #create bbox based on only radius
+      print("Creating bbox from radius input.")
+      my_area.sf <- my_bbox_area.sf
+    }
+  } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(polygon) == TRUE && radius == ""){
+    #create BBOX using BBOX coordinates
+    print("Creating BBOX from BBOX coordinates.")
     if(length(bbox) != 4){
       stop("4 coordinates are required: XMIN, YMIN, XMAX, YMAX.")
     }
@@ -46,18 +55,26 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE){
     }
     my_bbox_area.sf <- create_bbox_polygon(my_bbox)
     my_area.sf <- my_bbox_area.sf
-  } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE){
-    #load shape through polygon
+  } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE && radius == ""){
+    #load shape through polygon to create area
+    print("Creating area from shapefile.")
     if(LONLAT == TRUE){
       my_area.sf <- sf::st_transform(polygon, epsg_rd)
+      my_area.sf <- sf::st_as_sf(my_area.sf)
       #my_area.sf <- st_make_valid(my_area.sf)
     } else {
-      my_area.sf <- polygon
+      my_area.sf <- sf::st_as_sf(polygon)
       #my_area.sf <- st_make_valid(my_area.sf)
+    }
+    if(nrow(my_area.sf) != 1){
+      stop("The selected polygon has no or more than one feature. Add/reduce to one feature or use loop functionalities.")
     }
     my_bbox <- sf::st_bbox(my_area.sf, crs = epsg_rd)
     my_bbox <- data.frame("xmin" = floor(my_bbox$xmin), "ymin" = floor(my_bbox$ymin), "xmax" = ceiling(my_bbox$xmax), "ymax" = ceiling(my_bbox$ymax))
     my_bbox_area.sf <- create_bbox_polygon(my_bbox)
+  }
+  if(!exists("my_area.sf")){
+    stop("Too many or little parameters have been defined. Please add or remove them.")
   }
   return(list("area" = my_area.sf, "bbox_area" = my_bbox_area.sf, "bbox" = my_bbox))
 }

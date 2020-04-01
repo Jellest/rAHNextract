@@ -7,15 +7,15 @@
 create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE)
 }
 \arguments{
-\item{X}{X coordidnate in RD New or WGS84 (LON)}
+\item{X}{X coordinate in RD New or WGS84 (LON)}
 
-\item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
+\item{Y}{Y coordinate in RD New or WGS84 (LAT)}
 
 \item{radius}{Optional. Set radius in meters of area around a point to create a buffer area.}
 
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
+\item{bbox}{Optional. Set to TRUE if you want to create a bbox with the radius as parameter. Or create own bbox of area with format: c(XMIN, YMIN, XMAX, YMAX)}
 
-\item{polygon}{Optional. Use polygonetric object as your area. .shp, .gpkg. Output will be BBox of this object.}
+\item{polygon}{Optional. Use polygon object as your area. Formats includes .shp, .gpkg. Output will be BBOX of this object.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 }

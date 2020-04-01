@@ -9,7 +9,7 @@ create_wcs_url(
   bbox,
   AHN = "AHN3",
   resolution = 0.5,
-  dem = "dsm",
+  dem = "DSM",
   interpolate = TRUE
 )
 }
@@ -24,7 +24,7 @@ create_wcs_url(
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 }
 \value{
 WCS URL string
@@ -37,5 +37,5 @@ Create WCS URL
 }
 \author{
 Jelle Stuurman
-create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE)
+create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE)
 }

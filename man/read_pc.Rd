@@ -5,10 +5,10 @@
 \title{read point cloud}
 \source{
 \url{https://www.pdok.nl/datasets}
-read_pc(laz, AHN = "AHN3", filtered_name, area, radius, bladnrs, bbox, name, nr, bladnrsLength)
 }
 \usage{
 read_pc(
+  wd,
   laz,
   AHN = "AHN3",
   filtered_name,
@@ -22,15 +22,17 @@ read_pc(
 )
 }
 \arguments{
-\item{laz}{Required. Laz data}
+\item{wd}{Required. working directory}
+
+\item{laz}{Required. .laz data}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
-\item{filtered_name}{Code name of (un)filtered data.}
+\item{filtered_name}{Code name of (uit)gefilterd data.}
 
 \item{area}{Required area to be downloaded}
 
-\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
+\item{radius}{Required for circle or squared bbox. Radius of selected AHN area.}
 
 \item{bladnrs}{Required. Blad numbers.}
 
@@ -40,7 +42,7 @@ read_pc(
 
 \item{nr}{bladnr}
 
-\item{bladnrsLength}{Total amunt of blad nrs}
+\item{bladnrsLength}{Total amount of blad nrs}
 }
 \value{
 .laz data

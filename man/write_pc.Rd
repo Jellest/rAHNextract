@@ -3,22 +3,23 @@
 \name{write_pc}
 \alias{write_pc}
 \title{write point cloud}
-\source{
-\url{https://www.pdok.nl/datasets}
-}
 \usage{
-write_pc(temp_name, ahn_pc_name, nr, bladnrsLength, area)
+write_pc(temp_name, name, ahn_pc_name, nr, bladnrsLength, area, radius)
 }
 \arguments{
-\item{temp_name}{Required. Laz data}
+\item{temp_name}{Required. .laz data}
+
+\item{name}{name of file}
 
 \item{ahn_pc_name}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
 \item{nr}{bladnr}
 
-\item{bladnrsLength}{Total amunt of blad nrs}
+\item{bladnrsLength}{Total amount of blad nrs}
 
 \item{area}{Required area to be downloaded}
+
+\item{radius}{radius. Required for correct naming.}
 }
 \description{
 read point cloud

@@ -1,10 +1,9 @@
 #'Create BBOX polygon
 #'
 #'@title create BBOX polygon
-#'@description Get AHN of a certain area
-#'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
+#'@description Create BBOX geometry of certain area
+#'@param bbox Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
 #'@author Jelle Stuurman
-#'create_bbox_polygon(bbox)
 #'@return BBOX polygon
 
 create_bbox_polygon <- function(bbox){

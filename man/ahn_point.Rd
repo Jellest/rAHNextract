@@ -2,7 +2,7 @@
 % Please edit documentation in R/ahn_point.R
 \name{ahn_point}
 \alias{ahn_point}
-\title{Get AHN elvation of a certain point location}
+\title{Get AHN elevation of a certain point location}
 \usage{
 ahn_point(
   X,
@@ -10,17 +10,17 @@ ahn_point(
   name,
   LONLAT = FALSE,
   AHN = "AHN3",
-  dem = "dsm",
+  dem = "DSM",
   resolution = 0.5,
-  keep.ahn = FALSE,
+  destfile = "",
   decimals = 2,
   interpolate = TRUE
 )
 }
 \arguments{
-\item{X}{X coordidnate in RD New or WGS84 (LON)}
+\item{X}{X coordinate in RD New or WGS84 (LON)}
 
-\item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
+\item{Y}{Y coordinate in RD New or WGS84 (LAT)}
 
 \item{name}{Optional. Give a name of the specified area.}
 
@@ -32,11 +32,11 @@ ahn_point(
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
-\item{keep.ahn}{Deault FALSE. Set to TRUE if you want to keep the downloaded AHN area of the point (9 pixels).}
+\item{destfile}{Default FALSE. Set to TRUE if you want to keep the downloaded AHN area of the point (9 pixels).}
 
-\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+\item{decimals}{Default 2. Decide number of decimal places of gefilterd elevations.}
 
-\item{interpolate}{Default TRUE. Ony applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 }
 \value{
 elevation in meters.
@@ -45,9 +45,8 @@ elevation in meters.
 Get elevation of specific point location.
 }
 \details{
-Get AHN elvation of a certain point location
+Get AHN elevation of a certain point location
 }
 \author{
 Jelle Stuurman
-ahn_point(name, X, Y, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution = 0.5, keep.ahn = TRUE, decimals = 2, interpolate = TRUE)
 }

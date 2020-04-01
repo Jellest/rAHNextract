@@ -7,18 +7,17 @@
 create_bbox_polygon(bbox)
 }
 \arguments{
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
+\item{bbox}{Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)}
 }
 \value{
 BBOX polygon
 }
 \description{
-Get AHN of a certain area
+Create BBOX geometry of certain area
 }
 \details{
 Create BBOX polygon
 }
 \author{
 Jelle Stuurman
-create_bbox_polygon(bbox)
 }

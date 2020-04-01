@@ -1,10 +1,10 @@
 Type: Package
 Package: rAHNextract
 Title: Extract elevation points or areas in the Netherlands from the AHN
-Version: 0.95
+Version: 0.98
 Date: 23-02-2020
 Author: Jelle Stuurman
-Maintainer: Jelle Stuurman <j@j.com>
+Maintainer: Jelle Stuurman <jellejstuurman@gmail.com>
 Description: Extract elevation points or areas in the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Raster or point clouds extraction is possible of a custom area for the AHN1, AHN2 or AHN3.
 URL: https://github.com/Jellest/rAHNextract 
 BugReports: https://github.com/Jellest/rAHNextract/issues

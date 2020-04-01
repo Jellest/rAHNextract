@@ -2,7 +2,7 @@
 % Please edit documentation in R/intersect_raster.R
 \name{intersect_raster}
 \alias{intersect_raster}
-\title{AHn area}
+\title{AHN area}
 \usage{
 intersect_raster(ras, point)
 }
@@ -22,5 +22,5 @@ Get AHN of a certain area
 }
 \author{
 Jelle Stuurman
-ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
+ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 }

@@ -13,7 +13,7 @@ get_dem(AHN, dem, resolution, interpolate = TRUE)
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
-\item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 }
 \value{
 DEM type string

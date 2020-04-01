@@ -12,7 +12,7 @@ get_resolution(AHN = "AHN3", resolution)
 \item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 }
 \value{
-"res": resolition in meters, "res_name:" name of resolution string.
+"res": resolution in meters, "res_name:" name of resolution string.
 }
 \description{
 Download DSM

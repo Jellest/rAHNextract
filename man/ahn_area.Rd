@@ -12,23 +12,23 @@ ahn_area(
   polygon,
   name,
   LONLAT = FALSE,
-  type = "raster",
   AHN = "AHN3",
-  dem = "dsm",
+  dem = "DSM",
+  type = "raster",
   resolution,
   interpolate = TRUE,
-  filtered = FALSE,
+  gefilterd = FALSE,
   decimals = 2,
-  keep.ahn = TRUE,
+  destfile = "structured",
   method.sheets = FALSE,
   keep.sheets = TRUE,
   redownload = FALSE
 )
 }
 \arguments{
-\item{X}{Optional. X Coordidnate in RD New or WGS84 (LON)}
+\item{X}{Optional. X coordinate in RD New or WGS84 (LON)}
 
-\item{Y}{Optional. Y Coordidnate in RD New or WGS84 (LAT)}
+\item{Y}{Optional. Y coordinate in RD New or WGS84 (LAT)}
 
 \item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
 
@@ -36,27 +36,27 @@ ahn_area(
 
 \item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
 
-\item{name}{Optional. Give a name of the specified area. Name will used in the output folders and files}
+\item{name}{Optional. Give a name of the specified area. Name will used in the gefilterd folders and files}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
 
-\item{type}{Default 'raster'. Select 'raster' to get raster data}
-
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
-\item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
+\item{dem}{Required for raster datasets. Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters fpor AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{type}{Default 'raster'. Select 'raster' to get raster data}
+
+\item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{filtered}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.}
+\item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
 
-\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+\item{decimals}{Default 2. Decide number of decimal places of gefilterd elevations.}
 
-\item{keep.ahn}{Deault TRUE. Set to FALSE if you want to delete the downloaded AHN area of the point (9 pixels).}
+\item{destfile}{Default "structured". When set to "structured", all the gefilterd files will be saved in an organized way in the folder 'AHN_gefilterd' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other gefilterd path to save all the gefilterd files there. The AHN sheets will be downloaded in the gefilterd folder 'AHN_sheets" in your working directory. Set to "", to have all gefilterd files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.#'@param method.sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotif 32bit float}
 
-\item{method.sheets}{Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotiff 32bit float}
+\item{method.sheets}{Only applicable for raster data. Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.}
 
 \item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
@@ -73,5 +73,4 @@ Get AHN of a certain area
 }
 \author{
 Jelle Stuurman
-ahn_area(name, X, Y, radius, bbox, polygon, LONLAT = FALSE, AHN = "AHN3", dem = "dsm", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, keep.sheets = TRUE, redownload = FALSE)
 }

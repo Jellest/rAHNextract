@@ -5,7 +5,6 @@
 \title{Download point cloud}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_poinCloud(name, wd, AHN = "AHN3", bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_pointCloud(
@@ -15,7 +14,8 @@ download_pointCloud(
   bladnrs,
   area,
   bboxes,
-  filtered = TRUE,
+  radius,
+  gefilterd = TRUE,
   keep.sheets = TRUE,
   redownload = FALSE
 )
@@ -33,11 +33,13 @@ download_pointCloud(
 
 \item{bboxes}{Optional. individual bboxes of cropped sheets}
 
-\item{filtered}{Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the filtered point clouds or not.}
+\item{radius}{Radius of circle or squared BBOX in meters.}
+
+\item{gefilterd}{Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the gefilterd point clouds or not.}
 
 \item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
-\item{redownload}{Deafult FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }
 \value{
 .tif of DSM AHN area

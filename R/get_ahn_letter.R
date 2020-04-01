@@ -7,33 +7,64 @@
 #'@param resolution resolution
 #'@param interpolate Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
+#'@param method 'raster' or 'pc' (point cloud)
+#'@param gefilterd Only applicable for point clouds data. TRUE for 'gefilterd'. FALSE for uitgefilterd data.
 #'@author Jelle Stuurman
-#'get_ahn_letter(AHN, dem, interpolate)
-#'@return AHN letter stirng
+#'@return AHN letter string
 
-get_ahn_letter <- function(AHN, dem, resolution, interpolate){
+get_ahn_letter <- function(AHN, dem, resolution, interpolate, method, gefilterd){
   if(tolower(AHN) == 'ahn3'){
-    if(tolower(dem) == "dsm"){
+    if(method == "raster"){
+      if(tolower(dem) == "dsm"){
+        if(resolution == 0.5){
+          ahn_letter <- "R"
+        } else if (resolution ==5){
+          ahn_letter <- "R5"
+        }
+      } else if(tolower(dem) == "dtm"){
+        if(resolution == 0.5){
+          ahn_letter <- "M"
+        } else if (resolution ==5){
+          ahn_letter <- "M5"
+        }
+      }
+    } else if(method == "pc"){
       ahn_letter <- "C"
-    } else if(tolower(dem) == "dtm"){
-      ahn_letter <- "M"
     }
   } else if(tolower(AHN) == 'ahn2'){
-    if(resolution == 0.5){
-      if(tolower(dem) == "dtm"){
-        if(interpolate == TRUE){
-          ahn_letter <-  "i"
-        } else {
-          ahn_letter <- "n"
+    if(method == "raster"){
+      if(resolution == 0.5){
+        if(tolower(dem) == "dtm"){
+          if(interpolate == TRUE){
+            ahn_letter <-  "i"
+          } else {
+            ahn_letter <- "n"
+          }
+        } else if(tolower(dem) == "dsm"){
+          ahn_letter <- "r"
         }
-      } else if(tolower(dem) == "dsm"){
-        ahn_letter <- "r"
+      } else { #5m resolution
+        #no letter needed to dowlnoiad. Letter added later in code to be included in naming of gefilterd file.
+        ahn_letter <- ""
+
       }
-    } else {
-      ahn_letter <- ""
+    } else if(method == "pc"){
+      if(gefilterd == TRUE){
+        ahn_letter <- "g"
+      } else {
+        ahn_letter <- "u"
+      }
     }
   } else if(tolower(AHN) == 'ahn1'){
-    ahn_letter <- ""
+    if(method == "raster"){
+      ahn_letter <- ""
+    } else if(method == "pc"){
+      if(gefilterd == TRUE){
+        ahn_letter <- "g"
+      } else {
+        ahn_letter <- "u"
+      }
+    }
   } else {
     ahn_letter <- ""
   }

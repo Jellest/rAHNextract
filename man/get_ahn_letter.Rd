@@ -4,7 +4,7 @@
 \alias{get_ahn_letter}
 \title{Get AHN letter}
 \usage{
-get_ahn_letter(AHN, dem, resolution, interpolate)
+get_ahn_letter(AHN, dem, resolution, interpolate, method, gefilterd)
 }
 \arguments{
 \item{AHN}{Optional. Give a name of the specified area.}
@@ -14,9 +14,13 @@ get_ahn_letter(AHN, dem, resolution, interpolate)
 \item{resolution}{resolution}
 
 \item{interpolate}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
+
+\item{method}{'raster' or 'pc' (point cloud)}
+
+\item{gefilterd}{Only applicable for point clouds data. TRUE for 'gefilterd'. FALSE for uitgefilterd data.}
 }
 \value{
-AHN letter stirng
+AHN letter string
 }
 \description{
 Get AHN letter
@@ -26,5 +30,4 @@ Get AHN letter
 }
 \author{
 Jelle Stuurman
-get_ahn_letter(AHN, dem, interpolate)
 }

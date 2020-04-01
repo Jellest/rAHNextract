@@ -9,7 +9,7 @@ trim_name(name, name.supplement = "")
 \arguments{
 \item{name}{Name of AWS}
 
-\item{name.supplement}{OOptional. If an name.supplemental string needs to be added to AWS string name}
+\item{name.supplement}{Optional. If an name.supplemental string needs to be added to AWS string name}
 }
 \value{
 String with trimmed name

@@ -5,15 +5,16 @@
 \title{Download DTM}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_dtm(name, wd, AHN = "AHN3", dem = "dsm", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
+download_dtm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_dtm(
   name,
   wd,
   AHN = "AHN3",
-  dem = "dsm",
+  dem = "DSM",
   resolution = 0.5,
+  radius,
   bladnrs,
   area,
   interpolate = TRUE,
@@ -32,15 +33,17 @@ download_dtm(
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
+\item{radius}{Radius of circle or squared BBOX in meters.}
+
 \item{bladnrs}{Required. Blad numbers.}
 
 \item{area}{Required area to be downloaded}
 
-\item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
 \item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
-\item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }
 \value{
 .tif of DTM AHN area

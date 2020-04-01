@@ -8,20 +8,26 @@
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@param area Required area to be downloaded
-#'@param interpolate Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
-#'@param filtered Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.
+#'@param radius Radius of circle or squared BBOX in meters.
+#'@param destfile destination file.
+#'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
+#'@param gefilterd Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.
 #'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
-#'@param redownload Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
+#'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
-#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
+#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 #'@return .tif AHN kaartblad cropped to area
 
-get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, filtered = FALSE, redownload = FALSE, keep.sheets = TRUE){
-  ###BladIndex method ###
-
-  outputDirectory <- paste("output")
-  if (!dir.exists(outputDirectory)){
-    dir.create(outputDirectory)
+get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "DSM", radius, interpolate = TRUE, gefilterd = FALSE, redownload = FALSE, destfile = "structured", keep.sheets = TRUE){
+  if(destfile == "structured"){
+      gefilterdDirectory <- paste(structured_output_folder)
+      if (!dir.exists(gefilterdDirectory)){
+        dir.create(gefilterdDirectory)
+      }
+  } else if(destfile == ""){
+    gefilterdDirectory <- tempdir()
+  } else {
+    gefilterdDirectory <- destfile
   }
 
   #bladIndex.sf <- download_bladnrs(wd = directory, AHN = AHN)
@@ -50,15 +56,15 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
       my_bbox <- sf::st_bbox(singlebladNr.sf)
       bboxes <- cbind(bboxes, my_bbox)
     }
-    data <- download_pointCloud(name = name, wd = outputDirectory, AHN = AHN, bladnrs = bladnrs, area = shape_area, bboxes = bboxes, filtered = filtered, keep.sheets = keep.sheets, redownload = redownload)
+    data <- download_pointCloud(name = name, wd = gefilterdDirectory, AHN = AHN, bladnrs = bladnrs, area = shape_area, radius = radius, bboxes = bboxes, gefilterd = gefilterd, keep.sheets = keep.sheets, redownload = redownload)
   } else {
     bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(shape_area, 0))
     bladnrs <- bladnrsIntersect.sf$bladnr
     bboxes <- c()
     if(tolower(dem) == "dtm"){
-      data <- download_dtm(name = name, wd = outputDirectory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
+      data <- download_dtm(name = name, wd = gefilterdDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
     } else if(tolower(dem) == "dsm"){
-      data <- download_dsm(name = name, wd = outputDirectory, AHN = AHN, dem = dem, resolution = resolution, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
+      data <- download_dsm(name = name, wd = gefilterdDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
     } else {
       stop("No correct dem argument is provided. Please use 'DTM' or 'DSM'.")
     }

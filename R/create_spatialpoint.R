@@ -2,8 +2,8 @@
 #'
 #'@title spatial point
 #'@description create a sf spatial point in RD New coordinates
-#'@param X X coordidnate in RD New or WGS84 (LON)
-#'@param Y Y coordidnate in RD New or WGS84 (LAT)
+#'@param X X coordinate in RD New or WGS84 (LON)
+#'@param Y Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
 #'@author Jelle Stuurman
 #'create_spatialpoint(X = , Y = , LONLAT = TRUE)

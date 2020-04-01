@@ -10,10 +10,12 @@ get_ahn_sheets(
   type = "",
   AHN = "AHN3",
   resolution = 0.5,
-  dem = "dsm",
+  dem = "DSM",
+  radius,
   interpolate = TRUE,
-  filtered = FALSE,
+  gefilterd = FALSE,
   redownload = FALSE,
+  destfile = "structured",
   keep.sheets = TRUE
 )
 }
@@ -30,11 +32,15 @@ get_ahn_sheets(
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{interpolate}{Default TRUE. Olny applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{radius}{Radius of circle or squared BBOX in meters.}
 
-\item{filtered}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefiltered' point cloud data set or the 'uitgefiltered' data set.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{redownload}{Deafult FALSE. nly applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
+
+\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+
+\item{destfile}{destination file.}
 
 \item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 }
@@ -49,5 +55,5 @@ Get cropped AHN sheets
 }
 \author{
 Jelle Stuurman
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "dsm", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 }

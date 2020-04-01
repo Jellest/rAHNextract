@@ -2,8 +2,13 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^scratch$
-^output$
+^AHN_sheets$
+^AHN_output$
 ahn_hoogtes.R
 ^LICENSE\.md$
 rAHNextract_test.qgz
 ^tests$
+^README\.Rmd$
+^my_output$
+Rcode
+^Nederwaard1$

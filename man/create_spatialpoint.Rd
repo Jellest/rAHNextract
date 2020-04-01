@@ -7,9 +7,9 @@
 create_spatialpoint(X, Y, LONLAT = FALSE)
 }
 \arguments{
-\item{X}{X coordidnate in RD New or WGS84 (LON)}
+\item{X}{X coordinate in RD New or WGS84 (LON)}
 
-\item{Y}{Y coordidnate in RD New or WGS84 (LAT)}
+\item{Y}{Y coordinate in RD New or WGS84 (LAT)}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 }
