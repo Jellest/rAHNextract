@@ -104,11 +104,11 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, 
         ahn_dtm_naming <- paste0("5m/",  ahn_dtm_letter)
         sheetFileNameTif <- paste0(ahn_dtm_letter, tolower(bladnrs[[t]]), ".tif")
         ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming,  tolower(bladnrs[[t]]), tifZip, sep="")
-      } else if(my_resolution$res == 25){
-        #http://geodata.nationaalgeoregister.nl/ahn1/extract/ahn1_25m/ahn1_25.tif.zip
-        ahn_dtm_naming <- paste0("25m/",  ahn_dtm_letter)
-        sheetFileNameTif <- paste0("ahn_25", ".tif")
-        ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming, "ahn1_25", tifZip, sep="")
+      # } else if(my_resolution$res == 25){
+      #   #http://geodata.nationaalgeoregister.nl/ahn1/extract/ahn1_25m/ahn1_25.tif.zip
+      #   ahn_dtm_naming <- paste0("25m/",  ahn_dtm_letter)
+      #   sheetFileNameTif <- paste0("ahn_25", ".tif")
+      #   ahn_dtm_downloadLink <- paste(ahn_atomFeed_BaseUrl, ahn_dtm_naming, "ahn1_25", tifZip, sep="")
       } else if(my_resolution$res == 100){
         #http://geodata.nationaalgeoregister.nl/ahn1/extract/ahn1_100m/ahn1_100.tif.zip
         ahn_dtm_naming <- paste0("100m/",  ahn_dtm_letter)

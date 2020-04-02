@@ -14,7 +14,7 @@ get_resolution <- function(AHN = "AHN3", resolution){
       warning("No resolution was found for importing AHN1. Resolution of 5 meters was used.")
       resolution = 5
       resolution_name <- "5m"
-    } else if(resolution != 5 && resolution != 25 && resolution != 100){
+    } else if(resolution != 5 && resolution != 100){
       warning("No correct resolution was found for importing AHN1. Resolution of 5 m was used.")
       resolution <- 5
       resolution_name <- "5m"
