@@ -19,7 +19,11 @@
 #'@return .tif of DSM AHN area
 
 download_dsm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE){
-  ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
+  if(tolower(AHN) == "ahn3"){
+    ahn_atomFeed_BaseUrl <- "https://download.pdok.nl/rws/ahn3/v1_0/"
+  } else {
+    ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
+  }
   my_resolution<- get_resolution(AHN = AHN, resolution)
   indiv_dsm_rasters <- list()
 
@@ -78,6 +82,7 @@ download_dsm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, 
   for(r in 1:length(bladnrs)){
     #ahn2: https://geodata.nationaalgeoregister.nl/ahn2/extract/ahn2_05m_ruw/r32cn1.tif.zip
     #ahn3: https://geodata.nationaalgeoregister.nl/ahn3/extract/ahn3_05m_dsm/R_32CN1.ZIP
+    #ahn3: https://download.pdok.nl/rws/ahn3/v1_0/05m_dsm/R_45CZ1.ZIP
     if(tolower(AHN) == "ahn3"){
       tifZip = ".ZIP"
       ahn_dsm_naming <- paste0("_dsm/", ahn_dsm_letter,"_")

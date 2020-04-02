@@ -19,7 +19,11 @@
 #'@return .tif of DTM AHN area
 
 download_dtm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE){
-  ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
+  if(tolower(AHN) == "ahn3"){
+    ahn_atomFeed_BaseUrl <- "https://download.pdok.nl/rws/ahn3/v1_0/"
+  } else {
+    ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
+  }
   my_resolution<- get_resolution(AHN = AHN, resolution)
   indiv_dtm_rasters <- list()
 

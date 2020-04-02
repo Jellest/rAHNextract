@@ -18,8 +18,11 @@
 
 download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, radius, gefilterd = TRUE, keep.sheets = TRUE, redownload = FALSE){
   indiv_pc_rasters <- list()
-  ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
-
+  if(tolower(AHN) == "ahn3"){
+      ahn_atomFeed_BaseUrl <- "https://download.pdok.nl/rws/ahn3/v1_0/"
+  } else {
+    ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
+  }
   #create sheets directory
   if(wd == structured_output_folder){
     sheets_wd <- wd
