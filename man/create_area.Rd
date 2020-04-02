@@ -4,7 +4,7 @@
 \alias{create_area}
 \title{Create area}
 \usage{
-create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE)
+create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, type)
 }
 \arguments{
 \item{X}{X coordinate in RD New or WGS84 (LON)}
@@ -18,6 +18,8 @@ create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE)
 \item{polygon}{Optional. Use polygon object as your area. Formats includes .shp, .gpkg. Output will be BBOX of this object.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
+
+\item{type}{'point', 'raster' or 'pc'}
 }
 \value{
 "area": polygon of area, "bbox": BBOX coordinates.

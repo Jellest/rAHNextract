@@ -46,11 +46,11 @@ ahn_area(
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{decimals}{Default 2. Decide number of decimal places of gefilterd elevations.}
+\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
-\item{destfile}{Default "structured". When set to "structured", all the gefilterd files will be saved in an organized way in the folder 'AHN_gefilterd' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other gefilterd path to save all the gefilterd files there. The AHN sheets will be downloaded in the gefilterd folder 'AHN_sheets" in your working directory. Set to "", to have all gefilterd files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.#'@param method.sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotif 32bit float}
+\item{destfile}{Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.}
 
-\item{method.sheets}{Only applicable for raster data. Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.}
+\item{method.sheets}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.}
 
 \item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
 
@@ -60,7 +60,7 @@ ahn_area(
 .tif file of AHN area
 }
 \description{
-Get AHNraster area of a certain area
+Get AHN raster area of a certain area
 }
 \details{
 Get AHN raster of a certain area

@@ -44,7 +44,7 @@ get_ahn_letter <- function(AHN, dem, resolution, interpolate, method, gefilterd)
           ahn_letter <- "r"
         }
       } else { #5m resolution
-        #no letter needed to dowlnoiad. Letter added later in code to be included in naming of gefilterd file.
+        #no letter needed to be retrieved. Letter added later in code to be included in naming of gefilterd file.
         ahn_letter <- ""
 
       }

@@ -80,6 +80,6 @@ generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution){
   } else {
     stop("No correct WCS extract has been implemented yet for this resolution. Please use the WFS method or choose 0.5 as a resolution.")
   }
-  bbox <- list("xmin"= my_xmin, "xmax"= my_xmax, "ymin" = my_ymin, "ymax" = my_ymax)
+  bbox <- data.frame("xmin"= my_xmin, "xmax"= my_xmax, "ymin" = my_ymin, "ymax" = my_ymax)
   return(list("name" = name, "point" = my_point, "bbox" = bbox))
 }

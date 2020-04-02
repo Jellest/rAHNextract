@@ -1,7 +1,7 @@
 #'Get AHN raster of a certain area
 #'
 #'@title AHN raster area
-#'@description Get AHNraster area of a certain area
+#'@description Get AHN raster area of a certain area
 #'@param X Optional. X coordinate in RD New or WGS84 (LON)
 #'@param Y Optional. Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
@@ -13,9 +13,9 @@
 #'@param dem Required for raster datasets. Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, and 100 m.
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
-#'@param decimals Default 2. Decide number of decimal places of gefilterd elevations.
-#'@param destfile Default "structured". When set to "structured", all the gefilterd files will be saved in an organized way in the folder 'AHN_gefilterd' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other gefilterd path to save all the gefilterd files there. The AHN sheets will be downloaded in the gefilterd folder 'AHN_sheets" in your working directory. Set to "", to have all gefilterd files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.#'@param method.sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotif 32bit float
-#'@param method.sheets Only applicable for raster data. Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.
+#'@param decimals Default 2. Decide number of decimal places of output elevations.
+#'@param destfile Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.
+#'@param method.sheets Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.
 #'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
 #'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
@@ -48,7 +48,7 @@ ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "A
     my_ahn <- toupper(AHN)
   }
 
-  ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT)
+  ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "raster")
   if(method.sheets == TRUE){
     #download AHN sheets and get data (slow)
     data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "raster", AHN = my_ahn, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, destfile = destfile, keep.sheets = keep.sheets, redownload = redownload)

@@ -160,7 +160,7 @@ download_dtm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, 
     }
   }
   if(tolower(AHN) == "ahn2" && my_resolution$res == 5){
-    #added here because letter was not needed fr download link but now sed to add in naming of gefilterd file.
+    #added here because letter was not needed fr download link but now sed to add in naming of output file.
     ahn_dtm_letter <- "r5"
   }
   ahn_dtm_raster_filename <- paste(wd, "/", name, "_", radiusText, tolower(ahn_dtm_letter), AHN , "_", my_resolution$res_name, "_DTM", '.tif', sep="")

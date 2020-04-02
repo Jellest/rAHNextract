@@ -11,7 +11,7 @@
 #'@param name Optional. Give a name of the specified area. Name will used in the folders and files
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'
 #'@param gefilterd Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.
-#'@param destfile Default "structured". When set to "structured", all the gefilterd files will be saved in an organized way in the folder 'AHN_gefilterd' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other gefilterd path to save all the gefilterd files there. The AHN sheets will be downloaded in the gefilterd folder 'AHN_sheets" in your working directory. Set to "", to have all gefilterd files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.#'@param method.sheets Default FALSE. Set to TRUE if you want to download AHN areas through the sheets (kaartbladen) instead through the WCS method (geotif 32bit float#'@param method.sheets Only applicable for raster data. Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.
+#'@param destfile Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.geotif 32bit float).
 #'@param keep.sheets Default TRUE. Set to FALSE if you want to delete the downloaded point clouds sheets (kaartbladen).
 #'@param redownload Default FALSE. Only applicable if point clouds sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
@@ -45,7 +45,7 @@ ahn_pc <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "AHN
     my_ahn <- toupper(AHN)
   }
 
-  ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT)
+  ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "pc")
   data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "pc", AHN = my_ahn, radius = radius, gefilterd = gefilterd, destfile = destfile, keep.sheets = keep.sheets, redownload = redownload)
   if(destfile == ""){
     unlink(data$fileDir, recursive = TRUE)

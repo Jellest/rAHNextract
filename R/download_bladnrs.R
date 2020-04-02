@@ -16,7 +16,7 @@ download_bladnrs <- function(wd, AHN = "AHN3"){
     print("Download AHN wfs blad Index")
     ahn_WFS_baseUrl <- paste0(ngr, "/", tolower(AHN), "/wfs?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=", tolower(AHN), ":", tolower(AHN), "_bladindex")
     print(ahn_WFS_baseUrl)
-    ahn_wfs <- paste("WFS:", ahn_WFS_baseUrl, "&SRSNAME=EPSG:28992&gefilterdFormat=application/json", sep="")
+    ahn_wfs <- paste("WFS:", ahn_WFS_baseUrl, "&SRSNAME=EPSG:28992&outputFormat=application/json", sep="")
     print(ahn_wfs)
 
     ahn_bi <- sf::st_read(ahn_wfs)

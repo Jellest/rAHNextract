@@ -20,14 +20,14 @@
 
 get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "DSM", radius, interpolate = TRUE, gefilterd = FALSE, redownload = FALSE, destfile = "structured", keep.sheets = TRUE){
   if(destfile == "structured"){
-      gefilterdDirectory <- paste(structured_output_folder)
-      if (!dir.exists(gefilterdDirectory)){
-        dir.create(gefilterdDirectory)
+      outputDirectory <- paste(structured_output_folder)
+      if (!dir.exists(outputDirectory)){
+        dir.create(outputDirectory)
       }
   } else if(destfile == ""){
-    gefilterdDirectory <- tempdir()
+    outputDirectory <- tempdir()
   } else {
-    gefilterdDirectory <- destfile
+    outputDirectory <- destfile
   }
 
   #bladIndex.sf <- download_bladnrs(wd = directory, AHN = AHN)
@@ -45,6 +45,7 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
   sf::st_agr(shape_area) <- "constant"
 
   if(type == "pc"){
+    #download point clouds sheets
     bladnrsIntersect.sf <- sf::st_crop(bladIndex.sf, sf::st_buffer(shape_area, 0))
     bladnrs <- bladnrsIntersect.sf$bladnr
     bboxes <- c()
@@ -56,15 +57,16 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
       my_bbox <- sf::st_bbox(singlebladNr.sf)
       bboxes <- cbind(bboxes, my_bbox)
     }
-    data <- download_pointCloud(name = name, wd = gefilterdDirectory, AHN = AHN, bladnrs = bladnrs, area = shape_area, radius = radius, bboxes = bboxes, gefilterd = gefilterd, keep.sheets = keep.sheets, redownload = redownload)
+    data <- download_pointCloud(name = name, wd = outputDirectory, AHN = AHN, bladnrs = bladnrs, area = shape_area, radius = radius, bboxes = bboxes, gefilterd = gefilterd, keep.sheets = keep.sheets, redownload = redownload)
   } else {
+    #download raster sheets
     bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(shape_area, 0))
     bladnrs <- bladnrsIntersect.sf$bladnr
     bboxes <- c()
     if(tolower(dem) == "dtm"){
-      data <- download_dtm(name = name, wd = gefilterdDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
+      data <- download_dtm(name = name, wd = outputDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
     } else if(tolower(dem) == "dsm"){
-      data <- download_dsm(name = name, wd = gefilterdDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
+      data <- download_dsm(name = name, wd = outputDirectory, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, keep.sheets = keep.sheets, redownload = redownload)
     } else {
       stop("No correct dem argument is provided. Please use 'DTM' or 'DSM'.")
     }

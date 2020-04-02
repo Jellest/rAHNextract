@@ -10,7 +10,7 @@ ahn_letters()
 data frame with ahn letters and their meaning
 }
 \description{
-Show list of AHN letters to understand the naming scheme used by the PDOK to get the corresponding AHN dataset. The AHN letter is found  in the name of the AHN gefilterd files
+Show list of AHN letters to understand the naming scheme used by the PDOK to get the corresponding AHN dataset. The AHN letter is found  in the name of the AHN output files
 }
 \details{
 view AHN letters

@@ -14,7 +14,10 @@ ahn_point(
   resolution = 0.5,
   destfile = "",
   decimals = 2,
-  interpolate = TRUE
+  interpolate = TRUE,
+  method.sheets = FALSE,
+  keep.sheets = TRUE,
+  redownload = FALSE
 )
 }
 \arguments{
@@ -32,11 +35,17 @@ ahn_point(
 
 \item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
 
-\item{destfile}{Default FALSE. Set to TRUE if you want to keep the downloaded AHN area of the point (9 pixels).}
+\item{destfile}{Default "". All output point files be temporary files.When set to "structured", all the output point files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory.}
 
-\item{decimals}{Default 2. Decide number of decimal places of gefilterd elevations.}
+\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+
+\item{method.sheets}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tif AHN sheets (kaartbladen) available on PDOK.}
+
+\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+
+\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
 }
 \value{
 elevation in meters.
