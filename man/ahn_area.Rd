@@ -2,7 +2,7 @@
 % Please edit documentation in R/ahn_area.R
 \name{ahn_area}
 \alias{ahn_area}
-\title{AHN area}
+\title{AHN raster area}
 \usage{
 ahn_area(
   X,
@@ -14,10 +14,8 @@ ahn_area(
   LONLAT = FALSE,
   AHN = "AHN3",
   dem = "DSM",
-  type = "raster",
   resolution,
   interpolate = TRUE,
-  gefilterd = FALSE,
   decimals = 2,
   destfile = "structured",
   method.sheets = FALSE,
@@ -36,7 +34,7 @@ ahn_area(
 
 \item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
 
-\item{name}{Optional. Give a name of the specified area. Name will used in the gefilterd folders and files}
+\item{name}{Optional. Give a name of the specified area. Name will used in the folders and files}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
 
@@ -44,13 +42,9 @@ ahn_area(
 
 \item{dem}{Required for raster datasets. Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{type}{Default 'raster'. Select 'raster' to get raster data}
-
 \item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, and 100 m.}
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
-
-\item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
 
 \item{decimals}{Default 2. Decide number of decimal places of gefilterd elevations.}
 
@@ -66,10 +60,10 @@ ahn_area(
 .tif file of AHN area
 }
 \description{
-Get AHN of a certain area
+Get AHNraster area of a certain area
 }
 \details{
-Get AHN of a certain area
+Get AHN raster of a certain area
 }
 \author{
 Jelle Stuurman

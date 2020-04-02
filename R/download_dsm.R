@@ -20,7 +20,7 @@
 
 download_dsm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE){
   if(tolower(AHN) == "ahn3"){
-    ahn_atomFeed_BaseUrl <- "https://download.pdok.nl/rws/ahn3/v1_0/"
+    ahn_atomFeed_BaseUrl <- download_ahn3_url
   } else {
     ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
   }

@@ -2,4 +2,5 @@
 
 export(ahn_area)
 export(ahn_letters)
+export(ahn_pc)
 export(ahn_point)
