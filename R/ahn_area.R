@@ -21,24 +21,11 @@
 #'@author Jelle Stuurman
 #'@return .tif file of AHN area
 #'@export
-
 ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, destfile = "structured", method.sheets = FALSE, keep.sheets = TRUE, redownload = FALSE){
-  if(destfile != "structured" && destfile != ""){
-    print(destfile)
-    if(!dir.exists(destfile)){
-      dir.create(destfile)
-      warning("Directory did not exist and was created in your working directory.")
-    }
-  }
   if(missing(X) == TRUE && missing(Y) == TRUE && (missing(polygon) == TRUE || missing(bbox) == TRUE) && missing(radius) == TRUE){
     #creating BBOX or shape
     radius <- ""
   }
-  # if(missing(dem) == TRUE){
-  #   type = "pc"
-  # } else {
-  #   type = "raster"
-  # }
   name_trim <- trim_name(name)
   #selected AHN layer
   ahn_lower <- tolower(AHN)
@@ -47,24 +34,44 @@ ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "A
   } else {
     my_ahn <- toupper(AHN)
   }
-
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "raster")
-  if(method.sheets == TRUE){
-    #download AHN sheets and get data (slow)
-    data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "raster", AHN = my_ahn, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, destfile = destfile, keep.sheets = keep.sheets, redownload = redownload)
-    if(destfile == ""){
-      unlink(data$fileDir, recursive = TRUE)
-    }
-    ahn_data <- data$data
+  if(ahn_area == "point"){
+    #go to ahn_point()
+    warning("Geometry type was detected as a point. Function 'ahn_point()' was excecuted instead with all applicable provided parameters. Please see the documentation of ahn_point() to see what output is provided.")
+    ahn_point(X = X, Y = Y, LONLAT = LONLAT, name = name, destfile = destfile, AHN = AHN, dem = dem, resolution = resolution, interpolate = interpolate, method.sheets = method.sheets, keep.sheets = keep.sheets, redownload = redownload, decimals = decimals)
   } else {
-    #retrieve data through WCS (fast)
-    wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, destfile = destfile)
-    raster_mask <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
-    ahn_data <- raster_mask
-    if(destfile == ""){
-      unlink(raster_data$fileDir)
+    if(destfile != "structured" && destfile != ""){
+      print(destfile)
+      if(!dir.exists(destfile)){
+        dir.create(destfile)
+        warning("Directory did not exist and was created in your working directory.")
+      }
     }
+
+    # if(missing(dem) == TRUE){
+    #   type = "pc"
+    # } else {
+    #   type = "raster"
+    # }
+
+
+    if(method.sheets == TRUE){
+      #download AHN sheets and get data (slow)
+      data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "raster", AHN = my_ahn, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, destfile = destfile, keep.sheets = keep.sheets, redownload = redownload)
+      if(destfile == ""){
+        unlink(data$fileDir, recursive = TRUE)
+      }
+      ahn_data <- data$data
+    } else {
+      #retrieve data through WCS (fast)
+      wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
+      raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, destfile = destfile)
+      raster_mask <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
+      ahn_data <- raster_mask
+      if(destfile == ""){
+        unlink(raster_data$fileDir)
+      }
+    }
+    return (ahn_data)
   }
-  return (ahn_data)
 }

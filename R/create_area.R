@@ -2,6 +2,7 @@
 #'
 #'@title Create area
 #'@description Create area through buffer, BBOX or custom area
+#'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 #'@param X X coordinate in RD New or WGS84 (LON)
 #'@param Y Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
@@ -10,10 +11,7 @@
 #'@param polygon Optional. Use polygon object as your area. Formats includes .shp, .gpkg. Output will be BBOX of this object.
 #'@param type 'point', 'raster' or 'pc'
 #'@author Jelle Stuurman
-#'create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 #'@return "area": polygon of area, "bbox": BBOX coordinates.
-
-
 create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
   if(type == "point"){
     my_bbox <- bbox
@@ -27,7 +25,7 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
         stop("X or Y input coordinates are missing.")
       }
       if(missing(radius)){
-        stop("Radius input coordinate(s) is/are missing.")
+        stop("Radius input is missing. If you want to get AHN elevation of a certain point, please use the function 'ahn_point()'.")
       }
 
       my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)
@@ -62,15 +60,19 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
       my_bbox_area.sf <- create_bbox_polygon(my_bbox)
       my_area.sf <- my_bbox_area.sf
     } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE && radius == ""){
+      polygon <- sf::st_as_sf(polygon)
+      geometry_point <- sf::st_is(polygon, "POINT")
       #load shape through polygon to create area
+      geometry_polygon <- sf::st_is(polygon, "POLYGON")
+      if(geometry_point == "POINT"){
+        print("Geometry type is a point. Function 'ahn_point()' will be excecuted...")
+        return("point")
+      } else if (geometry_polygon == FALSE){
+        stop("Geometry type is not a polygon. Please make sure the input given for the 'polygon' paramter is a polygon.")
+      }
       print("Creating area from shapefile.")
       if(LONLAT == TRUE){
         my_area.sf <- sf::st_transform(polygon, epsg_rd)
-        my_area.sf <- sf::st_as_sf(my_area.sf)
-        #my_area.sf <- st_make_valid(my_area.sf)
-      } else {
-        my_area.sf <- sf::st_as_sf(polygon)
-        #my_area.sf <- st_make_valid(my_area.sf)
       }
       if(nrow(my_area.sf) != 1){
         stop("The selected polygon has no or more than one feature. Add/reduce to one feature or use loop functionalities.")
