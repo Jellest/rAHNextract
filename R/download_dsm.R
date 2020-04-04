@@ -2,6 +2,7 @@
 #'
 #'@title Download DSM
 #'@description Download DSM
+#'download_dsm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 #'@param name Optional. Give a name of the specified area.
 #'@param wd Required. Working directory.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
@@ -15,9 +16,7 @@
 #'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
-#'download_dsm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 #'@return .tif of DSM AHN area
-
 download_dsm <- function(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE){
   if(tolower(AHN) == "ahn3"){
     ahn_atomFeed_BaseUrl <- download_ahn3_url

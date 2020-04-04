@@ -49,11 +49,11 @@ get_ahn_sheets(
 }
 \description{
 Get cropped AHN sheets
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 }
 \details{
 Get cropped AHN sheets
 }
 \author{
 Jelle Stuurman
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 }

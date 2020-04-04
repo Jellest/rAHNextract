@@ -2,15 +2,14 @@
 #'
 #'@title Generate AHN area
 #'@description Get AHN of a certain area
+#'generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 #'@param name Optional. Give a name of the specified area.
 #'@param X X coordinate in RD New or WGS84 (LON)
 #'@param Y Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@author Jelle Stuurman
-#'generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 #'@return "Name:", "point", "bbox"
-
 generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution){
   #RD new coordinaten systeem
   my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)

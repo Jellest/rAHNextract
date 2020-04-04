@@ -7,7 +7,6 @@
 #'@author Jelle Stuurman
 #'ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 #'@return all bladnrs geometry
-
 download_bladnrs <- function(wd, AHN = "AHN3"){
   bladIndex_gpkgpath <- paste(wd , sep="/")
   bladIndex_gpkg <- paste(bladIndex_gpkgpath, "/", AHN, "_bladIndex", ".gpkg", sep="")

@@ -20,11 +20,11 @@ DEM type string
 }
 \description{
 Download DSM
+get_dem(AHN, dem, resolution, interpolate = TRUE)
 }
 \details{
 Download DSM
 }
 \author{
 Jelle Stuurman
-get_dem(AHN, dem, resolution, interpolate = TRUE)
 }

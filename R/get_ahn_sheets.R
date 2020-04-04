@@ -2,6 +2,7 @@
 #'
 #'@title Get cropped AHN sheets
 #'@description Get cropped AHN sheets
+#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 #'@param name Optional. Give a name of the specified area.
 #'@param type 'raster' or 'pc'.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
@@ -15,9 +16,7 @@
 #'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
 #'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
 #'@author Jelle Stuurman
-#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
 #'@return .tif AHN kaartblad cropped to area
-
 get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "DSM", radius, interpolate = TRUE, gefilterd = FALSE, redownload = FALSE, destfile = "structured", keep.sheets = TRUE){
   if(destfile == "structured"){
       outputDirectory <- paste(structured_output_folder)

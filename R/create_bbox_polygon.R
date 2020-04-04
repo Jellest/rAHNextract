@@ -5,7 +5,6 @@
 #'@param bbox Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
 #'@author Jelle Stuurman
 #'@return BBOX polygon
-
 create_bbox_polygon <- function(bbox){
   polygon_list <- list(rbind(c(bbox$xmin, bbox$ymin), c(bbox$xmin, bbox$ymax), c(bbox$xmax, bbox$ymax), c(bbox$xmax, bbox$ymin), c(bbox$xmin, bbox$ymin)))
   polygon_sfc <- sf::st_polygon(polygon_list)

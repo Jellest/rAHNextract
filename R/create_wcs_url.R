@@ -2,6 +2,7 @@
 #'
 #'@title Create WCS URL
 #'@description Create WCS URL
+#'create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE)
 #'@param type required. Point or area.
 #'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX)
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
@@ -9,9 +10,7 @@
 #'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@author Jelle Stuurman
-#'create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE)
 #'@return WCS URL string
-
 create_wcs_url <- function(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE){
 
 

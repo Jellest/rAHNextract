@@ -31,11 +31,11 @@ WCS URL string
 }
 \description{
 Create WCS URL
+create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE)
 }
 \details{
 Create WCS URL
 }
 \author{
 Jelle Stuurman
-create_wcs_url(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE)
 }

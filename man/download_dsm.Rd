@@ -5,7 +5,6 @@
 \title{Download DSM}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_dsm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_dsm(
@@ -50,6 +49,7 @@ download_dsm(
 }
 \description{
 Download DSM
+download_dsm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \details{
 Download DSM

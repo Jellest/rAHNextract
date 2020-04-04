@@ -22,11 +22,11 @@ generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 }
 \description{
 Get AHN of a certain area
+generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 }
 \details{
 Generate AHN point
 }
 \author{
 Jelle Stuurman
-generate_ahn_point(name = "", X, Y, LONLAT = FALSE, resolution)
 }

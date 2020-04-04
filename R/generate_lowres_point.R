@@ -7,7 +7,6 @@
 #'@author Jelle Stuurman
 #'generate_lowres_ahn_points(n, resolution)
 #'@return "min" "max" coordinates.
-
 generate_lowres_ahn_points <- function(n, resolution){
   rounding <- function(n, digits) {
     posneg = sign(n)

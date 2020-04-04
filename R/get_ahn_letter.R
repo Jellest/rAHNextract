@@ -11,7 +11,6 @@
 #'@param gefilterd Only applicable for point clouds data. TRUE for 'gefilterd'. FALSE for uitgefilterd data.
 #'@author Jelle Stuurman
 #'@return AHN letter string
-
 get_ahn_letter <- function(AHN, dem, resolution, interpolate, method, gefilterd){
   if(tolower(AHN) == 'ahn3'){
     if(method == "raster"){

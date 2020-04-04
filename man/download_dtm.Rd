@@ -5,7 +5,6 @@
 \title{Download DTM}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_dtm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \usage{
 download_dtm(
@@ -50,6 +49,7 @@ download_dtm(
 }
 \description{
 Download DTM
+download_dtm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
 }
 \details{
 Download DTM

@@ -16,7 +16,6 @@
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'@return .laz data
-
 read_pc <- function(wd, laz, AHN = "AHN3", filtered_name, area, radius, bladnrs, bbox, name, nr, bladnrsLength){
   temp_dir <- paste0(wd, "/", name, "/temp_", name,  "_", radius, "m_", filtered_name, AHN)
   if(!dir.exists(temp_dir)){

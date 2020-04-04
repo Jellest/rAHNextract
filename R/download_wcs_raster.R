@@ -15,7 +15,6 @@
 #'@source <https://www.pdok.nl/datasets>
 #'download_wcs_raster(name = "elevation", wcsUrl)
 #'@return .tif float32 file of BBOX area.
-#'
 download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "DSM", resolution, radius, interpolate, destfile = "", type = "area"){
         my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
         ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate, method = "raster")

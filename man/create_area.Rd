@@ -26,11 +26,11 @@ create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, type)
 }
 \description{
 Create area through buffer, BBOX or custom area
+create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 }
 \details{
 Get Create area
 }
 \author{
 Jelle Stuurman
-create_area(X, Y, radius, bbox, polygon, LONLAT = FALSE, sheets = FALSE)
 }

@@ -34,11 +34,11 @@ BBOX of buffer area
 }
 \description{
 Get buffer surrounding AHN
+ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 }
 \details{
 Get buffer surrounding AHN
 }
 \author{
 Jelle Stuurman
-ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 }

@@ -8,7 +8,6 @@
 #'@author Jelle Stuurman
 #'create_spatialpoint(X = , Y = , LONLAT = TRUE)
 #'@return sf spatial point in RD New coordinates format
-
 create_spatialpoint <- function(X, Y, LONLAT = FALSE){
   point.df <- data.frame(X = X, Y = Y, stringsAsFactors=FALSE)
   if(LONLAT == FALSE){

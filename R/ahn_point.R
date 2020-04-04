@@ -18,7 +18,6 @@
 #'@author Jelle Stuurman
 #'@return elevation in meters.
 #'@export
-
 ahn_point <- function(X, Y, name, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution = 0.5, destfile = "", decimals = 2, interpolate = TRUE, method.sheets = FALSE, keep.sheets = TRUE, redownload = FALSE){
   if(destfile != "structured" && destfile != ""){
     print(destfile)

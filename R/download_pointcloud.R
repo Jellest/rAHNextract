@@ -15,7 +15,6 @@
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'@return .tif of DSM AHN area
-
 download_pointCloud <- function(name, wd, AHN = "AHN3", bladnrs, area, bboxes, radius, gefilterd = TRUE, keep.sheets = TRUE, redownload = FALSE){
   indiv_pc_rasters <- list()
   if(tolower(AHN) == "ahn3"){

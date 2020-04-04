@@ -16,11 +16,11 @@ get_resolution(AHN = "AHN3", resolution)
 }
 \description{
 Download DSM
+get_resolution(AHN = "AHN3", resolution)
 }
 \details{
 Download DSM
 }
 \author{
 Jelle Stuurman
-get_resolution(AHN = "AHN3", resolution)
 }

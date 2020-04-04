@@ -17,7 +17,6 @@
 #'@author Jelle Stuurman
 #'@return .laz data of area
 #'@export
-
 ahn_pc <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "AHN3", gefilterd = FALSE, destfile = "structured", keep.sheets = TRUE, redownload = FALSE){
   resolution = ""
   if(destfile != "structured" && destfile != ""){
