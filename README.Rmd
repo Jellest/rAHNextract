@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
 
-Updated: 2-04-2020
+Updated: 22-04-2020
 
 
 This R package automatically extracts elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Individual elevations, raster areas or point clouds areas can be extracted from the AHN1, AHN2 or AHN3 using all the geo services that are made available by [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781)
