@@ -9,7 +9,7 @@
 #'@param radius Optional. Set radius in meters of area around a point to create a buffer area.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
-#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
+#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
 #'@author Jelle Stuurman
 #'@return BBOX of buffer area
 get_surrounding_ahn <- function(X, Y, LONLAT = FALSE, AHN = "AHN3", dem = dem, resolution = resolution, radius = 50){

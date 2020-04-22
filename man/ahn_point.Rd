@@ -2,59 +2,65 @@
 % Please edit documentation in R/ahn_point.R
 \name{ahn_point}
 \alias{ahn_point}
-\title{Get AHN elevation of a certain point location}
+\title{AHN elevation point}
 \usage{
 ahn_point(
+  name = "AHNelevation",
   X,
   Y,
-  name,
-  LONLAT = FALSE,
   AHN = "AHN3",
   dem = "DSM",
   resolution = 0.5,
-  destfile = "",
-  decimals = 2,
   interpolate = TRUE,
-  method.sheets = FALSE,
-  keep.sheets = TRUE,
-  redownload = FALSE
+  output.dir,
+  LONLAT = FALSE,
+  decimals = 2,
+  sheets.method = FALSE,
+  sheets.location,
+  sheets.keep = TRUE,
+  sheets.redownload = FALSE
 )
 }
 \arguments{
-\item{X}{X coordinate in RD New or WGS84 (LON)}
+\item{name}{Optional. Give a name of the specified area. This name will be used in the output file names.}
 
-\item{Y}{Y coordinate in RD New or WGS84 (LAT)}
+\item{X}{Required. X coordinate in RD New or WGS84 (LON)}
 
-\item{name}{Optional. Give a name of the specified area.}
-
-\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
+\item{Y}{Required. Y coordinate in RD New or WGS84 (LAT)}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
-
-\item{destfile}{Default "". All output point files be temporary files.When set to "structured", all the output point files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory.}
-
-\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{method.sheets}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tif AHN sheets (kaartbladen) available on PDOK.}
+\item{output.dir}{Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.}
 
-\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 
-\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+
+\item{sheets.method}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on \href{http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781}{PDOK}.}
+
+\item{sheets.location}{Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
+
+\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.}
+
+\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 }
 \value{
-elevation in meters.
+AHN elevation in meters.
 }
 \description{
 Get elevation of specific point location.
-}
-\details{
-Get AHN elevation of a certain point location
+
+Requires the X and Y coordinates as input. AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions. Default resolution is always the highest resolution (smallest number).
+
+AHN3 and AHN2 DEM (Digital Elevation Models) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.
+
+You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 }
 \author{
 Jelle Stuurman

@@ -4,10 +4,9 @@
 #'@description Download DSM
 #'get_resolution(AHN = "AHN3", resolution)
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
-#'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
+#'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
 #'@author Jelle Stuurman
 #'@return "res": resolution in meters, "res_name:" name of resolution string.
-#'
 get_resolution <- function(AHN = "AHN3", resolution){
   if(AHN == "AHN1"){
     if(missing(resolution)){
@@ -38,6 +37,8 @@ get_resolution <- function(AHN = "AHN3", resolution){
         resolution_name <- "05m"
       }
     }
+  } else {
+    stop("error")
   }
   return(list("res" = resolution, "res_name" = resolution_name))
 }

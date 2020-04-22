@@ -9,7 +9,7 @@ generate_lowres_ahn_points(n, resolution)
 \arguments{
 \item{n}{number}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 }
 \value{
 "min" "max" coordinates.

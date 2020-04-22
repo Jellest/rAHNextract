@@ -7,7 +7,7 @@
 #'@param X X coordinate in RD New or WGS84 (LON)
 #'@param Y Y coordinate in RD New or WGS84 (LAT)
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
-#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
+#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
 #'@author Jelle Stuurman
 #'@return "Name:", "point", "bbox"
 generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution){
@@ -69,7 +69,7 @@ generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution){
       my_ymin <- coords[1,"Y"] - (1 * resolution)
       my_ymax <- coords[1,"Y"] + (2 * resolution)
     }
-  } else if(resolution == 5 || resolution == 25 || resolution == 100){
+  } else if(resolution == 5 || resolution == 100){
     x_coords <- generate_lowres_ahn_points(n = coords[1,"X"], resolution)
     y_coords <- generate_lowres_ahn_points(n= coords[1,"Y"], resolution)
     my_xmin <- x_coords$min

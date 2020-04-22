@@ -9,7 +9,7 @@
 \usage{
 download_dtm(
   name,
-  wd,
+  output.dir,
   AHN = "AHN3",
   dem = "DSM",
   resolution = 0.5,
@@ -17,20 +17,21 @@ download_dtm(
   bladnrs,
   area,
   interpolate = TRUE,
-  keep.sheets = TRUE,
-  redownload = FALSE
+  sheets.location = sheets.location,
+  sheets.keep = TRUE,
+  sheets.redownload = FALSE
 )
 }
 \arguments{
 \item{name}{Optional. Give a name of the specified area.}
 
-\item{wd}{Required. Working directory.}
+\item{output.dir}{Required. Working directory.}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
 \item{radius}{Radius of circle or squared BBOX in meters.}
 
@@ -40,16 +41,18 @@ download_dtm(
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
-\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+\item{sheets.location}{Optional. Default is the 'AHN_sheets' directory in working directory.. Set directory where all the AHN sheets are stored or will be stored.  Always use the correct directory structure and capitalization within the selected directory when pre-existing sheets will be used. Example directory structure: 'AHN_sheets/AHN3/DSM' or 'AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
 
-\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).}
+
+\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 }
 \value{
-.tif of DTM AHN area
+GeoTIFF of DTM AHN area
 }
 \description{
 Download DTM
-download_dtm(name, wd, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, keep.sheets = TRUE, redownload = FALSE)
+download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)
 }
 \details{
 Download DTM

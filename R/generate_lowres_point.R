@@ -3,7 +3,7 @@
 #'@title Generate low resolution AHN
 #'@description Get low resolution AHN
 #'@param n number
-#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.
+#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
 #'@author Jelle Stuurman
 #'generate_lowres_ahn_points(n, resolution)
 #'@return "min" "max" coordinates.
@@ -27,12 +27,13 @@ generate_lowres_ahn_points <- function(n, resolution){
   my_whole_round <- rounding(n = n, digits = 0)
   my_round <- rounding(n = my_whole_round, digits = digits)
 
-  if(resolution == 25){
-    res_dif  <- my_whole_round - round(n, -2)
-    if(res_dif == -25){
-      my_round <- my_round - resolution
-    }
-  } else if(resolution == 5){
+  # if(resolution == 25){
+  #  res_dif  <- my_whole_round - round(n, -2)
+  #  if(res_dif == -25){
+  #    my_round <- my_round - resolution
+  #  }
+  #} else
+  if(resolution == 5){
     res_dif  <- my_whole_round - round(n, -1)
     if(res_dif == -5){
       my_round <- my_round - resolution

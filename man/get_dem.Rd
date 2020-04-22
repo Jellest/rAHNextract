@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_dem.R
 \name{get_dem}
 \alias{get_dem}
-\title{Download DSM}
+\title{Get Dem}
 \usage{
 get_dem(AHN, dem, resolution, interpolate = TRUE)
 }
@@ -11,7 +11,7 @@ get_dem(AHN, dem, resolution, interpolate = TRUE)
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 }
@@ -19,11 +19,11 @@ get_dem(AHN, dem, resolution, interpolate = TRUE)
 DEM type string
 }
 \description{
-Download DSM
+Get Dem
 get_dem(AHN, dem, resolution, interpolate = TRUE)
 }
 \details{
-Download DSM
+Get Dem
 }
 \author{
 Jelle Stuurman

@@ -1,14 +1,14 @@
-#'Get AHN of a certain area
+#'intersect raster
 #'
-#'@title AHN area
-#'@description Get AHN of a certain area
-#'ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
+#'@title intersect raster
+#'@description intersect raster at certain point
 #'@param ras Required. Raster
 #'@param point Required. spatial point
+#'@param method 'bilinear' (default) or 'simple'
 #'@author Jelle Stuurman
-#'@return .tif file of AHN area
-intersect_raster <- function(ras, point){
+#'@return GeoTIFF file of AHN area
+intersect_raster <- function(ras, point, method = "bilinear"){
   print("Intersecting raster. Getting elevation...")
-  my_elevation <- raster::extract(ras, point, method = "bilinear")
+  my_elevation <- raster::extract(ras, point, method = method)
   return (my_elevation)
 }

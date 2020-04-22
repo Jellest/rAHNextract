@@ -14,9 +14,10 @@ get_ahn_sheets(
   radius,
   interpolate = TRUE,
   gefilterd = FALSE,
-  redownload = FALSE,
-  destfile = "structured",
-  keep.sheets = TRUE
+  sheets.redownload = FALSE,
+  output.dir = "AHN_output",
+  sheets.location,
+  sheets.keep = TRUE
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ get_ahn_sheets(
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
-\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, 25, and 100 m.}
+\item{resolution}{Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
@@ -38,18 +39,20 @@ get_ahn_sheets(
 
 \item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
 
-\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 
-\item{destfile}{destination file.}
+\item{output.dir}{destination file.}
 
-\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+\item{sheets.location}{Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory. Example directory structure: 'AHN3/DSM' or 'AHN2/DTM' Only use extracted files in their original name after download.}
+
+\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).}
 }
 \value{
-.tif AHN kaartblad cropped to area
+GeoTIFF AHN kaartblad cropped to area
 }
 \description{
 Get cropped AHN sheets
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, redownload = FALSE, keep.sheets = TRUE)
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.redownload = FALSE, sheets.keep = TRUE)
 }
 \details{
 Get cropped AHN sheets
