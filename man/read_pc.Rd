@@ -8,10 +8,10 @@
 }
 \usage{
 read_pc(
-  wd,
+  output.dir,
   laz,
   AHN = "AHN3",
-  filtered_name,
+  ahn_letter,
   area,
   radius,
   bladnrs,
@@ -22,13 +22,13 @@ read_pc(
 )
 }
 \arguments{
-\item{wd}{Required. working directory}
+\item{output.dir}{Required. working directory}
 
 \item{laz}{Required. .laz data}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
-\item{filtered_name}{Code name of (uit)gefilterd data.}
+\item{ahn_letter}{Code name of (uit)gefilterd data.}
 
 \item{area}{Required area to be downloaded}
 

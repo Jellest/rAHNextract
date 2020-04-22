@@ -19,13 +19,15 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
     my_area.sf <- my_bbox_area.sf
   } else if(type == "raster" || type == "pc"){
       if((missing(bbox) == TRUE || bbox == TRUE) && missing(polygon) == TRUE){
-      #create circle through buffer around a point
-      print("Creating circle from radius input.")
-      if(missing(X) == TRUE || missing(Y) == TRUE){
-        stop("X or Y input coordinates are missing.")
-      }
-      if(missing(radius)){
-        stop("Radius input is missing. If you want to get AHN elevation of a certain point, please use the function 'ahn_point()'.")
+        #create circle through buffer around a point
+        if(missing(bbox) == TRUE){
+          print("Creating circle from radius input.")
+        }
+        if(missing(X) == TRUE || missing(Y) == TRUE){
+          stop("X or Y input coordinates are missing.")
+        }
+        if(missing(radius)){
+          stop("Radius input is missing. If you want to get AHN elevation of a certain point, please use the function 'ahn_point()'.")
       }
 
       my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)
@@ -37,7 +39,7 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
       my_bbox_area.sf <- create_bbox_polygon(my_bbox)
       if(missing(bbox) == FALSE && bbox == TRUE){
         #create bbox based on only radius
-        print("Creating bbox from radius input.")
+        print("Creating bbox from point and radius input.")
         my_area.sf <- my_bbox_area.sf
       }
     } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(polygon) == TRUE && radius == ""){
@@ -60,17 +62,14 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
       my_bbox_area.sf <- create_bbox_polygon(my_bbox)
       my_area.sf <- my_bbox_area.sf
     } else if(missing(X) == TRUE && missing(Y) == TRUE && missing(bbox) == TRUE && radius == ""){
-      polygon <- sf::st_as_sf(polygon)
-      geometry_point <- sf::st_is(polygon, "POINT")
+      my_area.sf <- sf::st_as_sf(polygon)
+      geometry_point <- sf::st_is(my_area.sf, "POINT")
+      geometry_polygon <- sf::st_is(my_area.sf, "POLYGON")
       #load shape through polygon to create area
-      geometry_polygon <- sf::st_is(polygon, "POLYGON")
-      if(geometry_point == "POINT"){
-        print("Geometry type is a point. Function 'ahn_point()' will be excecuted...")
-        return("point")
-      } else if (geometry_polygon == FALSE){
-        stop("Geometry type is not a polygon. Please make sure the input given for the 'polygon' paramter is a polygon.")
+      if(geometry_point == "POINT" || geometry_polygon == FALSE){
+        stop("Geometry type is not a polygon. Please make sure the input given for the 'polygon' paramter is a polygon in the correct format.")
       }
-      print("Creating area from shapefile.")
+      print("Creating area from custom geometry.")
       if(LONLAT == TRUE){
         my_area.sf <- sf::st_transform(polygon, epsg_rd)
       }
@@ -83,6 +82,9 @@ create_area <- function(X, Y, radius, bbox, polygon, LONLAT = FALSE, type){
     }
     if(!exists("my_area.sf")){
       stop("Too many or little parameters have been defined. Please add or remove them.")
+    } else {
+      sf::st_crs(my_area.sf, epsg_rd)
+      #sf::st_write(obj = my_area.sf, dsn = "C:/ROutput/Utrecht/My_area.shp",  append=FALSE)
     }
   }
   return(list("area" = my_area.sf, "bbox_area" = my_bbox_area.sf, "bbox" = my_bbox))

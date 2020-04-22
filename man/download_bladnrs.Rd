@@ -4,10 +4,10 @@
 \alias{download_bladnrs}
 \title{Download bladnrs}
 \usage{
-download_bladnrs(wd, AHN = "AHN3")
+download_bladnrs(output.dir, AHN = "AHN3")
 }
 \arguments{
-\item{wd}{Required. Working directory.}
+\item{output.dir}{Required. Working directory.}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 }

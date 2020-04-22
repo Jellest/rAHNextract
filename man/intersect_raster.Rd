@@ -2,24 +2,25 @@
 % Please edit documentation in R/intersect_raster.R
 \name{intersect_raster}
 \alias{intersect_raster}
-\title{AHN area}
+\title{intersect raster}
 \usage{
-intersect_raster(ras, point)
+intersect_raster(ras, point, method = "bilinear")
 }
 \arguments{
 \item{ras}{Required. Raster}
 
 \item{point}{Required. spatial point}
+
+\item{method}{'bilinear' (default) or 'simple'}
 }
 \value{
-.tif file of AHN area
+GeoTIFF file of AHN area
 }
 \description{
-Get AHN of a certain area
-ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
+intersect raster at certain point
 }
 \details{
-Get AHN of a certain area
+intersect raster
 }
 \author{
 Jelle Stuurman

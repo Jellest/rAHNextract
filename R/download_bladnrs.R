@@ -2,13 +2,13 @@
 #'
 #'@title Download bladnrs
 #'@description Download blad numbers.
-#'@param wd Required. Working directory.
+#'@param output.dir Required. Working directory.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@author Jelle Stuurman
 #'ahn_area(name, X, Y, radius, bbox, geom, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, sheets = FALSE, delete.sheets = FALSE, redownload = FALSE)
 #'@return all bladnrs geometry
-download_bladnrs <- function(wd, AHN = "AHN3"){
-  bladIndex_gpkgpath <- paste(wd , sep="/")
+download_bladnrs <- function(output.dir, AHN = "AHN3"){
+  bladIndex_gpkgpath <- paste(output.dir , sep="/")
   bladIndex_gpkg <- paste(bladIndex_gpkgpath, "/", AHN, "_bladIndex", ".gpkg", sep="")
   print(bladIndex_gpkg)
   if(!file.exists(bladIndex_gpkg)){
@@ -23,7 +23,7 @@ download_bladnrs <- function(wd, AHN = "AHN3"){
     sf::st_write(ahn_bi, bladIndex_gpkg)
   }
   #load intersected blad indexes
-  # bladIndex.shp <- rgdal::readOGR(dsn = wd, layer = paste0(AHN, "_bladIndex"), stringsAsFactors=FALSE)
+  # bladIndex.shp <- rgdal::readOGR(dsn = output.dir, layer = paste0(AHN, "_bladIndex"), stringsAsFactors=FALSE)
   # bladIndex.shp <- sp::spTransform(bladIndex.shp, epsg_rd)
   # bladIndex.sf <- sf::st_as_sf(bladIndex.shp)
   return(ahn_bi)

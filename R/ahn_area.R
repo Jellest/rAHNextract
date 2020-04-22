@@ -1,77 +1,89 @@
-#'Get AHN raster of a certain area
-#'
 #'@title AHN raster area
-#'@description Get AHN raster area of a certain area
-#'@param X Optional. X coordinate in RD New or WGS84 (LON)
-#'@param Y Optional. Y coordinate in RD New or WGS84 (LAT)
-#'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
-#'@param radius Optional. Set radius in meters of area around a point to create a buffer area (circle).
-#'@param bbox Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)
-#'@param polygon Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon
-#'@param name Optional. Give a name of the specified area. Name will used in the folders and files
+#'@description Get AHN raster area of a specified area.
+#'
+#'AHN Area is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon).
+#'
+#'AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions.
+#'
+#'Default resolution is always the highest resolution (smallest number). AHN3 and AHN2 DEM (Digital Elevation Model) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.
+#'
+#'You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
+#'@param name Optional. Give a name of the specified area. This name will be used in the output file names.
+#'@param output.dir Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.
+#'@param X Required for circle or BBOX when no BBOX coordinates are provided. X coordinate in RD New or WGS84 (LON)
+#'@param Y Required for circle or BBOX when no BBOX coordinates are provided. Y coordinate in RD New or WGS84 (LAT)
+#'@param radius Required for circle or BBOX when no BBOX coordinates are provided. Set radius in meters of area around a point to create a buffer area (circle).
+#'@param bbox Required when using a BBOX. Create BBOX of an area. Use c(XMIN, YMIN, XMAX, YMAX) OR set to TRUE when a radius is provided. Use RD New or WGS84 (LONLAT) coordinates.
+#'@param polygon Required when create an area of custom geometry. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'
 #'@param dem Required for raster datasets. Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, and 100 m.
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
+#'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
 #'@param decimals Default 2. Decide number of decimal places of output elevations.
-#'@param destfile Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.
-#'@param method.sheets Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.
-#'@param keep.sheets Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).
-#'@param redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)
+#'@param sheets.method Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781).
+#'@param sheets.location Optional. Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.
+#'@param sheets.keep Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.
+#'@param sheets.redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure).
 #'@author Jelle Stuurman
-#'@return .tif file of AHN area
+#'@return GeoTIFF file of AHN area
 #'@export
-ahn_area <- function(X, Y, radius, bbox, polygon, name, LONLAT = FALSE, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, decimals = 2, destfile = "structured", method.sheets = FALSE, keep.sheets = TRUE, redownload = FALSE){
+ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+  #set tmp folder if applicable or create output and directory
+  requireNamespace("raster")
+  name_trim <- trim_name(name)
+
+  #set tmp folder if applicable or create output directory
+  if(missing(output.dir) == TRUE){
+    output.dir <- tempdir()
+  } else {
+    if(!dir.exists(output.dir) == TRUE){
+      dir.create(output.dir)
+      print(paste0("'",output.dir, "' directory was not found and was created."))
+    }
+    #print(output.dir)
+  }
+
+  #selected AHN
+  if(tolower(AHN) != "ahn1" && tolower(AHN) != "ahn2" && tolower(AHN) != "ahn3"){
+    stop("No correct AHN is provided. Please select 'AHN1', 'AHN2' or 'AHN3'.")
+  } else {
+    AHN <- toupper(AHN)
+  }
+
+  #complete geometry parameters
   if(missing(X) == TRUE && missing(Y) == TRUE && (missing(polygon) == TRUE || missing(bbox) == TRUE) && missing(radius) == TRUE){
     #creating BBOX or shape
     radius <- ""
   }
-  name_trim <- trim_name(name)
-  #selected AHN layer
-  ahn_lower <- tolower(AHN)
-  if(ahn_lower != "ahn1" && ahn_lower != "ahn2" && ahn_lower != "ahn3"){
-    stop("No correct AHN is provided. Please select 'AHN1', 'AHN2' or 'AHN3'.")
-  } else {
-    my_ahn <- toupper(AHN)
-  }
+
+  #get and create area
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "raster")
-  if(ahn_area == "point"){
-    #go to ahn_point()
-    warning("Geometry type was detected as a point. Function 'ahn_point()' was excecuted instead with all applicable provided parameters. Please see the documentation of ahn_point() to see what output is provided.")
-    ahn_point(X = X, Y = Y, LONLAT = LONLAT, name = name, destfile = destfile, AHN = AHN, dem = dem, resolution = resolution, interpolate = interpolate, method.sheets = method.sheets, keep.sheets = keep.sheets, redownload = redownload, decimals = decimals)
-  } else {
-    if(destfile != "structured" && destfile != ""){
-      print(destfile)
-      if(!dir.exists(destfile)){
-        dir.create(destfile)
-        warning("Directory did not exist and was created in your working directory.")
-      }
-    }
 
-    # if(missing(dem) == TRUE){
-    #   type = "pc"
-    # } else {
-    #   type = "raster"
-    # }
+  #get AHN data
+  if(sheets.method == TRUE){
+    #download AHN sheets and get data (slow)
 
-
-    if(method.sheets == TRUE){
-      #download AHN sheets and get data (slow)
-      data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "raster", AHN = my_ahn, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, destfile = destfile, keep.sheets = keep.sheets, redownload = redownload)
-      if(destfile == ""){
-        unlink(data$fileDir, recursive = TRUE)
-      }
-      ahn_data <- data$data
+    #set AHN sheets location
+    if(missing(sheets.location) == TRUE){
+      sheets.location <- getwd()
+      print(paste0("The AHN sheets are loaded from or downloaded in: ", sheets.location, "/", default.sheets.dir, "/", AHN, "/", dem))
     } else {
-      #retrieve data through WCS (fast)
-      wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = my_ahn, resolution = resolution, dem = dem, interpolate = interpolate)
-      raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, destfile = destfile)
-      raster_mask <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
-      ahn_data <- raster_mask
-      if(destfile == ""){
-        unlink(raster_data$fileDir)
-      }
+      ahn_sheet_directory <- paste(sheets.location, AHN, dem, sep="/")
+      sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheet_directory)
     }
-    return (ahn_data)
+
+    #get AHN data
+    raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "area", AHN = AHN, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+    ahn_data <- raster_data$data
+  } else {
+    #retrieve data through WCS (fast)
+    wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = AHN, resolution = resolution, dem = dem, interpolate = interpolate)
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, output.dir = output.dir, type = "raster")
+    ahn_data <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
   }
+  if(LONLAT == TRUE){
+    warning("The input geometry was provided using Longitude and Latitude coordinates. The output, however, is a raster using the the RD New cordinate system.")
+  }
+  return (ahn_data)
 }

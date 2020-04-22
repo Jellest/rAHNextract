@@ -5,38 +5,39 @@
 \title{AHN raster area}
 \usage{
 ahn_area(
+  name = "AHNarea",
+  output.dir,
   X,
   Y,
   radius,
   bbox,
   polygon,
-  name,
-  LONLAT = FALSE,
   AHN = "AHN3",
   dem = "DSM",
   resolution,
   interpolate = TRUE,
+  LONLAT = FALSE,
   decimals = 2,
-  destfile = "structured",
-  method.sheets = FALSE,
-  keep.sheets = TRUE,
-  redownload = FALSE
+  sheets.method = FALSE,
+  sheets.location,
+  sheets.keep = TRUE,
+  sheets.redownload = FALSE
 )
 }
 \arguments{
-\item{X}{Optional. X coordinate in RD New or WGS84 (LON)}
+\item{name}{Optional. Give a name of the specified area. This name will be used in the output file names.}
 
-\item{Y}{Optional. Y coordinate in RD New or WGS84 (LAT)}
+\item{output.dir}{Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.}
 
-\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
+\item{X}{Required for circle or BBOX when no BBOX coordinates are provided. X coordinate in RD New or WGS84 (LON)}
 
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)}
+\item{Y}{Required for circle or BBOX when no BBOX coordinates are provided. Y coordinate in RD New or WGS84 (LAT)}
 
-\item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
+\item{radius}{Required for circle or BBOX when no BBOX coordinates are provided. Set radius in meters of area around a point to create a buffer area (circle).}
 
-\item{name}{Optional. Give a name of the specified area. Name will used in the folders and files}
+\item{bbox}{Required when using a BBOX. Create BBOX of an area. Use c(XMIN, YMIN, XMAX, YMAX) OR set to TRUE when a radius is provided. Use RD New or WGS84 (LONLAT) coordinates.}
 
-\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
+\item{polygon}{Required when create an area of custom geometry. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
@@ -46,24 +47,31 @@ ahn_area(
 
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
+\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
+
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
-\item{destfile}{Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.}
+\item{sheets.method}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on \href{http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781}{PDOK}.}
 
-\item{method.sheets}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float geotif file. TRUE downloads AHN area through the available .tiff AHN sheets (kaartbladen) available on PDOK.}
+\item{sheets.location}{Optional. Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
 
-\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.}
 
-\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure).}
 }
 \value{
-.tif file of AHN area
+GeoTIFF file of AHN area
 }
 \description{
-Get AHN raster area of a certain area
-}
-\details{
-Get AHN raster of a certain area
+Get AHN raster area of a specified area.
+
+AHN Area is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon).
+
+AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions.
+
+Default resolution is always the highest resolution (smallest number). AHN3 and AHN2 DEM (Digital Elevation Model) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.
+
+You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 }
 \author{
 Jelle Stuurman

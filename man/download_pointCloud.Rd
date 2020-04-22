@@ -9,21 +9,22 @@
 \usage{
 download_pointCloud(
   name,
-  wd,
+  output.dir,
   AHN = "AHN3",
   bladnrs,
   area,
   bboxes,
   radius,
   gefilterd = TRUE,
-  keep.sheets = TRUE,
-  redownload = FALSE
+  sheets.location,
+  sheets.keep = TRUE,
+  sheets.redownload = FALSE
 )
 }
 \arguments{
 \item{name}{Optional. Give a name of the specified area.}
 
-\item{wd}{Required. Working directory.}
+\item{output.dir}{Required. Working directory.}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
@@ -37,12 +38,14 @@ download_pointCloud(
 
 \item{gefilterd}{Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the gefilterd point clouds or not.}
 
-\item{keep.sheets}{Default TRUE. Only applicable if method.sheets is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (kaartbladen).}
+\item{sheets.location}{Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory. Example directory structure: 'AHN_sheets/AHN3/DSM' or 'AHN/sheets/AHN2/DTM'.  Always use the correct directory structure and capitalization within the selected directory when pre-existing sheets will be used.}
 
-\item{redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).}
+
+\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 }
 \value{
-.tif of DSM AHN area
+.laz of AHN area
 }
 \description{
 Download DSM

@@ -1,98 +1,171 @@
-ua---
+---
 output: github_document
+editor_options:
+  chunk_output_type: console
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, include = FALSE}
+library(knitr)
+library(rmarkdown)
+library(raster)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.width = 8,
+  fig.height = 6,
+  out.width = "100%",
+  echo = TRUE,
+  results = "markdown",
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  tidy = TRUE
 )
 ```
 
 # rAHNextract
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases) 
 <!-- badges: end -->
+Updated: 23-04-2020
 
-Extract elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN) using R. Raster or point clouds extraction is possible of a custom area for the AHN1, AHN2 or AHN3 using the different PDOK. geo services.
+This R package automatically extracts elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Individual elevations, raster areas or point clouds areas can be extracted from the AHN1, AHN2 or AHN3 using all the geo services that are made available by [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781)
 
-Works with all available resolutions. Works with Digital Terrain Model (DTM) and Digital Surface Model (DSM).
 
-Available raster points or datasets to download through this package:
-AHN1:
-AHN2: 0.5 m and 5 m resolutions; both DSM and DTM. 0.5 m DTM also makes distinction between interpolated raster dataset or not)
-AHN3: 0.5 m and 5 m; both DSM and DTM
+Type        | AHN 3    | AHN2             | AHN1
+-----------  | -------- | ---------------- | ---------
+**Resolutions**  | 0.5, 5m | 0.5m, 5m       | 5m, 100m
+**DEM**         | DSM, DTM | DSM, DTM         | DTM
+**point clouds** | YES     | YES       | YES
 
-Available point cloud datasets:
-AHN1: uitgefilterd en gefilterd
-AHN2: uitgefilterd en gefilterd
-AHN3: 
+For the AHN2 DTM, there are 2 versions available: interpolated or non interpolated version.
+
+For the AHN1 and AHN2 filterd ('gefilterd') and not filterd ('uitgefilterd') versions of the point clouds datasets are made available.
+
 ## Installation
 
-You can install the released version of rAHNextract from [CRAN](https://CRAN.R-project.org) with:
 
-``` r
-#>install.packages("rAHNextract")
-```
-
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
+```{r install, include=TRUE, results="hide"}
+library(devtools)
 devtools::install_github("Jellest/rAHNextract")
-```
-## Example
-
-
-```{r AHN point(s)}
 library(rAHNextract)
-#
-indiv_elevation <- ahn_point(name = "water side", X = , Y = , AHN = "AHN3", resolution = 0.5)
-
-#Use mapply to calculate AHN for more than 1 point.
-my_points <- read.table(file = "scratch/coordinaten_Zwaanshoek.csv", header = TRUE, sep=",")
-elevation_points <- mapply(ahn_point, name = my_points$ID, X = my_points$X, Y = my_points$Y, AHN =  "AHN3", resolution = 0.5)
-results_table <- data.frame(my_points, elevation_points)
-colnames(results_table) <- c("ID", "X", "Y", "elevation")
-
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## WCS vs. Sheets method
+Retrieving individual AHN points or raster areas can be done through two methods: WCS method or sheets method. The WCS method is the fastest method and makes use of the OGC [WCS protocol](https://geodata.nationaalgeoregister.nl/ahn3/wcs?request=GetCapabilities&service=wcs). The output is a 32float GeoTIFF file. This method is only efficient if a few AHN elevations or areas need to be retrieved.
 
-```{AHN raster areas}
-#WCS method
-##circle
+With the sheets method, the data is retrieved from the 1km x 6.25 km raster sheets (kaartbladen) made made available by [PDOK](https://downloads.pdok.nl/ahn3-downloadpage/). This method is slower as it needs to download all the sheets required to retrieve the AHN (200-500 mb per sheet). 
+This method is recommended to be used if many (point) elevations need to be retrieved from a certain small area. Other reason may be if it produces a more desired output format (regular GeoTIFF raster).
 
-#BBOX
+For both the points and raster areas, the WCS method is set to default. The sheets method can used by setting `sheets.method=TRUE`.
 
+## Examples
 
+The examples below show the possibilities of this package by combining the different parameters. The different examples show how different geometries (circles, bboxes, or custom shapes) can be retrieved with the raster areas or point clouds. Please use the complete documentation of the functions in R to see all the available parameters.
 
-#sheets method
-##custom shape
+If desired, points or areas using the WGS coordinate system can be used as input by setting `LONLAT=TRUE`. For efficiency and accuracy purposes, returned raster areas are always done using the RD New coordinate system (the source).
 
+ For `ahn_point()` and `ahn_area()` the default output is a temporary file. Set location of directory if you want to keep the raster output (point) using the `output.dir` parameter. The default output location for `ahn_pc()` is always the '/AHN_output' directory in your working directory. Working with temporary files for point clouds is strongly discouraged due to the size of processed files. 
+ 
+## Individual AHN elevations points
 
-#All geometry type can be applied for both the WCS and sheets method.
+The `ahn_point()` function returns the AHN elevation at the provided point.
+
+### WCS method
+
+This examples gets the elevation from the AHN3 (default) using the DSM (default) as the DEM. 
+```{r rAHNpoints_wcs}
+ahn_point(name = "Utrecht point", X = 136550, Y = 456060)
 ```
 
-```{AHN point clouds}
-#WCS method
+### sheets method
+The sheets method can used by setting `sheets.method=TRUE`.
 
-#sheets method
-
-
+This examples gets the elevation from the AHN3 DTM at the exact same point.
+```{r points_sheet}
+ahn_point(name = "Utrecht point", X = 136550, Y = 456060, AHN = "AHN2", dem="DTM", sheets.method = TRUE)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+## AHN elevation areas
 
-You can also embed plots, for example:
+The `ahn_area()`returns the AHN elevation raster of the provided area.
 
-```{r pressure, echo = FALSE}
+### WCS method
 
+#### circle
+This example gets a circular area from the AHN3 DSM, and saving its output raster in a custom output directory.
+```{r AHN_raster_areas_circle}
+Utrecht_circleWCS <- ahn_area(name = "Utrecht circle", X = 136550, Y = 456060, resolution = 0.5, radius = 100, output.dir = "C:/myProject")
+
+plot(Utrecht_circleWCS, xlab = "RD X", ylab = "RD Y", main= "AHN Elevation (m)")
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+#### BBOX
+##### BBOX using a radius from a certain point
+This example gets a BBOX using a point and radius) from the AHN3 DSM.
+```{r AHN_raster_areas_bbox_radius}
+Utrecht_WCSsBBOX <- ahn_area(name = "Utrecht sBBOX", X = 136550, Y = 456060, radius = 100, bbox = TRUE, resolution = 0.5)
+plot(Utrecht_WCSsBBOX,  xlab = "RD X", ylab = "RD Y", main= "AHN Elevation (m)")
+```
+
+##### BBOX using BBOX coordinates
+This example makes a bbox using BBOX coordinates from the AHN3 DTM (not interpolated version).
+```{r AHN_raster_areas_bbox_coords}
+Utrecht_WCSBBOX <- ahn_area(name = "Utrecht BBOX", bbox = c(136450, 455960, 136650, 456160), dem = "DTM", resolution = 0.5, interpolate = FALSE)
+plot(Utrecht_WCSBBOX, xlab = "RD X", ylab = "RD Y", main= "AHN Elevation (m)")
+```
+
+#### Using a custom geometry shape
+This example retrieves the AHN area  of a custom shape area from the 5m resolution DSM of the AHN3.
+```{r AHN_raster_areas_custom_shape}
+library(sf)
+Utrecht.shp <- sf::st_read("C:/myProject/Utrecht_oudegracht.shp")
+
+Utrecht_WCSpolygon <- ahn_area(name = "Utrecht polygon", polygon = Utrecht.shp, resolution = 5)
+plot(Utrecht_WCSpolygon, xlab = "RD X", ylab = "RD Y", main= "AHN Elevation (m)")
+```
+
+### Sheets method
+The sheets method can used by setting `sheets.method=TRUE`.
+
+This example gets a BBOX with a point and radius) from the AHN2 DSM (default). This particular and bigger BBOX intersects with 2 sheets and are both automatically downloaded and processed before it is merged into one raster output. The AHN sheets will be saved (or loaded) in the 'AHN_sheets' directory in a own set diretory.
+
+
+```{r AHN_raster_areas_sheets}
+Utrecht_sCircle <- ahn_area(name = "Utrecht scircle", X = 136550, Y = 456060, radius = 500, AHN = "AHN2", sheets.method = TRUE, sheets.location = "C:/myProject")
+plot(Utrecht_sCircle, xlab = "RD X", ylab = "RD Y", main= "AHN Elevation (m)")
+```
+
+## Point clouds areas
+The `ahn_pc()` function extracts the point clouds from a provided area. The output is LAS data compressed in a .laz file of the area.
+
+AHN3 only has one point clouds dataset available. The AHN1 and AHN2 both have 2 versions: filtered ('gefilterd') and not filtered ('uitgefilterd'). Default is `gefilterd=TRUE`.
+
+For all point clouds downloads you can extract the exact same geometry shapes as used for raster areas using the same parameters described above. (X, Y, radius, bbox, shape).
+
+Extracting point clouds will always be done using point clouds sheets provided by the [PDOK](https://downloads.pdok.nl/ahn3-downloadpage/). These are often large files and will by default be downloaded and kept on your machine in your working directory under '/AHN_sheets' or a new '/AHN_sheets' directory in your sheet download folder through the `sheets.location` parameter. Set `sheets.keep=FALSE` if you want to delete the downloaded point clouds sheets after the function has finished running. Warning: Extracting point clouds area require a lot of memory and time to be processed.
+
+### AHN3
+This example retrieves the AHN point clouds of a custom shape area from the AHN3.
+
+The output .laz data was imported in the program [CloudCompare](https://www.danielgm.net/cc/) to generate the images of the .laz data.
+
+```{r AHN3_pointclouds}
+### AHN3
+library(sf)
+Utrecht.shp <- sf::st_read("C:/myProject/Utrecht_oudegracht.shp")
+
+Utrecht_shape_pc <- ahn_pc(name = "Utrecht polygon pc", polygon = Utrecht.shp)
+```
+
+![AHN3 point clouds](man/figures/README-ahn3_pc_output.png)
+
+### AHN2 and AHN1
+This example retrieves the AHN point clouds of a BBOX area from the not filtered AHN2 (uitgefilterd). No custom output directory has been set, and therefore the working directory wil be used for the output .laz file. The point clouds sheets parameter is also not set, and therfore is/are loaded in the default 'AHN_sheets' directory.
+
+```{r AHN2_pointclouds}
+Utrecht_BBOX_pc <- ahn_pc(name = "Utrecht BBOX pc", bbox = c(136450, 455960, 136650, 456160), AHN = "AHN2", gefilterd = TRUE)
+```
+![AHN2 point clouds](man/figures/README-ahn2_pc_output.png)

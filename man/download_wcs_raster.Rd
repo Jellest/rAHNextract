@@ -5,7 +5,6 @@
 \title{Download WCS raster}
 \source{
 \url{https://www.pdok.nl/datasets}
-download_wcs_raster(name = "elevation", wcsUrl)
 }
 \usage{
 download_wcs_raster(
@@ -16,8 +15,8 @@ download_wcs_raster(
   resolution,
   radius,
   interpolate,
-  destfile = "",
-  type = "area"
+  output.dir,
+  type = "raster"
 )
 }
 \arguments{
@@ -35,12 +34,12 @@ download_wcs_raster(
 
 \item{interpolate}{Only applicable for AHN2.}
 
-\item{destfile}{destination file.}
+\item{output.dir}{destination file.}
 
 \item{type}{'area' or 'point'}
 }
 \value{
-.tif float32 file of BBOX area.
+GeoTIFF float32 file of BBOX area.
 }
 \description{
 Download WCS raster

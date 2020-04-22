@@ -4,14 +4,14 @@
 \alias{write_pc}
 \title{write point cloud}
 \usage{
-write_pc(temp_name, name, ahn_pc_name, nr, bladnrsLength, area, radius)
+write_pc(temp_name, name, ahn_pc_filename, nr, bladnrsLength, area, radius)
 }
 \arguments{
 \item{temp_name}{Required. .laz data}
 
 \item{name}{name of file}
 
-\item{ahn_pc_name}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
+\item{ahn_pc_filename}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
 \item{nr}{bladnr}
 
@@ -29,5 +29,5 @@ write point cloud
 }
 \author{
 Jelle Stuurman
-write_pc(temp_name, ahn_pc_name, nr, bladnrsLength, area)
+write_pc(temp_name, ahn_pc_filename, nr, bladnrsLength, area)
 }

@@ -9,65 +9,66 @@
 #'@param resolution Default 0.5
 #'@param radius Radius of circle or squared BBOX in meters.
 #'@param interpolate Only applicable for AHN2.
-#'@param destfile destination file.
+#'@param output.dir destination file.
 #'@param type 'area' or 'point'
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
-#'download_wcs_raster(name = "elevation", wcsUrl)
-#'@return .tif float32 file of BBOX area.
-download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "DSM", resolution, radius, interpolate, destfile = "", type = "area"){
-        my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
-        ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate, method = "raster")
-        if(type == "point"){
-                radiusText <- ""
-                overwriteText <- ""
-        } else {
-                radiusText <- paste0(radius, "m_")
-                overwriteText <- paste0("(", radius, "m)")
-        }
-        if(destfile == ""){
-                #creat temp file
-                image_name <- paste0(tempdir(), name, "_", radius,"m_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
-                #image_name <- paste0(name, "_", tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem))
-                #image_name <- tempfile(pattern = image_name, tmpdir = tempdir(), fileext = ".tif")
-                name_directory <- tempdir()
-        } else if(destfile == "structured"){
-                if(!dir.exists(structured_output_folder)){
-                        dir.create(structured_output_folder, showWarnings = FALSE)
-                }
-                name_directory <- paste0(structured_output_folder, "/", name)
-                if(!dir.exists(name_directory)){
-                        dir.create(name_directory, showWarnings = FALSE)
-                }
+#'@return GeoTIFF float32 file of BBOX area.
+download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "DSM", resolution, radius, interpolate, output.dir, type = "raster"){
+  #get resolution and AHN letter
+  my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
+  ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate, method = "raster")
 
-                image_name <- paste0(name_directory, "/", name, "_", radiusText, tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
-        } else {
-                name_directory <- destfile
-                image_name <- paste0(destfile, "/", name, "_", radiusText, tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
-        }
-        if(file.exists(image_name)){
+  #define radius
+  if(type == "point" || radius == ""){
+    radiusText <- ""
+    overwriteText <- ""
+  } else {
+    radiusText <- paste0(radius, "m_")
+    overwriteText <- paste0("(", radius, "m)")
+  }
 
-                warning(paste("Cropped WCS raster for", name, overwriteText, "already exists and was overwritten." ,sep =" "))
-                file.remove(image_name)
-        }
+  #set or get outut directory
+  if(missing(output.dir) == TRUE || output.dir == tempdir()){
+    output.dir <- tempdir()
+  } else if(output.dir == default.output.dir){
+    if(!dir.exists(default.output.dir)){
+      dir.create(default.output.dir, showWarnings = FALSE)
+    }
+  }
 
-        #
-        #         #ahn directory
-        #         ahn_directory <- paste(name_directory, AHN, sep="/")
-        #         if(!dir.exists(ahn_directory)){
-        #                 dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
-        #         }
-        #
-        #         #working directory
-        #         working_directory <- paste(ahn_directory, dem, sep="/")
-        #         if(!dir.exists(working_directory)){
-        #                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
-        #
+  if(output.dir != tempdir()){
+    print(paste0("Destination directory of output AHN area: ", output.dir))
+  }
 
-        utils::download.file(url = wcsUrl, destfile = image_name, mode = "wb")
-        print("Download raster image succeeded.");
-        my_raster <- raster::raster(image_name)
-        raster::NAvalue(my_raster) <- -32768.0
-        #plot(my_raster, xlab="RD X", ylab="RD Y", main="Elevation (m)")
-        return(list("data" = my_raster, fileDir = name_directory, fileName = image_name))
+  #set image name
+  image_name <- paste0(output.dir, "/", name, "_", radiusText, tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
+  if(file.exists(image_name)){
+    warning(paste("Cropped WCS raster for", name, overwriteText, "already exists and was overwritten." ,sep =" "))
+    file.remove(image_name)
+  }
+
+  #
+  #         #ahn directory
+  #         ahn_directory <- paste(name_directory, AHN, sep="/")
+  #         if(!dir.exists(ahn_directory)){
+  #                 dir.create(paste(name_directory, AHN, sep="/"), showWarnings = FALSE)
+  #         }
+  #
+  #         #working directory
+  #         working_directory <- paste(ahn_directory, dem, sep="/")
+  #         if(!dir.exists(working_directory)){
+  #                 dir.create(paste(ahn_directory, dem, sep="/"), showWarnings = FALSE)
+  #
+
+  #downloads WCS image
+  utils::download.file(url = wcsUrl, destfile = image_name, mode = "wb")
+  print("Download raster image succeeded.");
+  ahn_raster <- raster::raster(image_name)
+  #ahn_raster <- raster::projectRaster(image_name, crs = crs(epsg_rd), overwrite = TRUE)
+  raster::NAvalue(ahn_raster) <- -32768.0
+  if(output.dir!= tempdir()){
+    print(image_name)
+  }
+  return(list("data" = ahn_raster, "fileDir" = output.dir, "fileName" = image_name))
 }

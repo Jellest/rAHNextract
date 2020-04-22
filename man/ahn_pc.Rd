@@ -2,56 +2,58 @@
 % Please edit documentation in R/ahn_pc.R
 \name{ahn_pc}
 \alias{ahn_pc}
-\title{AHN point clouds}
+\title{AHN point clouds area}
 \usage{
 ahn_pc(
+  name = "AHNpointclouds",
+  output.dir = "AHN_output",
   X,
   Y,
   radius,
   bbox,
   polygon,
-  name,
-  LONLAT = FALSE,
   AHN = "AHN3",
   gefilterd = FALSE,
-  destfile = "structured",
-  keep.sheets = TRUE,
-  redownload = FALSE
+  LONLAT = FALSE,
+  sheets.location,
+  sheets.keep = TRUE,
+  sheets.redownload = FALSE
 )
 }
 \arguments{
-\item{X}{Optional. X coordinate in RD New or WGS84 (LON)}
+\item{name}{Optional. Give a name of the specified area. This name will be used in the output file names.}
 
-\item{Y}{Optional. Y coordinate in RD New or WGS84 (LAT)}
+\item{output.dir}{Set location of output directory. Default 'AHN_output'. 'AHN_output' saves all the output files in the 'AHN_output' directory created in the working directory. Set to any other output path to save all the output files there. Set to "", to have all output files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.}
 
-\item{radius}{Optional. Set radius in meters of area around a point to create a buffer area (circle).}
+\item{X}{Required for circle or bbox when no BBOX coordinates are provided. X coordinate in RD New or WGS84 (LON)}
 
-\item{bbox}{Optional. Set bbox of area. c(XMIN, YMIN, XMAX, YMAX) in RD New or WGS84 (LONLAT)}
+\item{Y}{Required for circle or bbox when no BBOX coordinates are provided. Y coordinate in RD New or WGS84 (LAT)}
 
-\item{polygon}{Optional. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
+\item{radius}{Required for circle or bbox when no BBOX coordinates are provided. Set radius in meters of area around a point to create a buffer area (circle).}
 
-\item{name}{Optional. Give a name of the specified area. Name will used in the folders and files}
+\item{bbox}{Required when using a BBOX. Create BBOX of an area. Use c(XMIN, YMIN, XMAX, YMAX) OR set to TRUE when a radius is provided. Use RD New or WGS84 (LONLAT) coordinates.}
 
-\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
+\item{polygon}{Required when create an area of custom geometry. Use spatial object as your area. .shp, .gpkg. Output will in the shape of this polygon}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'}
 
-\item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
+\item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It depicts if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
 
-\item{destfile}{Default "structured". When set to "structured", all the output files will be saved in an organized way in the folder 'AHN_output' created in your current working directory. This included the AHN sheets. Set to 'Structured' to save  Set to any other output path to save all the output files there. The AHN sheets will be downloaded in the output folder 'AHN_sheets" in your working directory. Set to "", to have all output files be temporary files except for the AHN sheets which are downloaded in the 'AHN_sheets' folder.geotif 32bit float).}
+\item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format}
 
-\item{keep.sheets}{Default TRUE. Set to FALSE if you want to delete the downloaded point clouds sheets (kaartbladen).}
+\item{sheets.location}{Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-exisiting sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/PC' or 'myFolder/AHN_sheets/AHN2/PC'. Only use extracted files in their original name after download.}
 
-\item{redownload}{Default FALSE. Only applicable if point clouds sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (kaartbladen)}
+\item{sheets.keep}{Default TRUE. Set to FALSE if you want to delete the downloaded point clouds sheets (structure). It is recommended to keep the sheets if this function will be used more than once.}
+
+\item{sheets.redownload}{Default FALSE. Only applicable if point clouds sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 }
 \value{
 .laz data of area
 }
 \description{
-Get AHN point clouds of a certain area
-}
-\details{
-Get AHN point clouds of a certain area
+Get AHN point clouds of a certain area.
+
+AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters.
 }
 \author{
 Jelle Stuurman
