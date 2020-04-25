@@ -57,6 +57,11 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
     radius <- ""
   }
 
+  #set resoluition if missing
+  if(missing(resolution) == TRUE){
+    resolution = ""
+  }
+
   #get and create area
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "raster")
 
@@ -77,13 +82,10 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
     raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "area", AHN = AHN, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
     ahn_data <- raster_data$data
   } else {
-    #retrieve data through WCS (fast)
-    if(missing(resolution) == TRUE){
-      resolution == ""
-    }
     my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
+
     wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = AHN, resolution = my_resolution, dem = dem, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, output.dir = output.dir, type = "raster")
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = my_resolution, interpolate = interpolate, output.dir = output.dir, type = "raster")
     ahn_data <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
   }
   if(LONLAT == TRUE){

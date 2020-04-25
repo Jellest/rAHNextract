@@ -45,6 +45,11 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
     AHN <- toupper(AHN)
   }
 
+  #set missing resolution
+  if(missing(resolution) == TRUE){
+    resolution = ""
+  }
+
   #get and create a point
   my_point <- generate_ahn_point(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = resolution)
 
@@ -71,9 +76,6 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
     my_elevation <- intersect_raster(raster_data$data, my_point$point)
   } else {
     #retrieve data through WCS (fast)
-    if(missing(resolution) == TRUE){
-      resolution == ""
-    }
     my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
 
     my_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate)
