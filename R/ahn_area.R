@@ -78,15 +78,19 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
     ahn_data <- raster_data$data
   } else {
     #retrieve data through WCS (fast)
-    wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = AHN, resolution = resolution, dem = dem, interpolate = interpolate)
+    if(missing(resolution) == TRUE){
+      resolution == ""
+    }
+    my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
+    wcs_url <- create_wcs_url(bbox = ahn_area$bbox, type = "area", AHN = AHN, resolution = my_resolution, dem = dem, interpolate = interpolate)
     raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), radius = radius, resolution = resolution, interpolate = interpolate, output.dir = output.dir, type = "raster")
     ahn_data <- raster::mask(x = raster_data$data, mask = ahn_area$area, filename = raster_data$fileName, overwrite = TRUE)
   }
   if(LONLAT == TRUE){
     warning("The input geometry was provided using Longitude and Latitude coordinates. The output, however, is a raster using the the RD New cordinate system.")
   }
-  if(output.dir == tempdir()){
-    unlink(raster_data$fileName)
-  }
+  # if(output.dir == tempdir()){
+  #   unlink(raster_data$fileName)
+  # }
   return (ahn_data)
 }

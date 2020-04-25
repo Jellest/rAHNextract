@@ -29,7 +29,11 @@ download_dtm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution
   } else {
     ahn_atomFeed_BaseUrl <- paste(ngr, "/", tolower(AHN), "/extract/", tolower(AHN), "_", sep="")
   }
+  if(missing(resolution) == TRUE){
+    resolution = ""
+  }
   my_resolution<- get_resolution(AHN = AHN, resolution)
+
   indiv_dtm_rasters <- list()
 
   if(radius == ""){

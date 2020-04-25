@@ -11,7 +11,7 @@
 #'@param Y Required. Y coordinate in RD New or WGS84 (LAT)
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
 #'@param dem Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
-#'@param resolution Default 0.5 meters. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
+#'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param output.dir Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
@@ -71,16 +71,21 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
     my_elevation <- intersect_raster(raster_data$data, my_point$point)
   } else {
     #retrieve data through WCS (fast)
-    my_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = resolution, interpolate = interpolate)
-    raster_data <- download_wcs_raster(wcsUrl = my_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
+    if(missing(resolution) == TRUE){
+      resolution == ""
+    }
+    my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
+
+    my_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate)
+    raster_data <- download_wcs_raster(wcsUrl = my_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = my_resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
     my_elevation <- intersect_raster(raster_data$data, my_point$point)
   }
 
   my_elevation <- format(round(my_elevation, decimals), nsmall = decimals)
   print(paste("Elevation of ", name , ": ", my_elevation, " m.", sep=""))
   my_elevation <- as.numeric(my_elevation)
-  if(output.dir == tempdir()){
-    unlink(raster_data$fileName)
-  }
+  # if(output.dir == tempdir()){
+  #   unlink(raster_data$fileName)
+  # }
   return (my_elevation)
 }

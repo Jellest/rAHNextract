@@ -17,10 +17,10 @@ create_wcs_url <- function(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DS
   wcs_baseUrl = paste0(ngr,"/", tolower(AHN), "/wcs?SERVICE=WCS&VERSION=1.0.0&REQUEST=GetCoverage")
 
   #get resolution
-  my_resolution <- get_resolution(AHN= AHN, resolution = resolution)
+  #my_resolution <- get_resolution(AHN= AHN, resolution = resolution)
 
   #get dem type
-  dem <- get_dem(AHN = AHN, resolution = my_resolution$res, dem = dem, interpolate = interpolate)
+  dem <- get_dem(AHN = AHN, resolution = resolution$res, dem = dem, interpolate = interpolate)
 
   #get BBOX extent of buffer area
   my_bbox <- paste(bbox$xmin, bbox$ymin, bbox$xmax, bbox$ymax, sep=",")
@@ -42,7 +42,7 @@ create_wcs_url <- function(type, bbox, AHN = "AHN3", resolution = 0.5, dem = "DS
   } else {
     underscore <- "_"
   }
-  name_layer_url <- paste0("COVERAGE=", tolower(AHN), "_" , my_resolution$res_name , underscore, dem)
+  name_layer_url <- paste0("COVERAGE=", tolower(AHN), "_" , resolution$res_name , underscore, dem)
 
   #WCS image format
   imgFormat_url <- "FORMAT=GEOTIFF_FLOAT32"

@@ -15,9 +15,7 @@
 #'@source <https://www.pdok.nl/datasets>
 #'@return GeoTIFF float32 file of BBOX area.
 download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = "DSM", resolution, radius, interpolate, output.dir, type = "raster"){
-  #get resolution and AHN letter
-  my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
-  ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = my_resolution$res, interpolate = interpolate, method = "raster")
+  ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = resolution$res, interpolate = interpolate, method = "raster")
 
   #define radius
   if(type == "point" || radius == ""){
@@ -42,7 +40,7 @@ download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN3", dem = 
   }
 
   #set image name
-  image_name <- paste0(output.dir, "/", name, "_", radiusText, tolower(ahn_letter), AHN, "_", my_resolution$res_name,"_", toupper(dem), ".tif")
+  image_name <- paste0(output.dir, "/", name, "_", radiusText, tolower(ahn_letter), AHN, "_", resolution$res_name,"_", toupper(dem), ".tif")
   if(file.exists(image_name)){
     warning(paste("Cropped WCS raster for", name, overwriteText, "already exists and was overwritten." ,sep =" "))
     file.remove(image_name)

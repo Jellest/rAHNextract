@@ -9,7 +9,7 @@
 #'@return "res": resolution in meters, "res_name:" name of resolution string.
 get_resolution <- function(AHN = "AHN3", resolution){
   if(AHN == "AHN1"){
-    if(missing(resolution)){
+    if(missing(resolution) || resolution == ""){
       warning("No resolution was found for importing AHN1. Resolution of 5 meters was used.")
       resolution = 5
       resolution_name <- "5m"
