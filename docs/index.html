@@ -106,7 +106,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
+<p>To plot rasters using <code><a href="https://rdrr.io/pkg/sf/man/plot.html">plot()</a></code> the <code>raster</code> pacakge is required. TO download the<code>rAHNextract</code> package from GitHub, the librrary <code>devtools</code> is required. If you want to compile the code from the source code, the program Rtools is needed. Rtools is not required to make use of the <code>rAHNextract</code> package.</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">raster</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"Jellest/rAHNextract"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rAHNextract</span>)</pre></div>
 </div>
@@ -174,7 +176,7 @@
 <span class="co">#&gt; [1] "Download raster image succeeded."</span>
 <span class="co">#&gt; [1] "C:/myProject/Utrechtcircle_100m_rAHN3_05m_DSM.tif"</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">Utrecht_circleWCS</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span>(<span class="no">Utrecht_circleWCS</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
 <p><img src="reference/figures/README-AHN_raster_areas_circle-1.png" width="100%"></p>
 </div>
 <div id="bbox" class="section level4">
@@ -183,12 +185,12 @@
 <div id="bbox-using-a-radius-from-a-certain-point" class="section level5">
 <h5 class="hasAnchor">
 <a href="#bbox-using-a-radius-from-a-certain-point" class="anchor"></a>BBOX using a radius from a certain point</h5>
-<p>This example gets a BBOX using a point and radius) from the AHN3 DSM.</p>
+<p>This example gets a BBOX (using a point and radius) from the AHN3 DSM.</p>
 <div class="sourceCode" id="cb5"><pre class="r"><span class="no">Utrecht_WCSsBBOX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ahn_area.html">ahn_area</a></span>(<span class="kw">name</span> <span class="kw">=</span> <span class="st">"Utrecht sBBOX"</span>, <span class="kw">X</span> <span class="kw">=</span> <span class="fl">136550</span>, <span class="kw">Y</span> <span class="kw">=</span> <span class="fl">456060</span>, <span class="kw">radius</span> <span class="kw">=</span> <span class="fl">100</span>,
     <span class="kw">bbox</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">resolution</span> <span class="kw">=</span> <span class="fl">0.5</span>)
 <span class="co">#&gt; [1] "Creating bbox from point and radius input."</span>
 <span class="co">#&gt; [1] "Download raster image succeeded."</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">Utrecht_WCSsBBOX</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span>(<span class="no">Utrecht_WCSsBBOX</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
 <p><img src="reference/figures/README-AHN_raster_areas_bbox_radius-1.png" width="100%"></p>
 </div>
 <div id="bbox-using-bbox-coordinates" class="section level5">
@@ -199,7 +201,7 @@
     <span class="fl">456160</span>), <span class="kw">dem</span> <span class="kw">=</span> <span class="st">"DTM"</span>, <span class="kw">resolution</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">interpolate</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="co">#&gt; [1] "Creating BBOX from BBOX coordinates."</span>
 <span class="co">#&gt; [1] "Download raster image succeeded."</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">Utrecht_WCSBBOX</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span>(<span class="no">Utrecht_WCSBBOX</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"RD X"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"RD Y"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"AHN Elevation (m)"</span>)</pre></div>
 <p><img src="reference/figures/README-AHN_raster_areas_bbox_coords-1.png" width="100%"></p>
 </div>
 </div>
@@ -227,7 +229,7 @@
 <h3 class="hasAnchor">
 <a href="#sheets-method-1" class="anchor"></a>Sheets method</h3>
 <p>The sheets method can used by setting <code>sheets.method=TRUE</code>.</p>
-<p>This example gets a BBOX with a point and radius) from the AHN2 DSM (default). This particular and bigger BBOX intersects with 2 sheets and are both automatically downloaded and processed before it is merged into one raster output. The AHN sheets will be saved (or loaded) in the ‘AHN_sheets’ directory in a own set diretory.</p>
+<p>This example gets a circle from the AHN2 DSM (default). This particular and bigger BBOX intersects with 2 sheets and are both automatically downloaded and processed before it is merged into one raster output. The AHN sheets will be saved (or loaded) in the ‘AHN_sheets’ directory in a own set diretory.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="no">Utrecht_sCircle</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ahn_area.html">ahn_area</a></span>(<span class="kw">name</span> <span class="kw">=</span> <span class="st">"Utrecht scircle"</span>, <span class="kw">X</span> <span class="kw">=</span> <span class="fl">136550</span>, <span class="kw">Y</span> <span class="kw">=</span> <span class="fl">456060</span>, <span class="kw">radius</span> <span class="kw">=</span> <span class="fl">500</span>,
     <span class="kw">AHN</span> <span class="kw">=</span> <span class="st">"AHN2"</span>, <span class="kw">sheets.method</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">sheets.location</span> <span class="kw">=</span> <span class="st">"C:/myProject"</span>)
 <span class="co">#&gt; [1] "Creating circle from radius input."</span>

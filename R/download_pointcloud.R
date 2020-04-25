@@ -65,8 +65,7 @@ download_pointCloud <- function(name, output.dir, AHN = "AHN3", bladnrs, area, b
 
   print(paste0("Destination directory of output point clouds area: ", output.dir))
 
-  s <- sprintf("Found %i sheet(s) with name(s):", length(bladnrs))
-  print(s)
+  print(sprintf("Found %i sheet(s) with name(s):", length(bladnrs)))
   for(b in bladnrs){
     print(b)
   }

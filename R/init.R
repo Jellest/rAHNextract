@@ -1,2 +1,2 @@
 #init
-requireNamespace("raster")
+require("raster")

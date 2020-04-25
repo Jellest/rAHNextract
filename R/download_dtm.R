@@ -70,8 +70,7 @@ download_dtm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution
     print(paste0("Destination directory of output AHN area: ", output.dir))
   }
 
-  s <- sprintf("Found %i sheet(s) with name(s):", length(bladnrs))
-  print(s)
+  print(sprintf("Found %i sheet(s) with name(s):", length(bladnrs)))
   for(b in bladnrs){
     print(b)
   }

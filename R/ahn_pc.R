@@ -48,7 +48,7 @@ ahn_pc <- function(name = "AHNpointclouds", output.dir = "AHN_output", X, Y, rad
   } else {
     #check ahn directory
     pc_sheet_directory <- paste(sheets.location, AHN, "PC", sep="/")
-    sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", pc_sheet_directory)
+    print(sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", pc_sheet_directory))
   }
 
   #get amd create area

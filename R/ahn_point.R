@@ -24,7 +24,7 @@
 #'@return AHN elevation in meters.
 #'@export
 ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
-  requireNamespace("raster")
+  require("raster")
   name_trim <- trim_name(name)
 
   #set tmp folder if applicable or create output and directory
@@ -58,7 +58,7 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
       print(paste0("The AHN sheets are loaded from or downloaded in: ", sheets.location, "/", default.sheets.dir, "/", AHN, "/", dem))
     } else {
       ahn_sheet_directory <- paste(sheets.location, AHN, dem, sep="/")
-      sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheet_directory)
+      print(sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheet_directory))
     }
 
     #create area

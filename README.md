@@ -34,7 +34,14 @@ available.
 
 ## Installation
 
+To plot rasters using `plot()` the `raster` pacakge is required. TO
+download the`rAHNextract` package from GitHub, the librrary `devtools`
+is required. If you want to compile the code from the source code, the
+program Rtools is needed. Rtools is not required to make use of the
+`rAHNextract` package.
+
 ``` r
+library(raster)
 library(devtools)
 devtools::install_github("Jellest/rAHNextract")
 library(rAHNextract)
@@ -148,7 +155,7 @@ plot(Utrecht_circleWCS, xlab = "RD X", ylab = "RD Y", main = "AHN Elevation (m)"
 
 ##### BBOX using a radius from a certain point
 
-This example gets a BBOX using a point and radius) from the AHN3 DSM.
+This example gets a BBOX (using a point and radius) from the AHN3 DSM.
 
 ``` r
 Utrecht_WCSsBBOX <- ahn_area(name = "Utrecht sBBOX", X = 136550, Y = 456060, radius = 100, 
@@ -202,11 +209,11 @@ plot(Utrecht_WCSpolygon, xlab = "RD X", ylab = "RD Y", main = "AHN Elevation (m)
 
 The sheets method can used by setting `sheets.method=TRUE`.
 
-This example gets a BBOX with a point and radius) from the AHN2 DSM
-(default). This particular and bigger BBOX intersects with 2 sheets and
-are both automatically downloaded and processed before it is merged into
-one raster output. The AHN sheets will be saved (or loaded) in the
-‘AHN\_sheets’ directory in a own set diretory.
+This example gets a circle from the AHN2 DSM (default). This particular
+and bigger BBOX intersects with 2 sheets and are both automatically
+downloaded and processed before it is merged into one raster output. The
+AHN sheets will be saved (or loaded) in the ‘AHN\_sheets’ directory in a
+own set diretory.
 
 ``` r
 Utrecht_sCircle <- ahn_area(name = "Utrecht scircle", X = 136550, Y = 456060, radius = 500, 

@@ -30,7 +30,7 @@
 #'@export
 ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
   #set tmp folder if applicable or create output and directory
-  requireNamespace("raster")
+  require("raster")
   name_trim <- trim_name(name)
 
   #set tmp folder if applicable or create output directory
@@ -70,7 +70,7 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
       print(paste0("The AHN sheets are loaded from or downloaded in: ", sheets.location, "/", default.sheets.dir, "/", AHN, "/", dem))
     } else {
       ahn_sheet_directory <- paste(sheets.location, AHN, dem, sep="/")
-      sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheet_directory)
+      print(sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheet_directory))
     }
 
     #get AHN data
@@ -84,6 +84,9 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
   }
   if(LONLAT == TRUE){
     warning("The input geometry was provided using Longitude and Latitude coordinates. The output, however, is a raster using the the RD New cordinate system.")
+  }
+  if(output.dir == tempdir()){
+    unlink(raster_data$fileName)
   }
   return (ahn_data)
 }
