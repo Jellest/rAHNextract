@@ -30,7 +30,7 @@
 #'@export
 ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
   #set tmp folder if applicable or create output and directory
-  require("raster")
+  #require("raster")
   name_trim <- trim_name(name)
 
   #set tmp folder if applicable or create output directory

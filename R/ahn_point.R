@@ -24,7 +24,7 @@
 #'@return AHN elevation in meters.
 #'@export
 ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
-  require("raster")
+  #require("raster")
   name_trim <- trim_name(name)
 
   #set tmp folder if applicable or create output and directory
