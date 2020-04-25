@@ -16,7 +16,7 @@ Imports:
     rgdal,
     sf,
     raster,
-    lidR
+    lidR (>= 2.2.3)
 Suggests:
     sp,
     knitr,
