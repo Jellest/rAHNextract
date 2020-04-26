@@ -150,7 +150,7 @@ download_dsm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution
     print("Download merge and crop of DSM rasters complete.")
   } else if(length(bladnrs) == 1){
     ahn_dsm_raster <- raster::raster(indiv_dsm_rasters[[1]])
-    ahn_dsm_mask <- raster::mask(x = indiv_dsm_rasters[[1]], mask = area, overwrite = TRUE)
+    ahn_dsm_mask <- raster::mask(x = indiv_dsm_rasters[[1]], mask = area, filename = ahn_dsm_raster_filename, overwrite = TRUE)
     if(output.dir != tempdir()){
       print(paste0(AHN, " cropped DSM raster and saved on disk at: ",ahn_dsm_raster_filename))
     }
@@ -162,7 +162,7 @@ download_dsm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution
       file.remove(ahn_dsm_file_paths[sr])
     }
   }
-  if(output.dir!= tempdir()){
+  if(output.dir != tempdir()){
     print(ahn_dsm_raster_filename)
   }
   return(list("data" = ahn_dsm_mask, "fileDir" = output.dir, "fileName" = ahn_dsm_raster_filename))
