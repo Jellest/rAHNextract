@@ -15,6 +15,7 @@
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param output.dir Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.
+#'@param extract.method Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using intersect() from the raster package.
 #'@param decimals Default 2. Decide number of decimal places of output elevations.
 #'@param sheets.method Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781).
 #'@param sheets.location Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.
@@ -23,7 +24,7 @@
 #'@author Jelle Stuurman
 #'@return AHN elevation in meters.
 #'@export
-ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, extract.method = "bilinear", decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
   loadNamespace("raster")
   name_trim <- trim_name(name)
 
@@ -73,14 +74,14 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
     raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "point", AHN = AHN, dem = dem, resolution = resolution, radius = "", interpolate = interpolate, output.dir = output.dir, sheets.keep = sheets.keep, sheets.location = sheets.location, sheets.redownload = sheets.redownload)
 
     #get elevation
-    my_elevation <- intersect_raster(raster_data$data, my_point$point)
+    my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)
   } else {
     #retrieve data through WCS (fast)
     my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
 
     my_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate)
     raster_data <- download_wcs_raster(wcsUrl = my_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = my_resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
-    my_elevation <- intersect_raster(raster_data$data, my_point$point)
+    my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)
   }
 
   my_elevation <- format(round(my_elevation, decimals), nsmall = decimals)
