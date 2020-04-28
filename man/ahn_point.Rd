@@ -14,6 +14,7 @@ ahn_point(
   interpolate = TRUE,
   output.dir,
   LONLAT = FALSE,
+  extract.method = "bilinear",
   decimals = 2,
   sheets.method = FALSE,
   sheets.location,
@@ -24,9 +25,9 @@ ahn_point(
 \arguments{
 \item{name}{Optional. Give a name of the specified area. This name will be used in the output file names.}
 
-\item{X}{Required. X coordinate in RD New or WGS84 (LON)}
+\item{X}{Required. X coordinate in RD New or WGS84 (LON).}
 
-\item{Y}{Required. Y coordinate in RD New or WGS84 (LAT)}
+\item{Y}{Required. Y coordinate in RD New or WGS84 (LAT).}
 
 \item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
 
@@ -34,11 +35,13 @@ ahn_point(
 
 \item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
-\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
+\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. If true, it gets  the interpolated version of the AHN2.}
 
-\item{output.dir}{Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.}
+\item{output.dir}{Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the \code{sheets.location} parameter.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
+
+\item{extract.method}{Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using \href{https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract}{\code{extract()}} function from the \code{raster} package.}
 
 \item{decimals}{Default 2. Decide number of decimal places of output elevations.}
 
@@ -46,9 +49,7 @@ ahn_point(
 
 \item{sheets.location}{Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
 
-\item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.}
-
-\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
+\item{sheets.keep}{Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.}
 }
 \value{
 AHN elevation in meters.

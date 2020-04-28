@@ -7,9 +7,9 @@
 #'
 #'Default resolution is always the highest resolution (smallest number). AHN3 and AHN2 DEM (Digital Elevation Model) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.
 #'
-#'You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
+#'You can download the AHN data using the WCS method (default, \code{sheets.method = FALSE}) returning a GeoTIFF float32 format. The sheets method (\code{sheets.method = TRUE}) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 #'@param name Optional. Give a name of the specified area. This name will be used in the output file names.
-#'@param output.dir Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.
+#'@param output.dir Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the \code{sheets.location} parameter.
 #'@param X Required for circle or BBOX when no BBOX coordinates are provided. X coordinate in RD New or WGS84 (LON)
 #'@param Y Required for circle or BBOX when no BBOX coordinates are provided. Y coordinate in RD New or WGS84 (LAT)
 #'@param radius Required for circle or BBOX when no BBOX coordinates are provided. Set radius in meters of area around a point to create a buffer area (circle).
@@ -18,13 +18,12 @@
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'
 #'@param dem Required for raster datasets. Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.
 #'@param resolution Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5, and 100 m.
-#'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
+#'@param interpolate Default TRUE. Only applicable for AHN2 DTM. If true, it gets  the interpolated version of the AHN2.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
 #'@param decimals Default 2. Decide number of decimal places of output elevations.
 #'@param sheets.method Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781).
 #'@param sheets.location Optional. Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.
-#'@param sheets.keep Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.
-#'@param sheets.redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure).
+#'@param sheets.keep Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.
 #'@author Jelle Stuurman
 #'@return GeoTIFF file of AHN area
 #'@export

@@ -1,7 +1,7 @@
 #'@title AHN point clouds area
 #'@description Get AHN point clouds of a certain area.
 #'
-#'AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters.
+#'AHN Point clouds is retrieved through a circle (X, Y and radius), BBOX (X, Y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters.
 #'@param name Optional. Give a name of the specified area. This name will be used in the output file names.
 #'@param output.dir Set location of output directory. Default 'AHN_output'. 'AHN_output' saves all the output files in the 'AHN_output' directory created in the working directory. Set to any other output path to save all the output files there. Set to "", to have all output files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.
 #'@param X Required for circle or bbox when no BBOX coordinates are provided. X coordinate in RD New or WGS84 (LON)
@@ -14,7 +14,6 @@
 #'@param sheets.location Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-exisiting sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/PC' or 'myFolder/AHN_sheets/AHN2/PC'. Only use extracted files in their original name after download.
 #'@param sheets.keep Default TRUE. Set to FALSE if you want to delete the downloaded point clouds sheets (structure). It is recommended to keep the sheets if this function will be used more than once.
 #'@param LONLAT Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will always be in RD New format
-#'@param sheets.redownload Default FALSE. Only applicable if point clouds sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)
 #'@author Jelle Stuurman
 #'@return .laz data of area
 #'@export
