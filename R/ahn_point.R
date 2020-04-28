@@ -23,7 +23,7 @@
 #'@author Jelle Stuurman
 #'@return AHN elevation in meters.
 #'@export
-ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, extract.method = "bilinear", decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, extract.method = "bilinear", decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE){
   loadNamespace("raster")
   name_trim <- trim_name(name)
 
@@ -70,7 +70,7 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
     ahn_area <- create_area(bbox = my_point$bbox, LONLAT = LONLAT, type = "point")
 
     #get AHN area
-    raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "point", AHN = AHN, dem = dem, resolution = resolution, radius = "", interpolate = interpolate, output.dir = output.dir, sheets.keep = sheets.keep, sheets.location = sheets.location, sheets.redownload = sheets.redownload)
+    raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "point", AHN = AHN, dem = dem, resolution = resolution, radius = "", interpolate = interpolate, output.dir = output.dir, sheets.keep = sheets.keep, sheets.location = sheets.location)
 
     #get elevation
     my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)

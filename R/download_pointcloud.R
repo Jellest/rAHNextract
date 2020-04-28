@@ -12,11 +12,10 @@
 #'@param gefilterd Default TRUE. Only applicable for AHN1 or AHN2. It decides if you want the gefilterd point clouds or not.
 #'@param sheets.location Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory. Example directory structure: 'AHN_sheets/AHN3/DSM' or 'AHN/sheets/AHN2/DTM'.  Always use the correct directory structure and capitalization within the selected directory when pre-existing sheets will be used.
 #'@param sheets.keep Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).
-#'@param sheets.redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'@return .laz of AHN area
-download_pointCloud <- function(name, output.dir, AHN = "AHN3", bladnrs, area, bboxes, radius, gefilterd = TRUE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+download_pointCloud <- function(name, output.dir, AHN = "AHN3", bladnrs, area, bboxes, radius, gefilterd = TRUE, sheets.location, sheets.keep = TRUE){
   if(length(bladnrs) == 0){
     stop("No sheets were found within the area. Please check your input area.")
   }
@@ -128,19 +127,7 @@ download_pointCloud <- function(name, output.dir, AHN = "AHN3", bladnrs, area, b
         dwnld <- TRUE
       }
     } else {
-      if(sheets.redownload == TRUE){
-        print("Redownloading DSM sheets...")
-        file.remove(paste0(ahn_pc_directory, "/", pcSheetFileNameLaz))
-        utils::download.file(url = ahn_pc_downloadLink, destfile = ahn_pcZip_file_path, quiet = TRUE)
-        utils::unzip(zipfile = ahn_pcZip_file_path, overwrite = TRUE, exdir = ahn_pc_directory)
-        if(tolower(AHN) == "ahn1"){
-          file.rename(paste0(ahn_pc_directory, "/", tolower(bladnrs[[r]]), ".laz"), ahn_pc_file_path)
-        }
-        file.remove(ahn_pcZip_file_path)
-        dwnld <- TRUE
-      } else {
         message(paste("Corresponding point cloud sheet", bladnrs[[r]], "already exists and will be used.", sep=" "))
-      }
     }
     laz <- read_pc(output.dir = output.dir, laz = ahn_pc_file_path, AHN = AHN, ahn_letter = tolower(ahn_pc_letter), bladnrs = bladnrs[r], area = area, bbox = bboxes[,r], name = name, nr = r, bladnrsLength = length(bladnrs), radius = radius)
   }

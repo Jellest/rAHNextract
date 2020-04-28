@@ -14,7 +14,6 @@ get_ahn_sheets(
   radius,
   interpolate = TRUE,
   gefilterd = FALSE,
-  sheets.redownload = FALSE,
   output.dir = "AHN_output",
   sheets.location,
   sheets.keep = TRUE
@@ -38,8 +37,6 @@ get_ahn_sheets(
 \item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.}
 
 \item{gefilterd}{Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.}
-
-\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 
 \item{output.dir}{destination file.}
 

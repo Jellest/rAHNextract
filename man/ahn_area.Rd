@@ -20,8 +20,7 @@ ahn_area(
   decimals = 2,
   sheets.method = FALSE,
   sheets.location,
-  sheets.keep = TRUE,
-  sheets.redownload = FALSE
+  sheets.keep = TRUE
 )
 }
 \arguments{

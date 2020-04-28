@@ -2,7 +2,7 @@
 #'
 #'@title Download DSM
 #'@description Download DSM
-#'download_dsm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)
+#'download_dsm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE)
 #'@param name Optional. Give a name of the specified area.
 #'@param output.dir Required. Working directory.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
@@ -14,11 +14,10 @@
 #'@param interpolate Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.
 #'@param sheets.location Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory when pre-existing sheets will be used. Example directory structure: 'AHN_sheets/AHN3/DSM' or 'AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.
 #'@param sheets.keep Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).
-#'@param sheets.redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)
 #'@author Jelle Stuurman
 #'@source <https://www.pdok.nl/datasets>
 #'@return GeoTIFF of DSM AHN area
-download_dsm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+download_dsm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, radius, bladnrs, area, interpolate = TRUE, sheets.location, sheets.keep = TRUE){
   if(length(bladnrs) == 0){
     stop("No sheets were found within the area. Please check your input area.")
   }
@@ -110,16 +109,7 @@ download_dsm <- function(name, output.dir, AHN = "AHN3", dem = "DSM", resolution
       file.remove(ahn_dsmZip_file_path)
       dwnld <- TRUE
     } else {
-      if(sheets.redownload == TRUE){
-        print("Redownloading DSM sheets...")
-        file.remove(paste0(ahn_dsm_directory, "/", sheetFileNameTif))
-        utils::download.file(url = ahn_dsm_downloadLink, destfile = ahn_dsmZip_file_path, mode = "wb")
-        utils::unzip(zipfile = ahn_dsmZip_file_path, overwrite = TRUE, exdir = ahn_dsm_directory)
-        file.remove(ahn_dsmZip_file_path)
-        dwnld <- TRUE
-      } else {
         message(paste("Corresponding DSM sheet", bladnrs[[r]], "already exists and will be used.", sep=" "))
-      }
     }
     #print(ahn_dsm_file_path)
     ahn_dsm_file_paths <- cbind(ahn_dsm_file_paths, ahn_dsm_file_path)

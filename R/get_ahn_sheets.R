@@ -2,7 +2,7 @@
 #'
 #'@title Get cropped AHN sheets
 #'@description Get cropped AHN sheets
-#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.redownload = FALSE, sheets.keep = TRUE)
+#'get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.keep = TRUE)
 #'@param name Optional. Give a name of the specified area.
 #'@param type 'raster' or 'pc'.
 #'@param AHN Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.
@@ -15,11 +15,10 @@
 #'@param gefilterd Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.
 #'@param sheets.keep Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).
 #'@param sheets.location Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory. Example directory structure: 'AHN3/DSM' or 'AHN2/DTM' Only use extracted files in their original name after download.
-#'@param sheets.redownload Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)
 #'@author Jelle Stuurman
 #'@return GeoTIFF AHN kaartblad cropped to area
 
-get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "DSM", radius, interpolate = TRUE, gefilterd = FALSE, sheets.redownload = FALSE, output.dir = "AHN_output", sheets.location, sheets.keep = TRUE){
+get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5, dem = "DSM", radius, interpolate = TRUE, gefilterd = FALSE, output.dir = "AHN_output", sheets.location, sheets.keep = TRUE){
   #bladIndex.sf <- download_bladnrs(output.dir = directory, AHN = AHN)
   if(tolower(AHN) == "ahn1"){
     bladIndex.sf <- ahn1_bladIndex
@@ -47,7 +46,7 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
       my_bbox <- sf::st_bbox(singlebladNr.sf)
       bboxes <- cbind(bboxes, my_bbox)
     }
-    ahn_data <- download_pointCloud(name = name, output.dir = output.dir, AHN = AHN, bladnrs = bladnrs, area = shape_area, radius = radius, bboxes = bboxes, gefilterd = gefilterd, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+    ahn_data <- download_pointCloud(name = name, output.dir = output.dir, AHN = AHN, bladnrs = bladnrs, area = shape_area, radius = radius, bboxes = bboxes, gefilterd = gefilterd, sheets.location = sheets.location, sheets.keep = sheets.keep)
   } else if(type == "point" || type == "area"){
     #download raster sheets for area or point intersection
     bladnrsIntersect.sf <- sf::st_intersection(bladIndex.sf, sf::st_buffer(shape_area, 0))
@@ -67,9 +66,9 @@ get_ahn_sheets <- function(name, area, type = "", AHN = "AHN3", resolution = 0.5
     }
     bboxes <- c()
     if(tolower(dem) == "dtm"){
-      ahn_data <- download_dtm(name = name, output.dir = output.dir, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+      ahn_data <- download_dtm(name = name, output.dir = output.dir, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, sheets.location = sheets.location, sheets.keep = sheets.keep)
     } else if(tolower(dem) == "dsm"){
-      ahn_data <- download_dsm(name = name, output.dir = output.dir, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+      ahn_data <- download_dsm(name = name, output.dir = output.dir, AHN = AHN, dem = dem, resolution = resolution, radius = radius, bladnrs = bladnrs, area = shape_area, interpolate = interpolate, sheets.location = sheets.location, sheets.keep = sheets.keep)
     } else {
       stop("No correct dem argument is provided. Please use 'DTM' or 'DSM'.")
     }

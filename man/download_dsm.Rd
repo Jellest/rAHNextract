@@ -18,8 +18,7 @@ download_dsm(
   area,
   interpolate = TRUE,
   sheets.location,
-  sheets.keep = TRUE,
-  sheets.redownload = FALSE
+  sheets.keep = TRUE
 )
 }
 \arguments{
@@ -44,8 +43,6 @@ download_dsm(
 \item{sheets.location}{Optional. Default is the 'AHN_sheets' directory in working directory. Set directory where all the AHN sheets are stored or will be stored. Always use the correct directory structure and capitalization within the selected directory when pre-existing sheets will be used. Example directory structure: 'AHN_sheets/AHN3/DSM' or 'AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
 
 \item{sheets.keep}{Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).}
-
-\item{sheets.redownload}{Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)}
 }
 \value{
 GeoTIFF of DSM AHN area

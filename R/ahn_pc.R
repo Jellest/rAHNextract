@@ -17,7 +17,7 @@
 #'@author Jelle Stuurman
 #'@return .laz data of area
 #'@export
-ahn_pc <- function(name = "AHNpointclouds", output.dir = "AHN_output", X, Y, radius, bbox, polygon, AHN = "AHN3", gefilterd = FALSE, LONLAT = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+ahn_pc <- function(name = "AHNpointclouds", output.dir = "AHN_output", X, Y, radius, bbox, polygon, AHN = "AHN3", gefilterd = FALSE, LONLAT = FALSE, sheets.location, sheets.keep = TRUE){
 
   name_trim <- trim_name(name)
 
@@ -54,6 +54,6 @@ ahn_pc <- function(name = "AHNpointclouds", output.dir = "AHN_output", X, Y, rad
   ahn_area <- create_area(X = X, Y = Y, radius = radius, bbox = bbox, polygon = polygon, LONLAT = LONLAT, type = "pc")
 
   #get AHN point clouds
-  pc_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "pc", AHN = AHN, radius = radius, gefilterd = gefilterd, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+  pc_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "pc", AHN = AHN, radius = radius, gefilterd = gefilterd, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep)
   return (pc_data)
 }

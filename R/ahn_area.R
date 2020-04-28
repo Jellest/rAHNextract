@@ -27,7 +27,7 @@
 #'@author Jelle Stuurman
 #'@return GeoTIFF file of AHN area
 #'@export
-ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE, sheets.redownload = FALSE){
+ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, LONLAT = FALSE, decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE){
   #set tmp folder if applicable or create output and directory
   loadNamespace("raster")
   name_trim <- trim_name(name)
@@ -78,7 +78,7 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
     }
 
     #get AHN data
-    raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "area", AHN = AHN, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep, sheets.redownload = sheets.redownload)
+    raster_data <- get_ahn_sheets(name = name_trim, area = ahn_area, type = "area", AHN = AHN, dem = dem, resolution = resolution, radius = radius, interpolate = interpolate, output.dir = output.dir, sheets.location = sheets.location, sheets.keep = sheets.keep)
     ahn_data <- raster_data$data
   } else {
     my_resolution <- get_resolution(AHN = AHN, resolution = resolution)
