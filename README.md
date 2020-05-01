@@ -34,9 +34,9 @@ available.
 
 ## Installation
 
-To plot rasters using `plot()` the `raster` pacakge is required. TO
-download the`rAHNextract` package from GitHub, the librrary `devtools`
-is required. If you want to compile the code from the source code, the
+To plot rasters using `plot()` the `raster` pacakge is required. To
+download the`rAHNextract` package from GitHub, the library `devtools` is
+required. If you want to compile the code from the source code, the
 program Rtools is needed. Rtools is not required to make use of the
 `rAHNextract` package.
 
