@@ -1,7 +1,7 @@
 Type: Package
 Package: rAHNextract
 Title: Extract elevation points or areas in the Netherlands from the AHN
-Version: 0.96
+Version: 0.97
 Date: 22-04-2020
 Author: Jelle Stuurman
 Maintainer: Jelle Stuurman <jellejstuurman@gmail.com>

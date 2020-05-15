@@ -49,7 +49,7 @@ GeoTIFF of DTM AHN area
 }
 \description{
 Download DTM
-download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)
+download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE)
 }
 \details{
 Download DTM

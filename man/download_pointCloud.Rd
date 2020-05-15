@@ -17,8 +17,7 @@ download_pointCloud(
   radius,
   gefilterd = TRUE,
   sheets.location,
-  sheets.keep = TRUE,
-  sheets.redownload = FALSE
+  sheets.keep = TRUE
 )
 }
 \arguments{

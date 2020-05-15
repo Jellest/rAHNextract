@@ -49,7 +49,7 @@ GeoTIFF of DSM AHN area
 }
 \description{
 Download DSM
-download_dsm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)
+download_dsm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE)
 }
 \details{
 Download DSM

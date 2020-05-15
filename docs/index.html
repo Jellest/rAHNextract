@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@
 <a href="#rahnextract" class="anchor"></a>rAHNextract</h1></div>
 <!-- badges: start -->
 
-<p>Updated: 22-04-2020</p>
+<p>Updated: 15-05-2020</p>
 <p>This R package automatically extracts elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Individual elevations, raster areas or point clouds areas can be extracted from the AHN1, AHN2 or AHN3 using all the geo services that are made available by <a href="http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781">PDOK</a></p>
 <table class="table">
 <thead><tr class="header">
@@ -95,9 +95,9 @@
 </tr>
 <tr class="odd">
 <td><strong>point clouds</strong></td>
-<td>YES</td>
-<td>YES</td>
-<td>YES</td>
+<td>filterd, uitgefilterd</td>
+<td>filterd, uitgefilterd</td>
+<td>Geclassificeerd</td>
 </tr>
 </tbody>
 </table>
@@ -134,10 +134,10 @@
 <h3 class="hasAnchor">
 <a href="#wcs-method" class="anchor"></a>WCS method</h3>
 <p>This examples gets the elevation from the AHN3 (default) using the DSM (default) as the DEM.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/ahn_point.html">ahn_point</a></span>(<span class="kw">name</span> <span class="kw">=</span> <span class="st">"Utrecht point"</span>, <span class="kw">X</span> <span class="kw">=</span> <span class="fl">136550</span>, <span class="kw">Y</span> <span class="kw">=</span> <span class="fl">456060</span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/ahn_point.html">ahn_point</a></span>(<span class="kw">X</span> <span class="kw">=</span> <span class="fl">136550</span>, <span class="kw">Y</span> <span class="kw">=</span> <span class="fl">456060</span>)
 <span class="co">#&gt; [1] "Download raster image succeeded."</span>
 <span class="co">#&gt; [1] "Intersecting raster. Getting elevation..."</span>
-<span class="co">#&gt; [1] "Elevation of Utrecht point: 7.38 m."</span>
+<span class="co">#&gt; [1] "Elevation of AHNelevation: 7.38 m."</span>
 <span class="co">#&gt; [1] 7.38</span></pre></div>
 </div>
 <div id="sheets-method" class="section level3">
@@ -331,7 +331,6 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a></li>
 </ul>
 </div>
 </div>

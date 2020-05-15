@@ -10,7 +10,7 @@ ahn_point(
   Y,
   AHN = "AHN3",
   dem = "DSM",
-  resolution = 0.5,
+  resolution,
   interpolate = TRUE,
   output.dir,
   LONLAT = FALSE,

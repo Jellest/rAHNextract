@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="AHN point clouds area — ahn_pc" />
 <meta property="og:description" content="Get AHN point clouds of a certain area.
-AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters." />
+AHN Point clouds is retrieved through a circle (X, Y and radius), BBOX (X, Y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters." />
 
 
 
@@ -73,7 +73,7 @@ AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and
 
     <div class="ref-description">
     <p>Get AHN point clouds of a certain area.</p>
-<p>AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters.</p>
+<p>AHN Point clouds is retrieved through a circle (X, Y and radius), BBOX (X, Y and radius, OR bbox), or own geometry (polygon). AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available point clouds datasets. AHN3 (default) only has one available datasets. AHN1 and AHN2 include 'gefilterd' or 'uitgefilterd' datasets. See documentation for all available parameters.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ahn_pc</span>(
@@ -131,8 +131,7 @@ AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and
   <span class='kw'>gefilterd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>LONLAT</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>sheets.location</span>,
-  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sheets.redownload</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -185,10 +184,6 @@ AHN Point clouds is retrieved through a circle (x, y and radius), BBOX (x, y and
     <tr>
       <th>sheets.keep</th>
       <td><p>Default TRUE. Set to FALSE if you want to delete the downloaded point clouds sheets (structure). It is recommended to keep the sheets if this function will be used more than once.</p></td>
-    </tr>
-    <tr>
-      <th>sheets.redownload</th>
-      <td><p>Default FALSE. Only applicable if point clouds sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)</p></td>
     </tr>
     </table>
 

@@ -75,7 +75,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -129,15 +129,15 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
   <span class='no'>Y</span>,
   <span class='kw'>AHN</span> <span class='kw'>=</span> <span class='st'>"AHN3"</span>,
   <span class='kw'>dem</span> <span class='kw'>=</span> <span class='st'>"DSM"</span>,
-  <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='no'>resolution</span>,
   <span class='kw'>interpolate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>output.dir</span>,
   <span class='kw'>LONLAT</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>extract.method</span> <span class='kw'>=</span> <span class='st'>"bilinear"</span>,
   <span class='kw'>decimals</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>sheets.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>sheets.location</span>,
-  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sheets.redownload</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -149,11 +149,11 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>X</th>
-      <td><p>Required. X coordinate in RD New or WGS84 (LON)</p></td>
+      <td><p>Required. X coordinate in RD New or WGS84 (LON).</p></td>
     </tr>
     <tr>
       <th>Y</th>
-      <td><p>Required. Y coordinate in RD New or WGS84 (LAT)</p></td>
+      <td><p>Required. Y coordinate in RD New or WGS84 (LAT).</p></td>
     </tr>
     <tr>
       <th>AHN</th>
@@ -169,15 +169,19 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>interpolate</th>
-      <td><p>Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.</p></td>
+      <td><p>Default TRUE. Only applicable for AHN2 DTM. If true, it gets  the interpolated version of the AHN2.</p></td>
     </tr>
     <tr>
       <th>output.dir</th>
-      <td><p>Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.</p></td>
+      <td><p>Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the <code>sheets.location</code> parameter.</p></td>
     </tr>
     <tr>
       <th>LONLAT</th>
       <td><p>Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.</p></td>
+    </tr>
+    <tr>
+      <th>extract.method</th>
+      <td><p>Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using <a href='https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract'><code>extract()</code></a> function from the <code>raster</code> package.</p></td>
     </tr>
     <tr>
       <th>decimals</th>
@@ -193,11 +197,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>sheets.keep</th>
-      <td><p>Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.</p></td>
-    </tr>
-    <tr>
-      <th>sheets.redownload</th>
-      <td><p>Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)</p></td>
+      <td><p>Default TRUE. Only applicable if <code>sheets.method</code> is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.</p></td>
     </tr>
     </table>
 

@@ -23,7 +23,7 @@
 #'@author Jelle Stuurman
 #'@return AHN elevation in meters.
 #'@export
-ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution = 0.5, interpolate = TRUE, output.dir, LONLAT = FALSE, extract.method = "bilinear", decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE){
+ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", resolution, interpolate = TRUE, output.dir, LONLAT = FALSE, extract.method = "bilinear", decimals = 2, sheets.method = FALSE, sheets.location, sheets.keep = TRUE){
   loadNamespace("raster")
   name_trim <- trim_name(name)
 
@@ -47,7 +47,11 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN3", dem = "DSM", re
 
   #set missing resolution
   if(missing(resolution) == TRUE){
-    resolution = ""
+    if(AHN == "AHN3" || AHN == "AHN2"){
+      resolution = 0.5
+    } else if(AHN =="AHN1"){
+      resolution = 5
+    }
   }
 
   #get and create a point

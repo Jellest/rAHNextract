@@ -16,3 +16,4 @@
 ^docs$
 ^pkgdown$
 ^setupPackage\.R$
+^shiny$

@@ -76,7 +76,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
 <p>AHN Area is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox), or own geometry (polygon).</p>
 <p>AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions.</p>
 <p>Default resolution is always the highest resolution (smallest number). AHN3 and AHN2 DEM (Digital Elevation Model) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.</p>
-<p>You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.</p>
+<p>You can download the AHN data using the WCS method (default, <code>sheets.method = FALSE</code>) returning a GeoTIFF float32 format. The sheets method (<code>sheets.method = TRUE</code>) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ahn_area</span>(
@@ -141,8 +141,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
   <span class='kw'>decimals</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>sheets.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>sheets.location</span>,
-  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sheets.redownload</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -154,7 +153,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>output.dir</th>
-      <td><p>Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the 'sheets.location' parameter.</p></td>
+      <td><p>Optional but recommended. Set location of output directory. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the <code>sheets.location</code> parameter.</p></td>
     </tr>
     <tr>
       <th>X</th>
@@ -190,7 +189,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>interpolate</th>
-      <td><p>Default TRUE. Only applicable for AHN2 DTM. It decides if you want the interpolated version of the AHN2 or not.</p></td>
+      <td><p>Default TRUE. Only applicable for AHN2 DTM. If true, it gets  the interpolated version of the AHN2.</p></td>
     </tr>
     <tr>
       <th>LONLAT</th>
@@ -210,11 +209,7 @@ You can download the AHN data using the WCS method (default, sheets.method = FAL
     </tr>
     <tr>
       <th>sheets.keep</th>
-      <td><p>Default TRUE. Only applicable if sheets.method is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheets (structure). It is recommended to keep the sheets if this function will be used more than once.</p></td>
-    </tr>
-    <tr>
-      <th>sheets.redownload</th>
-      <td><p>Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure).</p></td>
+      <td><p>Default TRUE. Only applicable if <code>sheets.method</code> is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.</p></td>
     </tr>
     </table>
 

@@ -49,7 +49,7 @@ GeoTIFF AHN kaartblad cropped to area
 }
 \description{
 Get cropped AHN sheets
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.redownload = FALSE, sheets.keep = TRUE)
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.keep = TRUE)
 }
 \details{
 Get cropped AHN sheets

@@ -58,7 +58,11 @@ ahn_area <- function(name = "AHNarea", output.dir, X, Y, radius, bbox, polygon, 
 
   #set resoluition if missing
   if(missing(resolution) == TRUE){
-    resolution = ""
+    if(AHN == "AHN3" || AHN == "AHN2"){
+      resolution = 0.5
+    } else if(AHN =="AHN1"){
+      resolution = 5
+    }
   }
 
   #get and create area

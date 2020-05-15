@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>intersect raster — intersect_raster • rAHNextract</title>
+<title>extract elevation — extract_elevation • rAHNextract</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="intersect raster — intersect_raster" />
-<meta property="og:description" content="intersect raster at certain point" />
+<meta property="og:title" content="extract elevation — extract_elevation" />
+<meta property="og:description" content="extract elevation at certain point" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -108,16 +108,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>intersect raster</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Jellest/rAHNextract/blob/master/R/intersect_raster.R'><code>R/intersect_raster.R</code></a></small>
-    <div class="hidden name"><code>intersect_raster.Rd</code></div>
+    <h1>extract elevation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Jellest/rAHNextract/blob/master/R/extract_elevation.R'><code>R/extract_elevation.R</code></a></small>
+    <div class="hidden name"><code>extract_elevation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>intersect raster at certain point</p>
+    <p>extract elevation at certain point</p>
     </div>
 
-    <pre class="usage"><span class='fu'>intersect_raster</span>(<span class='no'>ras</span>, <span class='no'>point</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"bilinear"</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_elevation</span>(<span class='no'>ras</span>, <span class='no'>point</span>, <span class='kw'>extract.method</span> <span class='kw'>=</span> <span class='st'>"bilinear"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,8 +131,8 @@
       <td><p>Required. spatial point</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>'bilinear' (default) or 'simple'</p></td>
+      <th>extract.method</th>
+      <td><p>Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using <a href='https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract'><code>extract()</code></a> function from the <code>raster</code> package.</p></td>
     </tr>
     </table>
 
@@ -141,7 +141,7 @@
     <p>GeoTIFF file of AHN area</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>intersect raster</p>
+    <p>extract elevation raster</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

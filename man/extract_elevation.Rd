@@ -11,7 +11,7 @@ extract_elevation(ras, point, extract.method = "bilinear")
 
 \item{point}{Required. spatial point}
 
-\item{method}{'bilinear' (default) or 'simple'}
+\item{extract.method}{Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using \href{https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract}{\code{extract()}} function from the \code{raster} package.}
 }
 \value{
 GeoTIFF file of AHN area

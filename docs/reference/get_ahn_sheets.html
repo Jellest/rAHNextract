@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Get cropped AHN sheets — get_ahn_sheets" />
 <meta property="og:description" content="Get cropped AHN sheets
-get_ahn_sheets(name, area, AHN = &quot;AHN3&quot;, resolution = 0.5, dem = &quot;DSM&quot;, interpolate = TRUE, sheets.redownload = FALSE, sheets.keep = TRUE)" />
+get_ahn_sheets(name, area, AHN = &quot;AHN3&quot;, resolution = 0.5, dem = &quot;DSM&quot;, interpolate = TRUE, sheets.keep = TRUE)" />
 
 
 
@@ -73,7 +73,7 @@ get_ahn_sheets(name, area, AHN = &quot;AHN3&quot;, resolution = 0.5, dem = &quot
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ get_ahn_sheets(name, area, AHN = &quot;AHN3&quot;, resolution = 0.5, dem = &quot
 
     <div class="ref-description">
     <p>Get cropped AHN sheets
-get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.redownload = FALSE, sheets.keep = TRUE)</p>
+get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpolate = TRUE, sheets.keep = TRUE)</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_ahn_sheets</span>(
@@ -129,7 +129,6 @@ get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpol
   <span class='no'>radius</span>,
   <span class='kw'>interpolate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>gefilterd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sheets.redownload</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>output.dir</span> <span class='kw'>=</span> <span class='st'>"AHN_output"</span>,
   <span class='no'>sheets.location</span>,
   <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -173,10 +172,6 @@ get_ahn_sheets(name, area, AHN = "AHN3", resolution = 0.5, dem = "DSM", interpol
     <tr>
       <th>gefilterd</th>
       <td><p>Default FALSE. Only applicable for AHN1 or AHN2 point cloud data. It decides if you want to download the 'gefilterd' point cloud data set or the 'uitgefilterd' data set.</p></td>
-    </tr>
-    <tr>
-      <th>sheets.redownload</th>
-      <td><p>Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)</p></td>
     </tr>
     <tr>
       <th>output.dir</th>

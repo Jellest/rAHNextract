@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Download DTM — download_dtm" />
 <meta property="og:description" content="Download DTM
-download_dtm(name, output.dir, AHN = &quot;AHN3&quot;, dem = &quot;DSM&quot;, resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)" />
+download_dtm(name, output.dir, AHN = &quot;AHN3&quot;, dem = &quot;DSM&quot;, resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE)" />
 
 
 
@@ -73,7 +73,7 @@ download_dtm(name, output.dir, AHN = &quot;AHN3&quot;, dem = &quot;DSM&quot;, re
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rAHNextract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.96</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.97</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ download_dtm(name, output.dir, AHN = &quot;AHN3&quot;, dem = &quot;DSM&quot;, re
 
     <div class="ref-description">
     <p>Download DTM
-download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE, sheets.redownload = FALSE)</p>
+download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, bladnrs, area, interpolate = TRUE, sheets.keep = TRUE)</p>
     </div>
 
     <pre class="usage"><span class='fu'>download_dtm</span>(
@@ -130,8 +130,7 @@ download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, blad
   <span class='no'>area</span>,
   <span class='kw'>interpolate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>sheets.location</span> <span class='kw'>=</span> <span class='no'>sheets.location</span>,
-  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sheets.redownload</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>sheets.keep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -180,10 +179,6 @@ download_dtm(name, output.dir, AHN = "AHN3", dem = "DSM", resolution = 0.5, blad
     <tr>
       <th>sheets.keep</th>
       <td><p>Default TRUE. Only applicable if sheets.method is set to TRUE. Set to FALSE if you want to delete the downloaded sheets (structure).</p></td>
-    </tr>
-    <tr>
-      <th>sheets.redownload</th>
-      <td><p>Default FALSE. Only applicable if sheets is set to TRUE. Set to TRUE if you want to redownload the sheets (structure)</p></td>
     </tr>
     </table>
 

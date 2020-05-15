@@ -4,14 +4,12 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![License: GPL
-v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)![GitHub
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)![GitHub
 release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
 
-Updated: 22-04-2020
+Updated: 15-05-2020
 
 This R package automatically extracts elevation points or areas of the
 Netherlands from the Actueel Hoogtebestand Nederland (AHN). Individual
@@ -19,11 +17,11 @@ elevations, raster areas or point clouds areas can be extracted from the
 AHN1, AHN2 or AHN3 using all the geo services that are made available by
 [PDOK](http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781)
 
-| Type             | AHN 3    | AHN2     | AHN1     |
-| ---------------- | -------- | -------- | -------- |
-| **Resolutions**  | 0.5, 5m  | 0.5m, 5m | 5m, 100m |
-| **DEM**          | DSM, DTM | DSM, DTM | DTM      |
-| **point clouds** | YES      | YES      | YES      |
+| Type             | AHN 3                 | AHN2                  | AHN1            |
+| ---------------- | --------------------- | --------------------- | --------------- |
+| **Resolutions**  | 0.5, 5m               | 0.5m, 5m              | 5m, 100m        |
+| **DEM**          | DSM, DTM              | DSM, DTM              | DTM             |
+| **point clouds** | filterd, uitgefilterd | filterd, uitgefilterd | Geclassificeerd |
 
 For the AHN2 DTM, there are 2 versions available: interpolated or non
 interpolated version.
@@ -99,10 +97,10 @@ This examples gets the elevation from the AHN3 (default) using the DSM
 (default) as the DEM.
 
 ``` r
-ahn_point(name = "Utrecht point", X = 136550, Y = 456060)
+ahn_point(X = 136550, Y = 456060)
 #> [1] "Download raster image succeeded."
 #> [1] "Intersecting raster. Getting elevation..."
-#> [1] "Elevation of Utrecht point: 7.38 m."
+#> [1] "Elevation of AHNelevation: 7.38 m."
 #> [1] 7.38
 ```
 
