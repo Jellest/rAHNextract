@@ -9,12 +9,14 @@ release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
 
-**Announcement 27-03-2024:** I am in the process of udating this package to the latest standards. Retired PDOK URLs will be replaced with the new ones and old R package dependecies will be replaced. Please note that the next release wil not include the point cloud functionalities. I hope to have updated this pacage by the end of April 2024.
+## Announcement 27-03-2024
+I am in the process of updating this package to the latest R and PDOK standards. Retired PDOK URLs will be replaced with the new ones and old R package dependencies (such as rgdal) will be replaced. Please note that the next release wil not include the following features:
+- Only the latest available AHN will be used. Getting height data from the AHN1, AHN2 or AHN3 will not be possible because PDOK no longer makes these AHN services available.
+- Downloading point cloud data will not be available because deeper investigation needs to be done on which R packages support this feature. Maybe this feature wil be come back in a future release. 
 
-best,
-Jelle Stuurman
+I hope to have updated this package by the end of April 2024.
 
-
+best, Jelle Stuurman
 -- -- --
 Updated: 15-05-2020
 
