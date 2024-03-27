@@ -8,7 +8,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
-**Announcement 27-03-2024: **I am in the process of udating this package to the latest standards. Retired PDOK URLs will be replaced with the new ones and old R package dependecies will be replaced. Please note that the next release wil not include the point cloud functionalities. I hope to have updated this pacage by the end of April 2024.
+**Announcement 27-03-2024: ** I am in the process of udating this package to the latest standards. Retired PDOK URLs will be replaced with the new ones and old R package dependecies will be replaced. Please note that the next release wil not include the point cloud functionalities. I hope to have updated this pacage by the end of April 2024.
 
 best, Jelle Stuurman
 -- -- --
