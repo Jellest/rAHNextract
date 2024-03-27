@@ -17,6 +17,7 @@ I am in the process of updating this package to the latest R and PDOK standards.
 I hope to have updated this package by the end of April 2024.
 
 best, Jelle Stuurman
+
 -- -- --
 Updated: 15-05-2020
 
