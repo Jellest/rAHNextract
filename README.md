@@ -269,7 +269,7 @@ ahn_area(AHN = "AHN", dem = "DTM", sheets = list("31HN1", "31HN2"), sheets.dir =
 
 Please see [here]() all the parameters available for `ahn_area()`
 
-### 5 Point clouds areas
+### 5. Point clouds areas
 
 Support for downloading point clouds is no longer available in this
 release. Support may come back in a future release.
