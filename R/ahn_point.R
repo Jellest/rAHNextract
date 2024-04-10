@@ -49,7 +49,6 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN", dem, resolution,
   if (sheets.method == FALSE) {
     ##get elevation through WCS method (fast)
     wcs_source <- bladIndex.sf$wcs_url[1]
-    print(bladIndex.sf$wcs_url[1])
     wcs_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate, wcs = wcs_source)
     raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, area = ahn_area, AHN = AHN, dem = tolower(dem), resolution = my_resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
     my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)
