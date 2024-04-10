@@ -19,3 +19,9 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageRoxygenize: rd,collate,namespace
+
+PythonType: system
+PythonVersion: 3.12.2
+PythonPath: C:/python/python.exe
+
+SpellingDictionary: en_GB
