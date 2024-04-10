@@ -110,7 +110,7 @@ The `ahn_area()`returns the AHN elevation raster of the provided area.
 ##### 4.2.1.1 circle
 This example gets a circular area from the AHN DSM, and saving its output raster in a custom output directory.
 ```{r AHN_raster_areas_circle}
-Utrecht_circleWCS <- ahn_area(name = "Utrecht circle",X = 136544, Y = 456070, resolution = 0.5, radius = 130, output.dir = "C:/myProject")
+Utrecht_circleWCS <- ahn_area(name = "Utrecht circle", X = 136544, Y = 456070, resolution = 0.5, radius = 130, output.dir = "C:/myProject")
 
 plot(Utrecht_circleWCS, xlab = "RD X", ylab = "RD Y", main = "AHN Elevation (m)")
 ```
@@ -158,5 +158,5 @@ ahn_area(AHN = "AHN", dem = "DTM", sheets = list("31HN1", "31HN2"), sheets.dir =
 
 Please see [here]() all the parameters available for `ahn_area()`
 
-### 5 Point clouds areas
+### 5. Point clouds areas
 Support for downloading point clouds is no longer available in this release. Support may come back in a future release.
