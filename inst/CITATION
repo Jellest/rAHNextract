@@ -1,0 +1,17 @@
+c( bibentry(
+  bibtype = "Article",
+  title = "Actueel Hoogtebestand Nederland (AHN)",
+  author = "AHN",
+  journal = "https://www.ahn.nl",
+  url   = "https://www.ahn.nl",
+  year  = "2023"
+),
+bibentry(
+  bibtype = "Article",
+  author = "PDOK",
+  journal = "https://www.pdok.nl/introductie/-/article/actueel-hoogtebestand-nederland-ahn",
+  title = "Actueel Hoogtebestand Nederland (AHN) - PDOK",
+  url   = "https://www.pdok.nl/introductie/-/article/actueel-hoogtebestand-nederland-ahn",
+  year  = "2023"
+)
+)
