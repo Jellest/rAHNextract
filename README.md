@@ -8,6 +8,11 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
+## ## Announcement 11-04-2024
+
+A development edition (0.98 dev) has been released as a seperate branch. You can install it in R using `devtools::install_github("Jellest/rAHNextract@rAHNextract_09_dev")`. After a small testing period, the development edition wil be released to production (master).
+Please refer to the [release notes](https://github.com/Jellest/rAHNextract/releases/tag/0.98_dev) for all the changes.
+
 ## Announcement 27-03-2024
 I am in the process of updating this package to the latest R and PDOK standards. Retired PDOK URLs will be replaced with the new ones and old R package dependencies (such as rgdal) will be replaced. Please note that the next release wil not include the following features:
 - Only the latest available AHN will be used. Getting height data from the AHN1, AHN2 or AHN3 will not be possible because PDOK no longer makes these AHN services available.
