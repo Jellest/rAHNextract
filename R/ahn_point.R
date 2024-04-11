@@ -42,7 +42,7 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN", dem, resolution,
   dem <- get_dem(AHN = AHN, resolution = my_resolution, dem = dem, interpolate = interpolate)
 
   #get and create a point
-  my_point <- generate_ahn_point(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = my_resolution$res)
+  my_point <- get_rectified_grid(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = my_resolution$res)
 
   #get AHN data
   bladIndex.sf <- get_bladindex(AHN = AHN, dem = dem, resolution = my_resolution$res)

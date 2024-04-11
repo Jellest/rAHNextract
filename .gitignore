@@ -1,4 +1,4 @@
-ena.Rproj.user
+.Rproj.user
 .Rhistory
 .RData
 .Ruserdata
@@ -19,3 +19,5 @@ deprecated/
 .vscode
 docs
 .Rproj.user
+builds/
+.gitignore
