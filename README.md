@@ -9,8 +9,6 @@ release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
 
-Updated: 11-04-2024
-
 This R package automatically extracts elevation points or areas of the
 Netherlands from the Actueel Hoogtebestand Nederland (AHN) datasets
 collected by [AHN](https://www.ahn.nl/). Individual elevations, and
