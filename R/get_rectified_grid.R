@@ -1,6 +1,6 @@
 #'@inheritParams ahn_area
 #'@noRd
-generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution) {
+get_rectified_grid <- function(name = "", X, Y, LONLAT = FALSE, resolution) {
   #RD new coordinaten systeem
   my_point <- create_spatialpoint(X = X, Y = Y, LONLAT = LONLAT)
 
@@ -12,23 +12,27 @@ generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution) {
     stop("Y coordinate out of range.")
   }
 
-  ##create 9 pixels bbox coordinates
+  ## round number to whole number unless if decimal is 0.5
+  #round down if decimal digit is lower than 5 (0.5-)
+  #round up if decimal digit greater than 5 (0.5+)
+  #don't round if decimal digit = 0.5
 
-  #round number
-  #always round 0.5 to 1
-  rounding <- function(x, digits) {
-    posneg <- sign(x)
-    z <- abs(x) * 10^digits
-    z <- z + 0.5
-    z <- trunc(z)
-    z <- z / 10^digits
-    z * posneg
+  rounding <- function(x) {
+    rounded_value <- round(x, 1)  # First round to 1 decimal digit
+    # Check if the rounded value is exactly 0.5
+    if (abs(rounded_value - floor(rounded_value)) == 0.5) {
+      z <- rounded_value  # If it's exactly 0.5, retain the rounded value
+    } else {
+      z <- round(x)  # Otherwise, round using the round() function
+    }
+    return(z)
   }
 
-  #round
-  xround <- rounding(coords[1, "X"], digits = 0)
-  yround <- rounding(coords[1, "Y"], digits = 0)
+  #round to nearest x,y pixel bbox value to make middle pixel
+  xround <- rounding(coords[1, "X"])
+  yround <- rounding(coords[1, "Y"])
 
+  ## create 8 pixel around middle pixel
   if (resolution == 0.5) {
     #x coordinate
     if (coords[1, "X"] -  xround > 0) {
@@ -62,6 +66,9 @@ generate_ahn_point <- function(name = "", X, Y, LONLAT = FALSE, resolution) {
   } else {
     stop("No correct WCS resolution is provided. Please try again.")
   }
+
   bbox <- data.frame("xmin" = my_xmin, "xmax" = my_xmax, "ymin" = my_ymin, "ymax" = my_ymax)
   return(list("name" = name, "point" = my_point, "bbox" = bbox))
 }
+
+get_rectified_grid(X = 150000.6, Y = 450000.3, resolution = 0.5)
