@@ -1,4 +1,5 @@
 ## code to prepare `DATASET` dataset goes here
+#'@title create global variables
 #'@noRd
 define_globals <- function() {
   pdok_baseurl <- "https://service.pdok.nl"
@@ -10,6 +11,13 @@ define_globals <- function() {
   epsg_wgs <- sf::st_crs(4326)
   proj_rd <- "epsg:28992"
   proj_wgs <- "epsg:4326"
+
+  RD_min <- list("X" = 482.06, "Y" = 306602.42)
+  RD_max <- list("X" = 284182.97, "Y" = 637049.52)
+
+  WGS_min <- list("LON" = 3.2, "LAT" = 50.75)
+  WGS_max <- list("LON" = 7.22, "LAT" = 53.7)
+
 
   AHN_versions <- c("AHN5", "AHN4", "AHN3", "AHN2", "AHN1")
   AHN_05res_versions <- c("AHN4", "AHN3", "AHN2")
@@ -31,7 +39,7 @@ define_globals <- function() {
   if ("AHN4" %in% operational_ahns_in_package) {
     ahn_DSM05_bladIndex <- sf::st_read("data-raw/AHN_bladIndexes.gpkg", layer = "AHN_DSM05_bladIndex_rd")
     ahn_DTM05_bladIndex <- sf::st_read("data-raw/AHN_bladIndexes.gpkg", layer = "AHN_DTM05_bladIndex_rd")
-    ahn4_bladIndex <- print("See 'ahn_DSM05_bladIndex' or 'ahn_DTM05_bladIndex' variables.")
+    ahn4_bladIndex <- "See 'ahn_DSM05_bladIndex' and 'ahn_DTM05_bladIndex' variables."
   } else {
     ahn_DSM05_bladIndex <- NULL
     ahn_DTM05_bladIndex <- NULL
@@ -52,7 +60,7 @@ define_globals <- function() {
   } else {
     ahn1_bladIndex <- NULL
   }
-  usethis::use_data(pdok_baseurl, pdok_wcs_url, ahn_DSM05_bladIndex, ahn_DTM05_bladIndex, ahn1_bladIndex, ahn2_bladIndex, ahn3_bladIndex, ahn4_bladIndex, ahn5_bladIndex, epsg_rd, epsg_wgs, proj_rd, proj_wgs, list_ahn_letters, AHN_versions, AHN_05res_versions, latest_pdok_version, operational_ahns_in_package, pdok_versions, non_pdok_versions, default.output.dir, default.sheets.dir, overwrite = TRUE, internal = TRUE)
+  usethis::use_data(pdok_baseurl, pdok_wcs_url, ahn_DSM05_bladIndex, ahn_DTM05_bladIndex, ahn1_bladIndex, ahn2_bladIndex, ahn3_bladIndex, ahn4_bladIndex, ahn5_bladIndex, epsg_rd, epsg_wgs, proj_rd, proj_wgs, RD_min, RD_max, WGS_min, WGS_max, list_ahn_letters, AHN_versions, AHN_05res_versions, latest_pdok_version, operational_ahns_in_package, pdok_versions, non_pdok_versions, default.output.dir, default.sheets.dir, overwrite = TRUE, internal = TRUE)
 }
 
 define_globals()
