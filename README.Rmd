@@ -25,13 +25,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rAHNextract 0.98 dev
+# rAHNextract
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
 
-Updated: 11-04-2024
+Updated: 16-04-2024
 
 This R package automatically extracts elevation points or areas of the Netherlands from the Actueel Hoogtebestand Nederland (AHN) datasets collected by [AHN](https://www.ahn.nl/). Individual elevations, and elevation raster areas can be extracted from the AHN4 using the geo and atom web services that are made available by [PDOK](https://www.pdok.nl/introductie/-/article/actueel-hoogtebestand-nederland-ahn).
 PDOK only makes the most recent AHN available. Currently this is version AHN4. The next release will also support the older versions of AHN which are made available elsewhere.
@@ -66,7 +66,7 @@ For both the points and raster areas, the WCS method is set to default. The shee
 
 ## 3. Method of elevation extraction
 
-Extraction of the elevation is done based on the raster data it receives from the sources. Determining the  elevation can be tricky if no correct resampling is applied. The script always ensures a correct resampling takes place by adjusting the raster cells that need to be downloaded whenever necessary. This is called a 'rectified grid.' To avoid issues, the extraction calculation is therefore always done in the script and not through a OGC method online. Please refer to [this](https://geoforum.nl/t/wcs-van-ahn3-werkt-een-bounding-box-als-clip/6122/4) why it is important to always use rectified grids. 
+Extraction of the elevation is done based on the raster data it receives from the sources. Determining the  elevation can be tricky if no correct resampling is applied. The script always ensures a correct resampling takes place by adjusting the raster cells that need to be downloaded whenever necessary. This is called a 'rectified grid.' To avoid issues, the interpolation on the rectified grid raster to determine the elevation is always done in the script and not through a OGC method online. Please refer to [this](https://geoforum.nl/t/wcs-van-ahn3-werkt-een-bounding-box-als-clip/6122/4) why it is important to always use rectified grids. 
 
 Please refer to [this](https://gisgeography.com/raster-resampling/) to read between the different extraction methods allowed: 'simple' (nearest) or 'bilinear'. In this package the default for the `extraction.method` parameter is set to 'simple'. 
 
