@@ -11,6 +11,7 @@
 * AHN4 is the latest full AHN version made available by PDOK. This release now supports this AHN version.
 * in `ahn_area()` introduced the ability to only download AHN sheets using the `sheets` parameter.
 * Introduced the function `ahn_sheets_info()` to retrieve information about the AHN sheets and which URLs are used for download. 
+* Improved the code so that always rectified grid is used, or else give warnings.
 * Removed the ability to use older AHN versions (AHN1-AHN3). It is in the planning to reintroduce this in a future release.
 * Removed the ability to download point cloud data from the AHN. This will possibly be reintroduced in a future release.
 * Adjusted URLs so that AHN datasets hosted by PDOK can be retrieved again.
