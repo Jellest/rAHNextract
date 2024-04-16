@@ -42,7 +42,7 @@ package is required.
 
 ``` r
 library(devtools)
-devtools::install_github("Jellest/rAHNextract")
+devtools::install_github("Jellest/rAHNextract@rAHNextract_09_dev")
 library(rAHNextract)
 library(terra)
 ```
