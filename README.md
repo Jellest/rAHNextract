@@ -1,5 +1,5 @@
 
-# rAHNextract 0.98 dev
+# rAHNextract
 
 <!-- badges: start -->
 
@@ -8,6 +8,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 release (latest by date including
 pre-releases)](https://img.shields.io/github/v/release/Jellest/rAHNextract?include_prereleases)
 <!-- badges: end -->
+
+Updated: 16-04-2024
 
 This R package automatically extracts elevation points or areas of the
 Netherlands from the Actueel Hoogtebestand Nederland (AHN) datasets
@@ -72,8 +74,9 @@ from the sources. Determining the elevation can be tricky if no correct
 resampling is applied. The script always ensures a correct resampling
 takes place by adjusting the raster cells that need to be downloaded
 whenever necessary. This is called a ‘rectified grid.’ To avoid issues,
-the extraction calculation is therefore always done in the script and
-not through a OGC method online. Please refer to
+the interpolation on the rectified grid raster to determine the
+elevation is always done in the script and not through a OGC method
+online. Please refer to
 [this](https://geoforum.nl/t/wcs-van-ahn3-werkt-een-bounding-box-als-clip/6122/4)
 why it is important to always use rectified grids.
 

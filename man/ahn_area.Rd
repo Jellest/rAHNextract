@@ -49,9 +49,9 @@ ahn_area(
 
 \item{sheets.method}{Default FALSE. When TRUE, it downloads AHN area through the available GeoTIFF AHN sheets available on \href{https://www.pdok.nl/atom-downloadservices/-/article/actueel-hoogtebestand-nederland-ahn}{PDOK}.}
 
-\item{sheets.dir}{Default is the 'AHN_sheets' directory in the working directory or \code{output.dir} (when defined). In this sheets directory all the AHN sheets are downloaded. If sheets already exists in this directory, they will be reused and no redownload will take place. Within this sheets directory, a directory structure will be created automatically: if \code{sheets.dir} is set to 'myFolder', all sheets will be downloaded in their apropriate AHN version and DEM folder. Eg. '\code{output.dir}/myFolder/AHN_sheets/AHN4/DSM'. You want to use this parameter if you want to have a central location where all the AHN sheets are stored so that they can be accessed elsewhere for other purposes. It is recommended to always use the their original file name after download. Due to the size of these GeoTiff sheets, it is not allowed to download this is the RAM memory (tempdir).}
+\item{sheets.dir}{Default is the 'AHN_sheets' directory in the working directory or \code{output.dir} (when defined). In this sheets directory all the AHN sheets are downloaded. If sheets already exists in this directory, they will be reused and no redownload will take place. Within this sheets directory, a directory structure will be created automatically: if \code{sheets.dir} is set to 'myFolder', all sheets will be downloaded in their appropriate AHN version and DEM folder. Eg. '\code{output.dir}/myFolder/AHN_sheets/AHN4/DSM'. You want to use this parameter if you want to have a central location where all the AHN sheets are stored so that they can be accessed elsewhere for other purposes. It is recommended to always use the their original file name after download. Due to the size of these GeoTiff sheets, it is not allowed to download this is the RAM memory (tempdir).}
 
-\item{sheets.keep}{Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.}
+\item{sheets.keep}{Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extraction will be followed.}
 }
 \value{
 GeoTIFF file of AHN area
@@ -59,13 +59,13 @@ GeoTIFF file of AHN area
 \description{
 Get AHN raster area of a specified area.
 
-AHN Area is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR bbox coordinates), or own geometry (polygon).
+AHN Area is retrieved through a circle (x, y and radius), BBOX (x, y and radius, OR BBOX coordinates), or own geometry (polygon).
 
 AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions.
 
 Available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM).
 
-You can download the AHN data using the WCS method (default, \code{sheets.method = FALSE}) returning a GeoTIFF format. The sheets method (\code{sheets.method = TRUE}) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
+You can download the AHN data using the WCS method (default, \code{sheets.method = FALSE}) returning a GeoTIFF format. The sheets method (\code{sheets.method = TRUE}) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevations need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 }
 \author{
 Jelle Stuurman

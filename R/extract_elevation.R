@@ -1,7 +1,7 @@
-#'@title extracte AHN elevation (m) at specified point location.
-#'@description Exctract the elevation value (in meters) from the AHN.
+#'@title extract AHN elevation (m) at specified point location.
+#'@description Extract the elevation value (in meters) from the AHN.
 #'@param ras Spatial raster on which the elevation will be extracted
-#'@param point Spatial point from where the elebation will be extraced
+#'@param point Spatial point from where the elevation will be extracted
 #'@inheritParams ahn_point
 #'@noRd
 extract_elevation <- function(ras, point, extract.method = "simple") {

@@ -1,6 +1,6 @@
 #'@inheritParams ahn_area
 #'@noRd
-download_wcs_raster <- function(wcsUrl, name = "elevation", area, AHN = "AHN", dem = "DSM", resolution, radius, interpolate, output.dir, type = "raster") {
+download_wcs_raster <- function(wcsUrl, name = "elevation", AHN = "AHN", dem = "DSM", resolution, radius, interpolate, output.dir, type = "raster") {
   ahn_letter <- get_ahn_letter(AHN = AHN, dem = dem, resolution = resolution$res, interpolate = interpolate, method = "raster")
 
   #define radius
@@ -12,7 +12,7 @@ download_wcs_raster <- function(wcsUrl, name = "elevation", area, AHN = "AHN", d
     overwriteText <- paste0("(", radius, "m)")
   }
 
-  #set or get outut directory
+  #set or get output directory
   if (missing(output.dir) == TRUE || output.dir == tempdir()) {
     output.dir <- tempdir()
   } else if (output.dir == default.output.dir) {
@@ -38,7 +38,6 @@ download_wcs_raster <- function(wcsUrl, name = "elevation", area, AHN = "AHN", d
   utils::download.file(url = wcsUrl, destfile = image_name, mode = "wb", quiet = FALSE)
   print("Download raster image succeeded.")
   ahn_raster <- terra::rast(image_name)
-
   #print(ahn_raster$extent)
   #ahn_raster <- terra::project(image_name, crs = CRS("+init:epsg:28992"), overwrite = TRUE)
   terra::NAflag(ahn_raster) <- -32768.0
