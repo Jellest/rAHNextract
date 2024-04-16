@@ -5,7 +5,7 @@
 #'@author Jelle Stuurman
 ahn_sheets_info <- function(AHN, dem, resolution, output.dir) {
   if (missing(AHN) == TRUE) {
-    stop("No value provided for the AHN prameter. Please enter a valid AHN parameter.")
+    stop("No value provided for the AHN parameter. Please enter a valid AHN parameter.")
   }
   check_ahn_version(AHN)
 
@@ -15,7 +15,7 @@ ahn_sheets_info <- function(AHN, dem, resolution, output.dir) {
   }
 
   if (missing(dem) == TRUE) {
-    stop("No value provided for the dem prameter. Please enter a valid dem parameter.")
+    stop("No value provided for the dem parameter. Please enter a valid dem parameter.")
   }
 
   ahn_bi <- get_bladindex(AHN = AHN, dem = dem, resolution = my_resolution$res)

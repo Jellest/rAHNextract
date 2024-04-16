@@ -29,16 +29,16 @@ download_ahn_sheets <- function(name, AHN, dem, url, output.dir, sheets.dir, she
   ahn_dem_file_path <- paste(ahn_dem_directory, ahn_dem_raster_filename, sep = "/")
 
   #check if sheet exists
-  dwnld <- FALSE
+  downloaded <- FALSE
   if (!file.exists(ahn_dem_file_path)) {
     print(paste0("Downloading ", AHN, " ", dem, " sheet ", ahn_dem_raster_filename, "..."))
     utils::download.file(url = url, destfile = ahn_dem_file_path, mode = "wb", quiet = FALSE)
-    dwnld <- TRUE
+    downloaded <- TRUE
   } else {
     message(paste("Corresponding dem sheet at", ahn_dem_file_path, "already exists and will be used.", sep = " "))
     if (sheets.keep == FALSE) {
       warning(paste("Through the parameter `sheets.keep` is it provided that the sheet needs to be removed. The", AHN, dem, kaartNadNr, "sheet already existed on the filepath location and therefore it will not be removed. Only existing sheets that do not exist through the `sheets.dir` wil be removed when `sheets.keep` is set to 'FALSE'.", sep = " "))
     }
   }
-  return(list("kaartBlad" = kaartNadNr, "filePath" = ahn_dem_file_path, "downloadedNow" = dwnld))
+  return(list("kaartBlad" = kaartNadNr, "filePath" = ahn_dem_file_path, "downloadedNow" = downloaded))
 }

@@ -1,4 +1,4 @@
-#'@description check the version of AHN that is called and whehter it is available within this package.
+#'@description check the version of AHN that is called and whether it is available within this package.
 #'@inheritParams ahn_area
 #'@noRd
 check_ahn_version <- function(AHN) {
@@ -18,7 +18,7 @@ check_ahn_version <- function(AHN) {
     this_ahn <- paste0("AHN", ahn_version)
 
     if (!toupper(this_ahn) %in% pdok_versions) {
-      stop(" The AHN version found is currently not supoorted at the moment with this package.")
+      stop(" The AHN version found is currently not supported at the moment with this package.")
     } else {
       AHN <- toupper(this_ahn)
       if (note == TRUE) {
