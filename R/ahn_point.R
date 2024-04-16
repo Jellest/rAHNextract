@@ -5,7 +5,7 @@
 #'
 #'Available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM).
 #'
-#'You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
+#'You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevations need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 #'@inheritParams ahn_area
 #'@param decimals Default 2. Maximum Determines the number of decimal places in the output elevation.
 #'@param extract.method Default 'simple'. Choose between 'simple' (nearest) and 'bilinear'. Intersection is done using [\code{extract()}](https://www.rdocumentation.org/packages/terra/versions/1.7-71/topics/extract) function from the \code{terra} package. See [this](https://gisgeography.com/raster-resampling/) article that explains the difference between the two methods.
@@ -42,15 +42,15 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN", dem, resolution,
   dem <- get_dem(AHN = AHN, resolution = my_resolution, dem = dem, interpolate = interpolate)
 
   #get and create a point
-  my_point <- get_rectified_grid(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = my_resolution$res)
+  my_point <- get_rectified_grid_for_point(name = name_trim, X = X, Y = Y, LONLAT = LONLAT, resolution = my_resolution$res)
 
   #get AHN data
   bladIndex.sf <- get_bladindex(AHN = AHN, dem = dem, resolution = my_resolution$res)
   if (sheets.method == FALSE) {
     ##get elevation through WCS method (fast)
     wcs_source <- bladIndex.sf$wcs_url[1]
-    wcs_url <- create_wcs_url(type = "point", bbox = my_point$bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate, wcs = wcs_source)
-    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, area = ahn_area, AHN = AHN, dem = tolower(dem), resolution = my_resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
+    wcs_url <- create_wcs_url(type = "point", bbox = my_point$rectified_bbox, AHN = AHN, dem = dem, resolution = my_resolution, interpolate = interpolate, wcs = wcs_source, LONLAT = LONLAT)
+    raster_data <- download_wcs_raster(wcsUrl = wcs_url, name = name_trim, AHN = AHN, dem = tolower(dem), resolution = my_resolution, output.dir = output.dir, interpolate = interpolate, type = "point")
     my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)
   } else if (sheets.method == TRUE) {
     #download AHN sheets and get data (slow)
@@ -81,23 +81,23 @@ ahn_point <- function(name = "AHNelevation", X, Y, AHN = "AHN", dem, resolution,
     print(sprintf("The AHN sheets are loaded from or downloaded in: %s. If no AHN sheet in the correct directory or if no correct name of AHN sheet is found, sheet will be downloaded. For first use it is recommended to use the default output directory.", ahn_sheets_directory))
 
     #create area
-    ahn_area <- create_area(radius = "", bbox = my_point$bbox, LONLAT = LONLAT, type = "point")
+    ahn_area <- create_area(radius = "", bbox = my_point$rectified_bbox, resolution = my_resolution, LONLAT = LONLAT, type = "point")
 
     #download AHN sheets and get data (slow)
-    bladnrs <- find_ahn_sheets(name, area = ahn_area, type = "point", bladIndex = bladIndex.sf)
+    bladnrs <- find_ahn_sheets(name, area = ahn_area$area, type = "point", bladIndex = bladIndex.sf)
     #get AHN area
-    sheets_df <- data.frame(kaartBlad = character(), filePath = character(), dwnld = logical(), stringsAsFactors = FALSE)
+    sheets_df <- data.frame(kaartBlad = character(), filePath = character(), downloaded = logical(), stringsAsFactors = FALSE)
     for (b in bladnrs) {
       url <- bladIndex.sf$atom_url[bladIndex.sf$kaartbladNr == b]
       path_sheet <- download_ahn_sheets(name = name_trim, AHN = AHN, dem = dem, url = url, output.dir = output.dir, sheets.dir = ahn_sheets_directory, sheets.keep = sheets.keep)
       sheets_df <- rbind(sheets_df, path_sheet)
     }
-    raster_data <- merge_and_crop_ahn(name = name_trim, sheets = sheets_df, area = ahn_area, AHN = AHN, dem = tolower(dem), resolution = my_resolution$res_name, output.dir = output.dir)
+    raster_data <- merge_and_crop_ahn(name = name_trim, sheets = sheets_df, area = ahn_area$area, AHN = AHN, dem = tolower(dem), resolution = my_resolution$res_name, output.dir = output.dir)
 
     #get elevation
     my_elevation <- extract_elevation(raster_data$data, my_point$point, extract.method = extract.method)
   } else {
-    stop("Ncorrect value is provided for the sheets.method parameter. Please set it to 'TRUE' or 'FALSE'.")
+    stop("No correct value is provided for the sheets.method parameter. Please set it to 'TRUE' or 'FALSE'.")
   }
 
   if (is.na(my_elevation)) {

@@ -5,7 +5,7 @@ merge_and_crop_ahn <- function(name, sheets, AHN, dem, resolution, area, output.
   cropped_sheets <- list()
   for (i in seq_along(sheets$filePath)) {
     raster <- terra::rast(sheets$filePath[i])
-    cropped_sheets[[i]] <- terra::crop(raster, area$area)
+    cropped_sheets[[i]] <- terra::crop(raster, area)
   }
   # Merge raster
   merged_raster <- cropped_sheets[[1]]
@@ -25,7 +25,7 @@ merge_and_crop_ahn <- function(name, sheets, AHN, dem, resolution, area, output.
     message(paste("Masked raster at ", ahn_masked_raster_filepath, " already exists and will be overwritten.", sep = ""))
   }
   # masked raster
-  ahn_masked_raster <- terra::mask(x = merged_raster, mask = area$area, filename = ahn_masked_raster_filepath, overwrite = TRUE)
+  ahn_masked_raster <- terra::mask(x = merged_raster, mask = area, filename = ahn_masked_raster_filepath, overwrite = TRUE)
 
   if (output.dir != tempdir()) {
     # Write the cropped raster to a new tif file
