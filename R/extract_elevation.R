@@ -1,14 +1,11 @@
-#'extract elevation raster
-#'
-#'@title extract elevation
-#'@description extract elevation at certain point
-#'@param ras Required. Raster
-#'@param point Required. spatial point
-#'@param extract.method Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using [\code{extract()}](https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract) function from the \code{raster} package.
-#'@author Jelle Stuurman
-#'@return GeoTIFF file of AHN area
-extract_elevation <- function(ras, point, extract.method = "bilinear"){
+#'@title extract AHN elevation (m) at specified point location.
+#'@description Extract the elevation value (in meters) from the AHN.
+#'@param ras Spatial raster on which the elevation will be extracted
+#'@param point Spatial point from where the elevation will be extracted
+#'@inheritParams ahn_point
+#'@noRd
+extract_elevation <- function(ras, point, extract.method = "simple") {
   print("Intersecting raster. Getting elevation...")
-  my_elevation <- raster::extract(ras, point, method = extract.method)
-  return (my_elevation)
+  my_elevation <- terra::extract(x = ras, y = point, method = extract.method, ID = FALSE)
+  return(my_elevation)
 }

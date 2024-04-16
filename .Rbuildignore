@@ -1,15 +1,9 @@
 ^rAHNextract\.Rproj$
 ^\.Rproj\.user$
-^data-raw$
 ^LICENSE\.md$
 ^tests$
 ^README\.Rmd$
-^ahn_hoogtes\.R$
-^Rcode$
-^rAHNextract_test\.qgz$
-^AHN_sheets$
 ^AHN_output$
-^Routput - Shortcut\.lnk$
 ^README_cache$
 ^README\.HTML$
 ^_pkgdown\.yml$
@@ -17,3 +11,13 @@
 ^pkgdown$
 ^setupPackage\.R$
 ^shiny$
+^deprecated$
+^\.lintr$
+^rAHNextract\.code-workspace$
+^\.vscode$
+^\.github$
+^Packaging$
+^\.Rbuildignore$
+^data-raw$
+^builds$
+

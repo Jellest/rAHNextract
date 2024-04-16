@@ -1,27 +1,31 @@
 Type: Package
 Package: rAHNextract
 Title: Extract elevation points or areas in the Netherlands from the AHN
-Version: 0.97
-Date: 22-04-2020
+Version: 0.98
+Date: 16-04-2024
 Author: Jelle Stuurman
 Maintainer: Jelle Stuurman <jellejstuurman@gmail.com>
-Description: Extract elevation points or raster areas or point clouds areas in the Netherlands from the Actueel Hoogtebestand Nederland (AHN). Raster or point clouds extraction is possible of a custom area for the AHN1, AHN2 or AHN3.
-URL: https://github.com/Jellest/rAHNextract 
+Description: Extract elevation points or raster areas in the Netherlands
+    from the Actueel Hoogtebestand Nederland (AHN). Raster extraction is
+    possible of a custom area for the latest AHN made available by PDOK.
+License: AGPL (>= 3)
+URL: https://jellest.github.io/rAHNextract/
 BugReports: https://github.com/Jellest/rAHNextract/issues
-License: GPL-3 LICENSE.md
+Depends:
+    R (>= 4.0)
+Imports:
+    sf,
+    terra,
+    xml2
+Suggests:
+   dplyr,
+   knitr
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
-Imports:
-    rgdal,
-    sf,
-    raster,
-    lidR (>= 2.2.3)
-Suggests:
-    sp,
-    knitr,
-    rmarkdown
-Depends:
-    R (>= 2.10)
-VignetteBuilder: knitr
+References: - Actueel Hoogtebestand Nederland (AHN), https://www.ahn.n -
+    Publieke Diensten Op De Kaart (PDOK),
+    https://www.pdok.nl/introductie/-/article/actueel-hoogtebestand-nederland-ahn
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

@@ -8,16 +8,15 @@ ahn_point(
   name = "AHNelevation",
   X,
   Y,
-  AHN = "AHN3",
-  dem = "DSM",
+  AHN = "AHN",
+  dem,
   resolution,
-  interpolate = TRUE,
   output.dir,
   LONLAT = FALSE,
-  extract.method = "bilinear",
+  extract.method = "simple",
   decimals = 2,
   sheets.method = FALSE,
-  sheets.location,
+  sheets.dir,
   sheets.keep = TRUE
 )
 }
@@ -28,27 +27,25 @@ ahn_point(
 
 \item{Y}{Required. Y coordinate in RD New or WGS84 (LAT).}
 
-\item{AHN}{Default 'AHN3'. Set to 'AHN1', 'AHN2', or 'AHN3'.}
+\item{AHN}{Default 'AHN'. 'AHN' This is the latest full version made available by \href{https://www.pdok.nl/introductie/-/article/actueel-hoogtebestand-nederland-ahn}{PDOK} through their OGC Web services. Choose between 'AHN4', 'AHN3', 'AHN2', or 'AHN1'.}
 
 \item{dem}{Default 'DSM'. Choose type of Digital Elevation Model. 'DSM' or 'DTM'. AHN1 only has 'DTM'.}
 
-\item{resolution}{Default 0.5 meters for AHN2/AHN3, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
+\item{resolution}{Default 0.5 meters for AHN2/AHN3/AHN4, 5 meters for AHN1. Choose resolution of AHN in meters. AHN3 and AHN2 both have 0.5 and 5 meters. AHN1 has 5 and 100 m.}
 
-\item{interpolate}{Default TRUE. Only applicable for AHN2 DTM. If true, it gets  the interpolated version of the AHN2.}
-
-\item{output.dir}{Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the \code{sheets.location} parameter.}
+\item{output.dir}{Optional but unnecessary. Set location of output raster files. Leaving blank (default) will make all output point files be temporary files. This output directory excludes the location of the AHN sheets which is depicted with the \code{sheets.dir} parameter.}
 
 \item{LONLAT}{Optional. Default FALSE. Set to TRUE if X and Y are in Longitude and Latitude format. Output will be in RD New format.}
 
-\item{extract.method}{Default 'bilinear'. Choose 'bilinear or 'simple'. Intersection is done using \href{https://www.rdocumentation.org/packages/raster/versions/3.1-5/topics/extract}{\code{extract()}} function from the \code{raster} package.}
+\item{extract.method}{Default 'simple'. Choose between 'simple' (nearest) and 'bilinear'. Intersection is done using \href{https://www.rdocumentation.org/packages/terra/versions/1.7-71/topics/extract}{\code{extract()}} function from the \code{terra} package. See \href{https://gisgeography.com/raster-resampling/}{this} article that explains the difference between the two methods.}
 
-\item{decimals}{Default 2. Decide number of decimal places of output elevations.}
+\item{decimals}{Default 2. Maximum Determines the number of decimal places in the output elevation.}
 
-\item{sheets.method}{Default FALSE. FALSE downloads AHN area through the faster WCS method. Output is 32float GeoTIFF file.TRUE downloads AHN area through the available GeoTIFF AHN sheets available on \href{http://esrinl-content.maps.arcgis.com/apps/Embed/index.html?appid=a3dfa5a818174aa787392e461c80f781}{PDOK}.}
+\item{sheets.method}{Default FALSE. When TRUE, it downloads AHN area through the available GeoTIFF AHN sheets available on \href{https://www.pdok.nl/atom-downloadservices/-/article/actueel-hoogtebestand-nederland-ahn}{PDOK}.}
 
-\item{sheets.location}{Default is the 'AHN_sheets' directory in the working directory. Set directory where all the AHN sheets are loaded when pre-existing sheets will be used or when new sheets will be stored. When loading existing files, always use the correct directory structure and capitalization within the selected directory. Example directory structure when this parameter is set to e.g. 'myFolder': 'myFolder/AHN_sheets/AHN3/DSM' or 'myFolder/AHN_sheets/AHN2/DTM'. Only use extracted files in their original name after download.}
+\item{sheets.dir}{Default is the 'AHN_sheets' directory in the working directory or \code{output.dir} (when defined). In this sheets directory all the AHN sheets are downloaded. If sheets already exists in this directory, they will be reused and no redownload will take place. Within this sheets directory, a directory structure will be created automatically: if \code{sheets.dir} is set to 'myFolder', all sheets will be downloaded in their appropriate AHN version and DEM folder. Eg. '\code{output.dir}/myFolder/AHN_sheets/AHN4/DSM'. You want to use this parameter if you want to have a central location where all the AHN sheets are stored so that they can be accessed elsewhere for other purposes. It is recommended to always use the their original file name after download. Due to the size of these GeoTiff sheets, it is not allowed to download this is the RAM memory (tempdir).}
 
-\item{sheets.keep}{Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extarction will be followed.}
+\item{sheets.keep}{Default TRUE. Only applicable if \code{sheets.method} is set to TRUE and sheets were downloaded. Set to FALSE if you want to delete the downloaded sheet. It is recommended to keep the sheets if ahn elevation extraction will be followed.}
 }
 \value{
 AHN elevation in meters.
@@ -56,12 +53,9 @@ AHN elevation in meters.
 \description{
 Get elevation of specific point location.
 
-Requires the X and Y coordinates as input. AHN data is obtained from the AHN3 (default), AHN2 or AHN 1 from the available resolutions. Default resolution is always the highest resolution (smallest number).
+Requires the X and Y coordinates as input. AHN data is obtained from the AHN in the available resolutions. Default resolution is always the highest resolution (smallest number).
 
-AHN3 and AHN2 DEM (Digital Elevation Models) are available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM). AHN1 only has the DTM. THE DTM of the AHN2 has an interpolated and a non-interpolate version.
+Available for the Digital Surface Model (DSM) and Digital Terrain Model (DTM).
 
-You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF float32 format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevatiomns need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
-}
-\author{
-Jelle Stuurman
+You can download the AHN data using the WCS method (default, sheets.method = FALSE) returning a GeoTIFF format. The sheets method (sheets.method = TRUE) returns a regular raster GeoTIFF output file that is extracted from the PDOK sheets. The WCS method is recommended if only a few AHN elevation points need to be extracted. The sheets method always requires more data to be downloaded to the client but may be more efficient if many elevations need to be retrieved from a small area. Choosing your method depends on speed and your desired output format. See documentation for all available parameters.
 }

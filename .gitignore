@@ -3,16 +3,20 @@
 .RData
 .Ruserdata
 inst/doc
-data-raw/
 tests/
 scratch/
-AHN_sheets/
 AHN_output/
-Rcode
-rAHNextract_test.qgz
 my_output/
-Routput - Shortcut.lnk
 README_cache
-setupPackage.R
+Packaging/
 shiny
+.gitignore
+rAHNextract.code-workspace
+rAHNextract.Rproj
+deprecated/
+.lintr
+.vscode
+docs
+.Rproj.user
+builds/
 .gitignore
