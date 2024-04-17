@@ -16,7 +16,7 @@ rAHNextract.Rproj
 deprecated/
 .lintr
 .vscode
-docs
 .Rproj.user
 builds/
 .gitignore
+README.Rmd

@@ -42,10 +42,16 @@ package is required.
 
 ``` r
 library(devtools)
-devtools::install_github("Jellest/rAHNextract@rAHNextract_09_dev")
+devtools::install_github("Jellest/rAHNextract")
 library(rAHNextract)
 library(terra)
 ```
+
+Please see
+[here](https://jellest.github.io/rAHNextract/reference/ahn_area.html)
+all the parameters available for `ahn_area()` and
+[here](https://jellest.github.io/rAHNextract/reference/ahn_point.html)
+for `ahn_point()`
 
 ## 2. WCS vs. Sheets method
 
@@ -267,8 +273,6 @@ ahn_area(AHN = "AHN", dem = "DTM", sheets = list("31HN1", "31HN2"), sheets.dir =
 #> [1] "Destination directory of output AHN sheet M_31HN2.tif: C:/myProject/AHN_sheets/AHN4/DTM"
 #> [1] "C:/myProject/AHN_sheets/AHN4/DTM/M_31HN1.tif" "C:/myProject/AHN_sheets/AHN4/DTM/M_31HN2.tif"
 ```
-
-Please see [here]() all the parameters available for `ahn_area()`
 
 ### 5. Point clouds areas
 
